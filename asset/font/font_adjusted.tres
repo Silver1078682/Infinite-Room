@@ -1,0 +1,10 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://cdw40s5xpptte"]
+
+[ext_resource type="FontFile" uid="uid://cd17laerjhtfh" path="res://asset/font/Silver.ttf" id="1_4mw1s"]
+
+[resource]
+base_font = ExtResource("1_4mw1s")
+opentype_features = {
+1667329140: 0
+}
+spacing_bottom = -5
