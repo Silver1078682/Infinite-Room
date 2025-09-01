@@ -53,7 +53,8 @@ func _spawn_terrian(room: Room) -> void:
 
 func _spawn_stucture(room: Room) -> void:
 	for i: Structure in structures:
-		i.spawn()
+		#i.spawn(self)
+		pass
 
 func _update_name() -> void:
 	name = resource_path.split("/")[-1].split(".")[0]

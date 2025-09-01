@@ -89,11 +89,10 @@ const MINE_SPEED = 1.0
 
 
 func mine_at(coords: Vector2i, delta: float):
-	if not Room.current.has_coord(coords):
+	var block := Room.current.get_block_safe(coords)
+	if not block:
 		return
-	var block := Room.current.get_block(coords)
-	if block:
-		block.mined(MINE_SPEED, delta)
+	block.mined(MINE_SPEED, delta)
 
 
 #Minecraft mining system as reference TODO: improve current mechanics

@@ -15,21 +15,23 @@ func _ready() -> void:
 	_auto_create_tiles()
 
 
-var _update_cnt = 0
+var _update_cnt = UPDATE_LOOP
 ## For every [UPDATE_LOOP], update the light
-const UPDATE_LOOP = 3
+const UPDATE_LOOP = 10
 
 
 func _process(_delta: float) -> void:
 	if not Room.current:
 		return
-	_update_cnt += 1
 	if _update_cnt >= UPDATE_LOOP:
-		clear()
 		update_render_range()
+		cached_light_info.clear()
 		_iter(range_top_left, Vector2i.DOWN, Vector2i.RIGHT)  #vertical_light
+		await get_tree().process_frame
 		_iter(range_top_left, Vector2i.RIGHT, Vector2i.DOWN, 0, false)  #horizontal_light
 		_update_cnt = 0
+		$"..".render_target_update_mode = SubViewport.UPDATE_ONCE
+	_update_cnt += 1
 	pass
 
 
@@ -41,12 +43,19 @@ func _auto_create_tiles() -> void:
 	notify_runtime_tile_data_update()
 
 
-func get_light_info_at(coord: Vector2i) -> Array[int]:
-	var block := Room.current.get_block_safe(coord)
+var cached_light_info: Dictionary[Vector2i, Vector2i] = {}
+
+
+func get_light_info_at(coord: Vector2i) -> Vector2i:
+	if coord in cached_light_info:
+		return cached_light_info[coord]
+	var block := Room.current.get_block(coord)
 	if block:
-		return [block.config.light_decay, block.config.light_level]
+		cached_light_info[coord] = Vector2i(block.config.light_decay, block.config.light_level)
+		return cached_light_info[coord]
 	else:
-		return [AIR_DECAY, 0]
+		cached_light_info[coord] = Vector2i(AIR_DECAY, 0)
+		return cached_light_info[coord]
 
 
 func set_light_at(coord: Vector2i, light: int) -> void:
@@ -59,7 +68,7 @@ var range_top_left: Vector2i
 
 func update_render_range() -> void:
 	var camera_coord := Main.Camera.instance.coord
-	range_bottom_right = Room.current.size().min(camera_coord + RENDER_QUAD_RANGE) - Vector2i.ONE 
+	range_bottom_right = Room.current.size().min(camera_coord + RENDER_QUAD_RANGE) - Vector2i.ONE
 	range_top_left = Vector2i.ZERO.max(camera_coord - RENDER_QUAD_RANGE)
 
 
@@ -76,16 +85,13 @@ func _iter(from: Vector2i, dire: Vector2i, next_line: Vector2i, start_light := M
 
 
 func _iter_a_line(from: Vector2i, dire: Vector2i, start_light := 0, cast_light := false) -> Vector2i:
-	var light = start_light
+	var light := start_light
 	var current := from
 	var has_met_any_barrier = not cast_light
 	while is_in_render_range(current):
-		if has_met_any_barrier:
-			light = go_through_tile(light, current)
-		else:
-			light = max(start_light, get_cell_alternative_tile(current))
-			if Room.current.get_block(current):
-				has_met_any_barrier = true
+		light = go_through_tile(light, current) if has_met_any_barrier else max(start_light, get_cell_alternative_tile(current))
+		if Room.current.get_block(current):
+			has_met_any_barrier = true
 		set_light_at(current, light)
 		current += dire
 	return current
@@ -93,7 +99,5 @@ func _iter_a_line(from: Vector2i, dire: Vector2i, start_light := 0, cast_light :
 
 func go_through_tile(previous_light: int, tile_coord: Vector2i) -> int:
 	var light_info := get_light_info_at(tile_coord)
-	var light_decay = light_info[0]
-	var new_light = light_info[1]
-	var light = max(previous_light, new_light, get_cell_alternative_tile(tile_coord)) + light_decay
+	var light = max(previous_light, light_info.y, get_cell_alternative_tile(tile_coord)) + light_info.x
 	return max(MIN_LIGHT, light)

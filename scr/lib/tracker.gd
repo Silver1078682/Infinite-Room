@@ -21,15 +21,17 @@ var _property_to_be_printed: Array
 
 @export var format := "%s | %s \n"
 @export var max_ordering := true
-
+@export var tracking := false
 
 static func _static_init() -> void:
 	Console.add_command("tracker", _command_tracker, "turn on/off the debug tracker")
 
 
 static func _command_tracker(on: bool):
-	Main.instance.get_tree().call_group(&"Tracker", "set_visible", on)
+	Main.instance.get_tree().call_group(&"Tracker", "set_tracking", on)
 
+func set_tracking(on: bool):
+	tracking = on
 
 func _ready() -> void:
 	add_to_group(&"Tracker")
@@ -43,6 +45,8 @@ func _ready() -> void:
 
 
 func _process(_delta) -> void:
+	if not tracking:
+		return
 	text = ""
 	for node_path in _property_to_be_printed:
 		var value = _get_value_by_node_path(node, node_path)

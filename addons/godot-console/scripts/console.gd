@@ -1,9 +1,13 @@
 # Copyright (c) 2020-2025 Mansur Isaev and contributors - MIT License
 # See `LICENSE.md` included in the source distribution for details.
+# NOTE the code has been modified
 
 ## ConsoleNode class.
 ##
 ## By default used as a Singleton. To create a new console command, use [method create_command].
+##
+## It is advised to call [method create_command] in _static_func
+## A callable used as command should be named as _command_* as a convention 
 extends Node
 
 ## Emitted when the console prints a string.
