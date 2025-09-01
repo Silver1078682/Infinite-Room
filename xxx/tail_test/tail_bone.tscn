@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://def08qswafigg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yx7kp"]
+
+[node name="Bone2D2" type="RigidBody2D"]
+collision_layer = 512
+collision_mask = 0
+mass = 5.0
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(8, 0)
+rotation = 0.785398
+node_a = NodePath("..")
+node_b = NodePath("../../Bone2D3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yx7kp")

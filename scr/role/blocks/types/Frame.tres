@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="BlockConfig" load_steps=6 format=3 uid="uid://cljq5y1aqep3p"]
+
+[ext_resource type="Script" uid="uid://bt3s4cqa1jhvf" path="res://scr/role/item.gd" id="1_uci44"]
+[ext_resource type="Script" uid="uid://dfj6lxbkko0on" path="res://scr/role/blocks/block_config.gd" id="2_lejlt"]
+[ext_resource type="AudioStream" uid="uid://qf7t034lmbwp" path="res://asset/sfx/WalkingWoodenFloor.wav" id="2_q2gxb"]
+[ext_resource type="Texture2D" uid="uid://d3ij3v0n0o6ga" path="res://asset/texture/Block.png" id="3_lejlt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dle2v"]
+atlas = ExtResource("3_lejlt")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("2_lejlt")
+name = &"Frame"
+atlas_coord = Vector2i(0, 0)
+hardness = 9.22337e+18
+recovery = 100.0
+blast_resistance = 9.22337e+18
+speed_factor = 1.0
+jump_factor = 1.0
+solid = true
+cling_to = Dictionary[Vector2i, String]({})
+light_decay = -5
+light_level = 0
+default_sound = ExtResource("2_q2gxb")
+footstep_pitch_scale = 2.0
+footstep_volume_db = 0
+interactable = false
+drop = Array[ExtResource("1_uci44")]([])
+texture = SubResource("AtlasTexture_dle2v")
+color = Color(0.102635, 0.128186, 0.205638, 1.00391)
+meta = {}
+metadata/_custom_type_script = "uid://dfj6lxbkko0on"

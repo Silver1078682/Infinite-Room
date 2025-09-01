@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="BlockConfig" load_steps=8 format=3 uid="uid://bqk6ty10m6hy5"]
+
+[ext_resource type="Script" uid="uid://dfj6lxbkko0on" path="res://scr/role/blocks/block_config.gd" id="1_c1qbw"]
+[ext_resource type="AudioStream" uid="uid://cnpfypvdbxacl" path="res://asset/sfx/Walking.wav" id="1_f0chw"]
+[ext_resource type="Script" uid="uid://bt3s4cqa1jhvf" path="res://scr/role/item.gd" id="1_fcmoe"]
+[ext_resource type="Resource" uid="uid://coxsrl4crim86" path="res://scr/role/items/type/Plank.tres" id="2_iha3r"]
+[ext_resource type="AudioStream" uid="uid://qf7t034lmbwp" path="res://asset/sfx/WalkingWoodenFloor.wav" id="3_mruxs"]
+[ext_resource type="Texture2D" uid="uid://d3ij3v0n0o6ga" path="res://asset/texture/Block.png" id="4_iha3r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcmoe"]
+atlas = ExtResource("4_iha3r")
+region = Rect2(48, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_c1qbw")
+name = &"Plank"
+atlas_coord = Vector2i(3, 1)
+hardness = 0.8
+recovery = 0.1
+blast_resistance = 0.0
+speed_factor = 1.1
+jump_factor = 1.0
+solid = true
+cling_to = Dictionary[Vector2i, String]({})
+light_decay = -5
+light_level = 0
+default_sound = ExtResource("1_f0chw")
+footstep = ExtResource("3_mruxs")
+footstep_pitch_scale = 1.5
+footstep_volume_db = 0
+interactable = false
+drop = Array[ExtResource("1_fcmoe")]([ExtResource("2_iha3r")])
+texture = SubResource("AtlasTexture_fcmoe")
+color = Color(0.668505, 0.512837, 0.265594, 1.00391)
+meta = {}
+metadata/_custom_type_script = "uid://dfj6lxbkko0on"

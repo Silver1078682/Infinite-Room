@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1oo5q6thv8lw"]
+
+[ext_resource type="Texture2D" uid="uid://gedtnk6mjp1o" path="res://asset/texture/ui/UiBackgroundDark.png" id="1_f0gwm"]
+[ext_resource type="Script" uid="uid://dnxs6dk4kdf82" path="res://scr/ui/start_menu/start_menu.gd" id="1_l0xrg"]
+[ext_resource type="PackedScene" uid="uid://8f1u7k6r8i4r" path="res://scr/singleton/main/main.tscn" id="2_s1ebm"]
+
+[sub_resource type="FontVariation" id="FontVariation_20mmv"]
+variation_embolden = 0.5
+variation_transform = Transform2D(1, 0.2, 0, 1, 0, 0)
+spacing_top = 5
+spacing_bottom = -15
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l0xrg"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = ExtResource("1_f0gwm")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l0xrg")
+scene = ExtResource("2_s1ebm")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_20mmv")
+theme_override_font_sizes/font_size = 95
+text = " Inifite Room "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_l0xrg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/Panel"]
+layout_mode = 2
+
+[node name="New" type="Button" parent="CenterContainer/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "New Game"
+
+[node name="Load" type="Button" parent="CenterContainer/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Load Game"
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Quit Game"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Panel/VBoxContainer/New" to="." method="new_game"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Panel/VBoxContainer/Load" to="." method="load_game"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Panel/VBoxContainer/Quit" to="." method="quit_game"]

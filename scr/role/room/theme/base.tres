@@ -1,0 +1,39 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://cxq7wkfk16eeh"]
+
+[ext_resource type="Script" uid="uid://em18wwpg7gbg" path="res://scr/role/room/theme/base.gd" id="1_8ldc8"]
+[ext_resource type="Script" uid="uid://qdbq1k33qav6" path="res://scr/role/room/structure.gd" id="2_ryxk3"]
+[ext_resource type="Script" uid="uid://bgye7tfwxg4ra" path="res://scr/role/room/terrian.gd" id="3_axyj7"]
+
+[sub_resource type="Resource" id="Resource_qwipb"]
+script = ExtResource("3_axyj7")
+block_type = &"Stone"
+min_value = 2
+max_value = 8
+max_sample_value_gap = -0.5
+min_sample_interval = 5.0
+max_sample_interval = 8.0
+smooth = true
+metadata/_custom_type_script = "uid://bgye7tfwxg4ra"
+
+[sub_resource type="Resource" id="Resource_8ldc8"]
+script = ExtResource("3_axyj7")
+block_type = &"Soil"
+min_value = 8
+max_value = 15
+max_sample_value_gap = -0.5
+min_sample_interval = 5.0
+max_sample_interval = 8.0
+smooth = true
+metadata/_custom_type_script = "uid://bgye7tfwxg4ra"
+
+[resource]
+script = ExtResource("1_8ldc8")
+name = &"Base"
+min_width = 40
+max_width = 40
+frame_on = true
+terrian_layers = Array[ExtResource("3_axyj7")]([SubResource("Resource_qwipb"), SubResource("Resource_8ldc8")])
+structures = Array[ExtResource("2_ryxk3")]([])
+bg_color = Color(0.436049, 0.69214, 0.85839, 1)
+world_modulate = Color(0.974565, 0.912154, 0.924793, 1)
+metadata/_custom_type_script = "uid://c8j2e11mtc0iy"

@@ -1,0 +1,148 @@
+[gd_scene load_steps=15 format=3 uid="uid://8f1u7k6r8i4r"]
+
+[ext_resource type="Script" uid="uid://bkluwrodslno3" path="res://scr/singleton/main/main.gd" id="1_3ug3s"]
+[ext_resource type="PackedScene" uid="uid://cgx8c4ej4ke8f" path="res://scr/role/player/player.tscn" id="2_cmlka"]
+[ext_resource type="Script" uid="uid://b4bsfc5ge01qa" path="res://scr/singleton/camera/camera.gd" id="3_1lcm0"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_3lpfe"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_u048o"]
+[ext_resource type="Texture2D" uid="uid://d3ij3v0n0o6ga" path="res://asset/texture/Block.png" id="6_c1aha"]
+[ext_resource type="Script" uid="uid://dks7075b472tp" path="res://scr/role/room/map.gd" id="7_gfabw"]
+[ext_resource type="Script" uid="uid://dhet7thltkum6" path="res://scr/singleton/ui/ui.gd" id="8_hmu26"]
+[ext_resource type="PackedScene" uid="uid://csajuj2k57t2w" path="res://scr/singleton/ui/item_holder/inventory_panel.tscn" id="9_vpkbt"]
+[ext_resource type="PackedScene" uid="uid://b4j5wclfxj26v" path="res://scr/singleton/ui/item_holder/item_slot.tscn" id="10_ofdc3"]
+[ext_resource type="Script" uid="uid://cjtrfkx3j5825" path="res://scr/singleton/cursor/cursor.gd" id="11_r8e0q"]
+
+[sub_resource type="Resource" id="Resource_mi0cs"]
+script = ExtResource("4_3lpfe")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_007yk"]
+texture = ExtResource("6_c1aha")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-7, -8, 7, -8, 7, 8, -7, 8)
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:1/0 = 0
+6:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0 = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+9:6/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+9:7/0 = 0
+7:8/0 = 0
+8:8/0 = 0
+9:8/0 = 0
+7:9/0 = 0
+8:9/0 = 0
+9:9/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_b5l7j"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 14
+sources/0 = SubResource("TileSetAtlasSource_007yk")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_3ug3s")
+
+[node name="Player" parent="." instance=ExtResource("2_cmlka")]
+position = Vector2(52, 100)
+
+[node name="Camera" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(52, 110)
+script = ExtResource("3_1lcm0")
+follow_mode = 2
+follow_target = NodePath("../Player")
+zoom = Vector2(4, 4)
+tween_resource = SubResource("Resource_mi0cs")
+follow_offset = Vector2(0, 10)
+follow_damping = true
+follow_damping_value = Vector2(0.4, 0)
+draw_limits = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+physics_interpolation_mode = 1
+position = Vector2(52, 110)
+zoom = Vector2(4, 4)
+process_callback = 0
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_u048o")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_b5l7j")
+script = ExtResource("7_gfabw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("show_hide_actions")]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_hmu26")
+show_hide_actions = {
+"toggle_backpack": NodePath("Container/BackpackPanel")
+}
+
+[node name="Container" type="MarginContainer" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="BackpackPanel" parent="CanvasLayer/UI/Container" instance=ExtResource("9_vpkbt")]
+layout_mode = 2
+
+[node name="Backpack" parent="CanvasLayer/UI/Container/BackpackPanel/VBoxContainer" index="1"]
+slot_scene = ExtResource("10_ofdc3")
+volume = 10
+
+[node name="Cursor" type="Node2D" parent="."]
+z_index = 100
+scale = Vector2(2, 2)
+script = ExtResource("11_r8e0q")
+mapping = Dictionary[Vector2i, int]({
+Vector2i(0, 0): 0,
+Vector2i(1, 0): 2
+})
+
+[node name="Sprite2D" type="Sprite2D" parent="Cursor"]
+position = Vector2(0.5, 0.5)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = 0.322886
+energy = 0.1
+blend_mode = 1
+shadow_enabled = true
+shadow_color = Color(1, 0.745098, 1, 0.137255)
+
+[editable path="CanvasLayer/UI/Container/BackpackPanel"]
