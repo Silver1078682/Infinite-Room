@@ -3,8 +3,8 @@ extends TileMapLayer
 #inspired by terrraria.
 
 ## The area range where light will be calculated
-const RENDER_QUAD_SMALL_RANGE = Vector2i(15, 20)
-const RENDER_QUAD_LARGE_RANGE = Vector2i(20, 20)
+const RENDER_SMALL_RANGE = Vector2i(15, 20)
+const RENDER_LARGE_RANGE = Vector2i(20, 20)
 const AIR_DECAY = -1
 # The maximum of possible lightlevel in a tile
 const MAX_LIGHT = 63
@@ -77,7 +77,7 @@ var range_top_left: Vector2i
 
 
 func update_render_range(small_range := true) -> void:
-	var range := RENDER_QUAD_SMALL_RANGE if small_range else RENDER_QUAD_LARGE_RANGE
+	var range := RENDER_SMALL_RANGE if small_range else RENDER_LARGE_RANGE
 	var camera_coord := Main.Camera.instance.coord
 	range_bottom_right = Room.current.size().min(camera_coord + range) - Vector2i.ONE
 	range_top_left = Vector2i.ZERO.max(camera_coord - range)

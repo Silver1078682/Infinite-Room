@@ -42,7 +42,7 @@ window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg", "res://addons/gdscript_formatter/plugin.cfg", "res://addons/godot-console/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/ui_design_tool/plugin.cfg")
+enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg", "res://addons/gdscript_formatter/plugin.cfg", "res://addons/godot-console/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
 [file_customization]
 
