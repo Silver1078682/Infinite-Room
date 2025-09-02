@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjy527l0g6hts"]
 
-[ext_resource type="Script" uid="uid://dbhmj2ss4jt3o" path="res://xxx/tail_test/bone_2d.gd" id="1_vknp4"]
+[ext_resource type="Script" uid="uid://ce5qym3dm6k7t" path="res://scr/role/player/tail_drawer.gd" id="1_vknp4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yx7kp"]
 size = Vector2(2, 2)

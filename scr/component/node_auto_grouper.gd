@@ -12,6 +12,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		adjust_node(get_parent())
 		print_if_not_quiet("nodes grouped!")
+	else:
+		queue_free.call_deferred()
 
 
 func adjust_node(node := get_parent()):

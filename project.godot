@@ -50,9 +50,16 @@ folder_colors={
 "res://addons/": "orange",
 "res://asset/": "yellow",
 "res://scr/": "teal",
-"res://scr/role/blocks/types/": "blue",
-"res://scr/role/items/type/": "blue",
-"res://scr/role/room/theme/": "blue",
+"res://scr/role/": "green",
+"res://scr/role/blocks/": "green",
+"res://scr/role/blocks/types/": "red",
+"res://scr/role/entity/": "green",
+"res://scr/role/items/": "green",
+"res://scr/role/items/type/": "red",
+"res://scr/role/player/": "green",
+"res://scr/role/room/": "green",
+"res://scr/role/room/structure/": "red",
+"res://scr/role/room/theme/": "red",
 "res://xxx/": "gray"
 }
 

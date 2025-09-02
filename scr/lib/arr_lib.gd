@@ -67,7 +67,8 @@ static func rand_derange(arr: Array) -> Array:
 ## just pass an untyped array also works.
 ## [codeblock]
 ## var arr : Array[int] = []
-## ArrLib.matrix([2, 2, 6, 3], arr, 0)
+## var matrix := ArrLib.matrix([2, 2, 6, 3], arr, 0)
+## print(matrix[3][6][2][2]) # Prints 0
 ## [/codeblock]
 static func matrix(size: Array, default: Variant, typed_arr: Array = []):
 	if size.size() < 2:

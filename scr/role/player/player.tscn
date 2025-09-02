@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cohwcikc8jlqd" path="res://scr/role/player/sub_viewport.gd" id="4_i13nu"]
 [ext_resource type="PackedScene" uid="uid://bjy527l0g6hts" path="res://scr/role/player/tail.tscn" id="4_pbyq6"]
 [ext_resource type="Script" uid="uid://bjoi5ccdfxveg" path="res://scr/role/entity/drop_collect.gd" id="5_4jodu"]
-[ext_resource type="Script" uid="uid://b7nuse0s8o0y3" path="res://scr/lib/tracker.gd" id="6_3l4yq"]
+[ext_resource type="Script" uid="uid://b7nuse0s8o0y3" path="res://scr/component/tracker.gd" id="6_3l4yq"]
 [ext_resource type="Script" uid="uid://bryeqsib6kga" path="res://scr/role/entity/foot_step_sound.gd" id="6_lkulo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lkulo"]
@@ -333,10 +333,9 @@ sprite_frames = SubResource("SpriteFrames_8arj0")
 animation = &"StartRun"
 autoplay = "Idle"
 
-[node name="TailPhysics" parent="." node_paths=PackedStringArray("line2d", "follow") instance=ExtResource("4_pbyq6")]
+[node name="TailPhysics" parent="." node_paths=PackedStringArray("line2d") instance=ExtResource("4_pbyq6")]
 position = Vector2(0, -4)
 line2d = NodePath("../PixelSnapper/SubViewport/TailPosition/TailLine2D")
-follow = NodePath("..")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 visible = false

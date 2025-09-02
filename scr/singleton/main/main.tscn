@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://8f1u7k6r8i4r"]
+[gd_scene load_steps=25 format=3 uid="uid://8f1u7k6r8i4r"]
 
 [ext_resource type="Script" uid="uid://bkluwrodslno3" path="res://scr/singleton/main/main.gd" id="1_3ug3s"]
 [ext_resource type="PackedScene" uid="uid://cgx8c4ej4ke8f" path="res://scr/role/player/player.tscn" id="2_cmlka"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" uid="uid://bg1demqsxdw7o" path="res://scr/singleton/stats.gd" id="12_i0gvd"]
 [ext_resource type="Script" uid="uid://cmress3mnidyx" path="res://scr/singleton/main/pause.gd" id="12_q6vu8"]
 [ext_resource type="PackedScene" uid="uid://k274qfrqt8jv" path="res://scr/ui/pause_menu/setting_menu.tscn" id="13_r3uhi"]
-[ext_resource type="Script" uid="uid://dr7y8l6bqdckv" path="res://xxx/editor_tools/editor_button_tool.gd" id="15_q6vu8"]
 
 [sub_resource type="Gradient" id="Gradient_ixuf4"]
 offsets = PackedFloat32Array(1)
@@ -531,10 +530,6 @@ metadata/_custom_type_script = "uid://bg1demqsxdw7o"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamGenerator_ixuf4")
-
-[node name="NodeAutoGrouper" type="Node" parent="."]
-script = ExtResource("15_q6vu8")
-metadata/_custom_type_script = "uid://dr7y8l6bqdckv"
 
 [connection signal="pressed" from="CanvasLayer/UI/ConsoleMargin/ConsoleContainer/ExitCommandMode" to="CanvasLayer/UI/ConsoleMargin/ConsoleContainer" method="_on_exit_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/Resume" to="CanvasLayer/UI/Pause" method="_on_resume_pressed"]
