@@ -21,21 +21,91 @@ theme_override_constants/margin_bottom = 50
 [node name="TabContainer" type="TabContainer" parent="MarginContainer" groups=["FontResizable"]]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 1
 
-[node name="Display" type="VBoxContainer" parent="MarginContainer/TabContainer"]
+[node name="Display" type="ScrollContainer" parent="MarginContainer/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="HSlider" type="HSlider" parent="MarginContainer/TabContainer/Display"]
+[node name="DisplayMargin" type="MarginContainer" parent="MarginContainer/TabContainer/Display"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 30
+
+[node name="DisplayVBox" type="VBoxContainer" parent="MarginContainer/TabContainer/Display/DisplayMargin"]
+layout_mode = 2
+
+[node name="FontSize" type="HBoxContainer" parent="MarginContainer/TabContainer/Display/DisplayMargin/DisplayVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Display/DisplayMargin/DisplayVBox/FontSize" groups=["FontResizable"]]
+layout_mode = 2
+text = "FontSize"
+
+[node name="Control" type="Control" parent="MarginContainer/TabContainer/Display/DisplayMargin/DisplayVBox/FontSize"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/TabContainer/Display/DisplayMargin/DisplayVBox/FontSize"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
 min_value = 1.0
 max_value = 3.0
 value = 3.0
 
-[node name="SettingModifier" type="Node" parent="MarginContainer/TabContainer/Display/HSlider"]
+[node name="SettingModifier" type="Node" parent="MarginContainer/TabContainer/Display/DisplayMargin/DisplayVBox/FontSize/HSlider"]
 script = ExtResource("1_aaly5")
 setting_name = &"font_size"
+metadata/_custom_type_script = "uid://bxoy0kxabsel5"
+
+[node name="Game" type="ScrollContainer" parent="MarginContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="DisplayMargin" type="MarginContainer" parent="MarginContainer/TabContainer/Game"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 30
+
+[node name="DisplayVBox" type="VBoxContainer" parent="MarginContainer/TabContainer/Game/DisplayMargin"]
+layout_mode = 2
+
+[node name="AutoSaveTimeInterval" type="HBoxContainer" parent="MarginContainer/TabContainer/Game/DisplayMargin/DisplayVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Game/DisplayMargin/DisplayVBox/AutoSaveTimeInterval" groups=["FontResizable"]]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "auto save time interval"
+
+[node name="Control" type="Control" parent="MarginContainer/TabContainer/Game/DisplayMargin/DisplayVBox/AutoSaveTimeInterval"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/TabContainer/Game/DisplayMargin/DisplayVBox/AutoSaveTimeInterval"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 30.0
+max_value = 120.0
+step = 30.0
+value = 120.0
+
+[node name="SettingModifier" type="Node" parent="MarginContainer/TabContainer/Game/DisplayMargin/DisplayVBox/AutoSaveTimeInterval/HSlider"]
+script = ExtResource("1_aaly5")
+setting_name = &"auto_save_time_interval"
 metadata/_custom_type_script = "uid://bxoy0kxabsel5"
 
 [node name="Exit" type="Button" parent="." groups=["FontResizable"]]
