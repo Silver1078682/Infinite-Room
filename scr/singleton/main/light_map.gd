@@ -3,7 +3,8 @@ extends TileMapLayer
 #inspired by terrraria.
 
 ## The area range where light will be calculated
-const RENDER_QUAD_RANGE = Vector2i(20, 20)
+const RENDER_QUAD_SMALL_RANGE = Vector2i(15, 20)
+const RENDER_QUAD_LARGE_RANGE = Vector2i(20, 20)
 const AIR_DECAY = -1
 # The maximum of possible lightlevel in a tile
 const MAX_LIGHT = 63
@@ -15,23 +16,32 @@ func _ready() -> void:
 	_auto_create_tiles()
 
 
-var _update_cnt = UPDATE_LOOP
-## For every [UPDATE_LOOP], update the light
+## For every [const UPDATE_LOOP] frame, update the light
 const UPDATE_LOOP = 10
+var _update_count := UPDATE_LOOP
 
+## For every [const LARGER_RANGE_UPDATE_LOOP] update, update the light in large range, otherwise in small range
+const LARGER_RANGE_UPDATE_LOOP = 2
+var _large_range_update_count := LARGER_RANGE_UPDATE_LOOP
 
 func _process(_delta: float) -> void:
 	if not Room.current:
 		return
-	if _update_cnt >= UPDATE_LOOP:
-		update_render_range()
+	if _update_count >= UPDATE_LOOP:
+		
+		var is_big_range = _large_range_update_count >= LARGER_RANGE_UPDATE_LOOP
+		if is_big_range:
+			_large_range_update_count = 0
+		
+		update_render_range(is_big_range)
 		cached_light_info.clear()
 		_iter(range_top_left, Vector2i.DOWN, Vector2i.RIGHT)  #vertical_light
 		await get_tree().process_frame
 		_iter(range_top_left, Vector2i.RIGHT, Vector2i.DOWN, 0, false)  #horizontal_light
-		_update_cnt = 0
 		$"..".render_target_update_mode = SubViewport.UPDATE_ONCE
-	_update_cnt += 1
+		_update_count = 0
+	
+	_update_count += 1
 	pass
 
 
@@ -66,10 +76,11 @@ var range_bottom_right: Vector2i
 var range_top_left: Vector2i
 
 
-func update_render_range() -> void:
+func update_render_range(small_range := true) -> void:
+	var range := RENDER_QUAD_SMALL_RANGE if small_range else RENDER_QUAD_LARGE_RANGE
 	var camera_coord := Main.Camera.instance.coord
-	range_bottom_right = Room.current.size().min(camera_coord + RENDER_QUAD_RANGE) - Vector2i.ONE
-	range_top_left = Vector2i.ZERO.max(camera_coord - RENDER_QUAD_RANGE)
+	range_bottom_right = Room.current.size().min(camera_coord + range) - Vector2i.ONE
+	range_top_left = Vector2i.ZERO.max(camera_coord - range)
 
 
 func is_in_render_range(coord: Vector2i) -> bool:
