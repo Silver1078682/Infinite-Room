@@ -14,6 +14,17 @@ static func ray(from, dire := Vector2i.DOWN, max_length := 10, room := Room.curr
 	return ray_detector
 
 
+## WARNING the rect here act slightly different from Godot Rect2i class.[br]
+## Namely, rect/Rect2i with size Vector2i(3, 4) looks like
+## [codeblock]
+## # rect(TileOP)  Rect2i
+## #    0 1 2     0 1 2 3
+## #  0 * * *   0 S - - -
+## #  1 * * *   1 |     |
+## #  2 * * *   2 |     |
+## #  3 * * *   3 |     |
+## #            4 | - - E
+## [/codeblock]
 static func rect(position, size: Vector2i, filled := false, room := Room.current) -> RaySet:
 	var rect_detector = FilledRect.new() if filled else EmptyRect.new()
 	rect_detector.start = _make_coord(position)
@@ -73,8 +84,7 @@ class Detector:
 			if not room.has_coord(coord):
 				continue
 			room.erase_block(coord)
-			
-	
+
 	func _iter_init(_iter: Array) -> bool:
 		return false
 
@@ -82,7 +92,7 @@ class Detector:
 		return false
 
 	func _iter_get(_iter: Variant) -> Variant:
-		return 
+		return
 
 	## coordholder is simply an object with a property coord.
 	class CoordHolder:
@@ -125,7 +135,7 @@ class RaySet:
 
 	func _iter_next(_iter: Array) -> bool:
 		_rays[current_ray].current += 1
-		if _rays[current_ray].current > _rays[current_ray].max_length:
+		while _rays[current_ray].current >= _rays[current_ray].max_length:
 			current_ray += 1
 			if current_ray >= _rays.size():
 				return false
@@ -164,6 +174,6 @@ class EmptyRect:
 		rect = rect.intersection(room_rect)
 		_rays.append(TileOP.ray(rect.position, Vector2i.RIGHT, rect.size.x, room))
 		_rays.append(TileOP.ray(rect.position, Vector2i.DOWN, rect.size.y, room))
-		_rays.append(TileOP.ray(rect.end, Vector2i.LEFT, rect.size.x, room))
-		_rays.append(TileOP.ray(rect.end, Vector2i.UP, rect.size.y, room))
+		_rays.append(TileOP.ray(rect.end - Vector2i.ONE, Vector2i.LEFT, rect.size.x, room))
+		_rays.append(TileOP.ray(rect.end - Vector2i.ONE, Vector2i.UP, rect.size.y, room))
 		return super(iter)

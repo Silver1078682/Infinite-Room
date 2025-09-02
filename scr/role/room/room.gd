@@ -133,7 +133,7 @@ func update_map():
 	Main.Map.reset()
 	if Room.current != self:
 		Log.warning("a room instance outside the tree try to update the Main.Map")
-	for i in TileOP.rect(Vector2i.ZERO, size() - Vector2i.ONE, true, self):
+	for i in TileOP.rect(Vector2i.ZERO, size(), true, self):
 		if get_block(i):
 			place_block(i, get_block(i))
 

@@ -38,7 +38,7 @@ func _spawn(room: Room):
 
 
 func _spawn_frame(room: Room) -> void:
-	var frame := TileOP.rect(Vector2i.ZERO, room.size() - Vector2i.ONE, false, room)
+	var frame := TileOP.rect(Vector2i.ZERO, room.size(), false, room)
 	frame.fill("Frame", false)
 
 
