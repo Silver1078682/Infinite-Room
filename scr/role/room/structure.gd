@@ -29,7 +29,6 @@ static func screenshot(op: TileOP.FilledRect, room := Room.current) -> Structure
 	for global_coord: Vector2i in op:
 		var coord := global_coord - start
 		var block := room.get_block(global_coord)
-
 		template[coord.y][coord.x] = block.config.name if block else ""
 
 	result.template = template

@@ -3,8 +3,8 @@ extends Node2D
 
 const SCENE_PATH = "res://scr/singleton/main/main.tscn"
 
-const Map: GDScript = preload("res://scr/role/room/map.gd")
-const Cursor: GDScript = preload("res://scr/singleton/cursor/cursor.gd")
+const Map: GDScript = preload("res://scr/singleton/main/map/map.gd")
+const Cursor: GDScript = preload("res://scr/singleton/main/cursor/cursor.gd")
 const Camera := preload("res://scr/singleton/camera/camera.gd")
 
 static var instance: Main

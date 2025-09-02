@@ -1,5 +1,5 @@
 extends Node2D
-const SCENE_PATH := "res://scr/role/player/place_detect.tscn"
+const SCENE_PATH := "res://scr/role/player/place_detect/place_detect.tscn"
 const SCENE := preload(SCENE_PATH)
 
 @onready var drop_polygon: CollisionPolygon2D = $DropDetect/CollisionPolygon2D

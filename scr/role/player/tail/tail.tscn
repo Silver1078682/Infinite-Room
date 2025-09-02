@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjy527l0g6hts"]
 
-[ext_resource type="Script" uid="uid://ce5qym3dm6k7t" path="res://scr/role/player/tail_drawer.gd" id="1_vknp4"]
+[ext_resource type="Script" uid="uid://ce5qym3dm6k7t" path="res://scr/role/player/tail/tail_drawer.gd" id="1_1wgpw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yx7kp"]
 size = Vector2(2, 2)
 
 [node name="Bone2D" type="CharacterBody2D"]
 collision_layer = 512
-script = ExtResource("1_vknp4")
+script = ExtResource("1_1wgpw")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 position = Vector2(-5.96046e-08, 1)

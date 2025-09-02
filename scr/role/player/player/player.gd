@@ -127,7 +127,7 @@ func mine_at(coords: Vector2i, delta: float):
 #	seconds = ticks / 20
 #	return seconds
 
-const PlaceDetect := preload("res://scr/role/player/place_detect.gd")
+const PlaceDetect := preload("res://scr/role/player/place_detect/place_detect.gd")
 var _place_detect_lists: Dictionary[Vector2i, PlaceDetect] = {}
 
 const LAY_RANGE := REACH_RANGE

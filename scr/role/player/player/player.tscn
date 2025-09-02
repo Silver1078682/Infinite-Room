@@ -1,12 +1,12 @@
 [gd_scene load_steps=42 format=3 uid="uid://cgx8c4ej4ke8f"]
 
-[ext_resource type="Script" uid="uid://dql3b2cons3kv" path="res://scr/role/player/player.gd" id="1_3b1vh"]
+[ext_resource type="Script" uid="uid://dql3b2cons3kv" path="res://scr/role/player/player/player.gd" id="1_3b1vh"]
 [ext_resource type="Texture2D" uid="uid://c46ot8p86falv" path="res://asset/texture/Player.png.png" id="2_3l4yq"]
 [ext_resource type="Script" uid="uid://b4lw0w84ddybb" path="res://scr/lib/fsm/fsm.gd" id="3_fhpf4"]
 [ext_resource type="Texture2D" uid="uid://b7um1k53t6meg" path="res://asset/texture/White.png" id="3_i13nu"]
 [ext_resource type="Script" uid="uid://bcxqi5726xylk" path="res://scr/lib/fsm/state.gd" id="4_ang5y"]
 [ext_resource type="Script" uid="uid://cohwcikc8jlqd" path="res://scr/role/player/sub_viewport.gd" id="4_i13nu"]
-[ext_resource type="PackedScene" uid="uid://bjy527l0g6hts" path="res://scr/role/player/tail.tscn" id="4_pbyq6"]
+[ext_resource type="PackedScene" uid="uid://bjy527l0g6hts" path="res://scr/role/player/tail/tail.tscn" id="4_pbyq6"]
 [ext_resource type="Script" uid="uid://bjoi5ccdfxveg" path="res://scr/role/entity/drop_collect.gd" id="5_4jodu"]
 [ext_resource type="Script" uid="uid://b7nuse0s8o0y3" path="res://scr/component/tracker.gd" id="6_3l4yq"]
 [ext_resource type="Script" uid="uid://bryeqsib6kga" path="res://scr/role/entity/foot_step_sound.gd" id="6_lkulo"]
@@ -252,6 +252,7 @@ collision_layer = 2
 collision_mask = 5
 input_pickable = true
 script = ExtResource("1_3b1vh")
+record_coord_changed = null
 
 [node name="FSM" type="Node" parent="." node_paths=PackedStringArray("initial_state", "animated_sprite")]
 script = ExtResource("3_fhpf4")
