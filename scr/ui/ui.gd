@@ -15,7 +15,7 @@ func _init() -> void:
 
 func _input(_event: InputEvent) -> void:
 	if _event.is_action_released("toggle_ui"):
-		visible = !visible
+		$Control.visible = !$Control.visible
 		return
 
 	if _event.is_action_released("show_console"):

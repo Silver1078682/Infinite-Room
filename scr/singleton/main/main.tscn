@@ -393,32 +393,39 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("8_hmu26")
 
-[node name="BackpackMargin" type="MarginContainer" parent="CanvasLayer/UI"]
-layout_mode = 0
+[node name="Control" type="Control" parent="CanvasLayer/UI"]
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="BackpackMargin" type="MarginContainer" parent="CanvasLayer/UI/Control"]
+layout_mode = 0
+offset_right = 78.0
+offset_bottom = 50.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 
-[node name="BackpackPanel" parent="CanvasLayer/UI/BackpackMargin" instance=ExtResource("9_vpkbt")]
+[node name="BackpackPanel" parent="CanvasLayer/UI/Control/BackpackMargin" instance=ExtResource("9_vpkbt")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ConsoleMargin" type="MarginContainer" parent="CanvasLayer/UI"]
+[node name="ConsoleMargin" type="MarginContainer" parent="CanvasLayer/UI/Control"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -203.0
-offset_top = -260.0
+offset_left = 717.0
+offset_top = 240.0
+offset_right = 920.0
+offset_bottom = 500.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ConsoleContainer" type="VBoxContainer" parent="CanvasLayer/UI/ConsoleMargin"]
+[node name="ConsoleContainer" type="VBoxContainer" parent="CanvasLayer/UI/Control/ConsoleMargin"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -427,7 +434,7 @@ mouse_force_pass_scroll_events = false
 script = ExtResource("11_ixuf4")
 metadata/_custom_type_script = "uid://p4inwor7gtoo"
 
-[node name="ExitCommandMode" type="Button" parent="CanvasLayer/UI/ConsoleMargin/ConsoleContainer" groups=["FontResizable"]]
+[node name="ExitCommandMode" type="Button" parent="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer" groups=["FontResizable"]]
 layout_mode = 2
 size_flags_vertical = 8
 mouse_default_cursor_shape = 2
@@ -531,7 +538,7 @@ metadata/_custom_type_script = "uid://bg1demqsxdw7o"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamGenerator_ixuf4")
 
-[connection signal="pressed" from="CanvasLayer/UI/ConsoleMargin/ConsoleContainer/ExitCommandMode" to="CanvasLayer/UI/ConsoleMargin/ConsoleContainer" method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer/ExitCommandMode" to="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer" method="_on_exit_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/Resume" to="CanvasLayer/UI/Pause" method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/Setting" to="CanvasLayer/UI/Pause" method="_on_setting_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/StartMenu" to="CanvasLayer/UI/Pause" method="_on_start_menu_pressed"]
