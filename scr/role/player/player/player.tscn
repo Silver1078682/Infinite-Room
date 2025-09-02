@@ -241,8 +241,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4jodu"]
-size = Vector2(11.5, 30.25)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a14xv"]
+radius = 4.69081
+height = 28.2187
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lk4kw"]
 radius = 20.0
@@ -250,34 +251,37 @@ radius = 20.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3l4yq"]
 bg_color = Color(0, 0, 0, 0.227451)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jf8fe"]
-size = Vector2(9.01343, 30.25)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lufy1"]
+radius = 4.23079
+height = 28.2187
+
+[sub_resource type="Resource" id="Resource_trl8e"]
+script = ExtResource("12_lufy1")
+position = Vector2(2.38419e-07, -9.22362)
+disabled = false
+shape = SubResource("CapsuleShape2D_lufy1")
+debug_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jf8fe"]
+radius = 4.69081
+height = 24.8363
 
 [sub_resource type="Resource" id="Resource_027gf"]
 script = ExtResource("12_lufy1")
-position = Vector2(0.0604062, -10)
+position = Vector2(2.38419e-07, -7.56229)
 disabled = false
-shape = SubResource("RectangleShape2D_jf8fe")
+shape = SubResource("CapsuleShape2D_jf8fe")
 debug_color = Color(0, 0, 0, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qiwex"]
-size = Vector2(11.5, 24.9837)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qiwex"]
+radius = 4.69081
+height = 28.2187
 
 [sub_resource type="Resource" id="Resource_0y2j1"]
 script = ExtResource("12_lufy1")
-position = Vector2(0, -7.36686)
+position = Vector2(2.38419e-07, -9.22362)
 disabled = false
-shape = SubResource("RectangleShape2D_qiwex")
-debug_color = Color(0, 0, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4u1j0"]
-size = Vector2(11.5, 27.0456)
-
-[sub_resource type="Resource" id="Resource_yq5ws"]
-script = ExtResource("12_lufy1")
-position = Vector2(0, -8.3978)
-disabled = false
-shape = SubResource("RectangleShape2D_4u1j0")
+shape = SubResource("CapsuleShape2D_qiwex")
 debug_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Resource" id="Resource_7xdv8"]
@@ -285,8 +289,8 @@ script = ExtResource("13_trl8e")
 data = {
 &"Fall": [null, null],
 &"JumpRev": [null],
-&"JumpUpward": [SubResource("Resource_027gf")],
-&"Land": [SubResource("Resource_0y2j1"), SubResource("Resource_yq5ws")],
+&"JumpUpward": [SubResource("Resource_trl8e")],
+&"Land": [SubResource("Resource_027gf"), SubResource("Resource_0y2j1")],
 &"Run": [null, null, null, null, null]
 }
 metadata/_custom_type_script = "uid://b50yv57r1o5bl"
@@ -383,8 +387,8 @@ line2d = NodePath("../PixelSnapper/SubViewport/TailPosition/TailLine2D")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(0, -10)
-shape = SubResource("RectangleShape2D_4jodu")
+position = Vector2(2.38419e-07, -9.22362)
+shape = SubResource("CapsuleShape2D_a14xv")
 
 [node name="DropCollect" type="Area2D" parent="."]
 position = Vector2(0, -11)

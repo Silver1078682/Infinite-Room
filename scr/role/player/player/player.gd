@@ -26,7 +26,15 @@ func _init() -> void:
 func _ready() -> void:
 	Log.info("Player Instance Ready")
 
+	Console.add_command("tp", _command_tp, "teleport player to given coordinate, or where the mouse cursor is pointing")
+
 	await Lib.ensure_ready(Player.local_instance)
+
+
+func _command_tp(x: float = INF, y: float = INF):
+	var target: Vector2i
+	target = Main.Cursor.coord if is_inf(y) else Main.Map.h2gui(Vector2(x, y))
+	Player.local_instance.position = Main.Map.to_pos(target)
 
 
 func _physics_process(delta: float) -> void:
