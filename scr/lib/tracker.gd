@@ -32,6 +32,7 @@ static func _command_tracker(on: bool):
 
 func set_tracking(on: bool):
 	tracking = on
+	visible = on
 
 func _ready() -> void:
 	add_to_group(&"Tracker")
