@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cgx8c4ej4ke8f"]
+[gd_scene load_steps=52 format=3 uid="uid://cgx8c4ej4ke8f"]
 
 [ext_resource type="Script" uid="uid://dql3b2cons3kv" path="res://scr/role/player/player/player.gd" id="1_3b1vh"]
 [ext_resource type="Texture2D" uid="uid://c46ot8p86falv" path="res://asset/texture/Player.png.png" id="2_3l4yq"]
@@ -10,6 +10,9 @@
 [ext_resource type="Script" uid="uid://bjoi5ccdfxveg" path="res://scr/role/entity/drop_collect.gd" id="5_4jodu"]
 [ext_resource type="Script" uid="uid://b7nuse0s8o0y3" path="res://scr/component/tracker.gd" id="6_3l4yq"]
 [ext_resource type="Script" uid="uid://bryeqsib6kga" path="res://scr/role/entity/foot_step_sound.gd" id="6_lkulo"]
+[ext_resource type="Script" uid="uid://duyyn272jr774" path="res://addons/goutte.animated_shape_2d/animated_shape_2d.gd" id="11_a14xv"]
+[ext_resource type="Script" uid="uid://ctv1yg6fjq1jx" path="res://addons/goutte.animated_shape_2d/shape_frame_2d.gd" id="12_lufy1"]
+[ext_resource type="Script" uid="uid://b50yv57r1o5bl" path="res://addons/goutte.animated_shape_2d/shape_frames_2d.gd" id="13_trl8e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lkulo"]
 atlas = ExtResource("2_3l4yq")
@@ -247,6 +250,47 @@ radius = 20.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3l4yq"]
 bg_color = Color(0, 0, 0, 0.227451)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jf8fe"]
+size = Vector2(9.01343, 30.25)
+
+[sub_resource type="Resource" id="Resource_027gf"]
+script = ExtResource("12_lufy1")
+position = Vector2(0.0604062, -10)
+disabled = false
+shape = SubResource("RectangleShape2D_jf8fe")
+debug_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qiwex"]
+size = Vector2(11.5, 24.9837)
+
+[sub_resource type="Resource" id="Resource_0y2j1"]
+script = ExtResource("12_lufy1")
+position = Vector2(0, -7.36686)
+disabled = false
+shape = SubResource("RectangleShape2D_qiwex")
+debug_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4u1j0"]
+size = Vector2(11.5, 27.0456)
+
+[sub_resource type="Resource" id="Resource_yq5ws"]
+script = ExtResource("12_lufy1")
+position = Vector2(0, -8.3978)
+disabled = false
+shape = SubResource("RectangleShape2D_4u1j0")
+debug_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_7xdv8"]
+script = ExtResource("13_trl8e")
+data = {
+&"Fall": [null, null],
+&"JumpRev": [null],
+&"JumpUpward": [SubResource("Resource_027gf")],
+&"Land": [SubResource("Resource_0y2j1"), SubResource("Resource_yq5ws")],
+&"Run": [null, null, null, null, null]
+}
+metadata/_custom_type_script = "uid://b50yv57r1o5bl"
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 5
@@ -331,7 +375,7 @@ texture = ExtResource("3_i13nu")
 [node name="Sprite" type="AnimatedSprite2D" parent="Flippable"]
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_8arj0")
-animation = &"StartRun"
+animation = &"Fall"
 autoplay = "Idle"
 
 [node name="TailPhysics" parent="." node_paths=PackedStringArray("line2d") instance=ExtResource("4_pbyq6")]
@@ -394,6 +438,13 @@ class_get = PackedStringArray("Player")
 property_filter = PackedStringArray("_place_detect_lists", "sprite")
 node = NodePath("..")
 metadata/_custom_type_script = "uid://b7nuse0s8o0y3"
+
+[node name="AnimatedShape2D" type="Node" parent="." node_paths=PackedStringArray("animated_sprite", "collision_shape")]
+script = ExtResource("11_a14xv")
+animated_sprite = NodePath("../Flippable/Sprite")
+collision_shape = NodePath("../CollisionShape")
+shape_frames = SubResource("Resource_7xdv8")
+metadata/_custom_type_script = "uid://duyyn272jr774"
 
 [connection signal="body_entered" from="DropCollect" to="DropCollect" method="_on_body_entered"]
 [connection signal="body_exited" from="DropCollect" to="DropCollect" method="_on_body_exited"]
