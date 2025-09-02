@@ -19,6 +19,17 @@ static func save_game(save_name := Main.save_name):
 	Log.notice("Saving finished")
 
 
+static func save_something(path: String, what: Object):
+	Log.info("Start saving %s" % what)
+	var save_file = simple_open_file(path, FileAccess.WRITE)
+	if not save_file:
+		Log.error("Saving failed")
+		return
+	var json_string = JSON.stringify(what)
+	save_file.store_line(json_string)
+	Log.info("Saving %s finished" % what)
+
+
 static func load_game(save_name: String):
 	Log.info("Start Loading Save")
 	var save_path = save_directory_path + SAVE_FILE_SUFFIX % save_name
