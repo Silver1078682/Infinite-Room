@@ -5,7 +5,7 @@ extends RefCounted
 ## See [Block.config]
 
 const Mine = preload("res://scr/role/blocks/mine.gd")
-const SIZE = Vector2i(16, 16)
+const SIZE = Vector2(16, 16)
 
 const TILE_SET_PATH = "res://asset/texture/Block.png"
 const TILE_SET = preload(TILE_SET_PATH)

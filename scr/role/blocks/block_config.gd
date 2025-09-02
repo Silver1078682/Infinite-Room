@@ -76,7 +76,7 @@ extends Resource
 
 
 func _update_atlas_coord() -> void:
-	atlas_coord = Vector2i(texture.region.position.round()) / Block.SIZE
+	atlas_coord = Vector2i(texture.region.position.round() / Block.SIZE)
 
 
 func _update_name() -> void:
