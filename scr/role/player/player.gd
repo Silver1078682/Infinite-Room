@@ -83,12 +83,17 @@ func _input(event: InputEvent) -> void:
 		drop_item()
 
 
-#
+const REACH_RANGE := Vector2i(10, 10)
+
 # Maybe player cannot mine a tile when there's a wall between??(Not a good idea actually)
 const MINE_SPEED = 1.0
+const MINE_RANGE := REACH_RANGE
 
 
 func mine_at(coords: Vector2i, delta: float):
+	var offset := (coords - self.coord).abs()
+	if offset.clamp(Vector2i.ZERO, MINE_RANGE) != offset:
+		return
 	var block := Room.current.get_block_safe(coords)
 	if not block:
 		return
@@ -123,39 +128,48 @@ func mine_at(coords: Vector2i, delta: float):
 #	return seconds
 
 const PlaceDetect := preload("res://scr/role/player/place_detect.gd")
-
 var _place_detect_lists: Dictionary[Vector2i, PlaceDetect] = {}
 
+const LAY_RANGE := REACH_RANGE
 
-func lay_at(coord: Vector2i):
+
+func lay_at(coords: Vector2i):
+	# coords check
+	if not Room.current.has_coord(coords):
+		return
+	var offset := (coords - self.coord).abs()
+	if offset.clamp(Vector2i.ZERO, MINE_RANGE) != offset:
+		return
+
+	# collision detect
 	var place_detect: PlaceDetect
-	if coord in _place_detect_lists:
-		place_detect = _place_detect_lists[coord]
+	if coords in _place_detect_lists:
+		place_detect = _place_detect_lists[coords]
 	else:
 		place_detect = PlaceDetect.SCENE.instantiate()
-		place_detect.global_position = Main.Map.to_pos(coord)
+		place_detect.global_position = Main.Map.to_pos(coords)
 		Main.instance.add_child(place_detect)
-		_place_detect_lists[coord] = place_detect
+		_place_detect_lists[coords] = place_detect
 		await place_detect.ready
 
-	for i in 2:
+	for i in 2:  #safer check
 		await get_tree().physics_frame
 		if not place_detect.can_lay():
 			return
 
-	if not Room.current.has_coord(coord):
-		return
+	#inventory check
 	if not (ItemSlotContainer.selected and ItemSlotContainer.selected.item):
 		return
 
+	#previous block check
 	var held_meta := ItemSlotContainer.selected.item.meta
 	if not "block" in held_meta:
 		return
-	var block := Room.current.get_block(coord)
+	var block := Room.current.get_block(coords)
 	var new_block := Block.create(held_meta["block"])
 	if not block:
 		ItemSlotContainer.selected.amount -= 1
-		Room.current.place_block(coord, new_block)
+		Room.current.place_block(coords, new_block)
 		Stats.block(new_block.config.name).place_counts += 1
 	else:
 		return
