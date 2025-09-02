@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://gedtnk6mjp1o" path="res://asset/texture/ui/UiBackgroundDark.png" id="1_f0gwm"]
 [ext_resource type="Script" uid="uid://dnxs6dk4kdf82" path="res://scr/ui/start_menu/start_menu.gd" id="1_l0xrg"]
-[ext_resource type="Script" uid="uid://dm101khnfp4u2" path="res://scr/ui/start_menu/UIAnimator.gd" id="3_1s3mk"]
+[ext_resource type="Script" uid="uid://dm101khnfp4u2" path="res://scr/component/UIAnimator.gd" id="3_1s3mk"]
 [ext_resource type="Texture2D" uid="uid://dbo520efkhotw" path="res://asset/texture/ui/UILoad.png" id="4_1s3mk"]
 [ext_resource type="PackedScene" uid="uid://k274qfrqt8jv" path="res://scr/ui/pause_menu/setting_menu.tscn" id="4_efnl0"]
 [ext_resource type="Script" uid="uid://dtwb7bybh8u5o" path="res://scr/ui/start_menu/save_manager.gd" id="4_s0t7g"]
@@ -72,7 +72,12 @@ text = "New Game"
 [node name="Node" type="Node" parent="MainMenu/VBoxContainer/Panel/VBoxContainer/NewGame"]
 script = ExtResource("3_1s3mk")
 effect = "pop"
+startup_time = 0.1
+duration = 0.1
+offset = 0
 autoplay = false
+trans = 1
+ease = 1
 applies_to = 0
 
 [node name="LoadGame" type="Button" parent="MainMenu/VBoxContainer/Panel/VBoxContainer" groups=["FontResizable"]]
@@ -84,7 +89,12 @@ text = "Load Game"
 [node name="Node" type="Node" parent="MainMenu/VBoxContainer/Panel/VBoxContainer/LoadGame"]
 script = ExtResource("3_1s3mk")
 effect = "pop"
+startup_time = 0.1
+duration = 0.1
+offset = 0
 autoplay = false
+trans = 1
+ease = 1
 applies_to = 0
 
 [node name="Settings" type="Button" parent="MainMenu/VBoxContainer/Panel/VBoxContainer" groups=["FontResizable"]]
@@ -94,7 +104,12 @@ text = "Setting"
 [node name="Node" type="Node" parent="MainMenu/VBoxContainer/Panel/VBoxContainer/Settings"]
 script = ExtResource("3_1s3mk")
 effect = "pop"
+startup_time = 0.1
+duration = 0.1
+offset = 0
 autoplay = false
+trans = 1
+ease = 1
 applies_to = 0
 
 [node name="QuitGame" type="Button" parent="MainMenu/VBoxContainer/Panel/VBoxContainer" groups=["FontResizable"]]
@@ -105,7 +120,12 @@ text = "Quit Game"
 [node name="Node" type="Node" parent="MainMenu/VBoxContainer/Panel/VBoxContainer/QuitGame"]
 script = ExtResource("3_1s3mk")
 effect = "pop"
+startup_time = 0.1
+duration = 0.1
+offset = 0
 autoplay = false
+trans = 1
+ease = 1
 applies_to = 0
 
 [node name="SaveManager" type="MarginContainer" parent="."]
@@ -183,7 +203,7 @@ layout_mode = 1
 
 [connection signal="mouse_entered" from="MainMenu/VBoxContainer/Panel/VBoxContainer/NewGame" to="MainMenu/VBoxContainer/Panel/VBoxContainer/NewGame/Node" method="play"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/NewGame" to="." method="new_game"]
-[connection signal="mouse_entered" from="MainMenu/VBoxContainer/Panel/VBoxContainer/LoadGame" to="MainMenu/VBoxContainer/Panel/VBoxContainer/LoadGame/Node" method="_play"]
+[connection signal="mouse_entered" from="MainMenu/VBoxContainer/Panel/VBoxContainer/LoadGame" to="MainMenu/VBoxContainer/Panel/VBoxContainer/LoadGame/Node" method="play"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/LoadGame" to="." method="load_game"]
 [connection signal="mouse_entered" from="MainMenu/VBoxContainer/Panel/VBoxContainer/Settings" to="MainMenu/VBoxContainer/Panel/VBoxContainer/Settings/Node" method="play"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
