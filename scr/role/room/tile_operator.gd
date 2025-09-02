@@ -143,8 +143,9 @@ class FilledRect:
 		_rays.clear()
 		var rect := Rect2i(start.coord, size)
 		var room_rect := Rect2i(Vector2i.ZERO, room.size())
+		rect = rect.abs()
 		rect = rect.intersection(room_rect)
-		for i in rect.size.y + 1:
+		for i in rect.size.y:
 			var pos = Vector2i(rect.position.x, rect.position.y + i)
 			_rays.append(TileOP.ray(pos, Vector2i.RIGHT, rect.size.x, room))
 		return super(_iter)
@@ -159,6 +160,7 @@ class EmptyRect:
 		_rays.clear()
 		var rect := Rect2i(start.coord, size)
 		var room_rect := Rect2i(Vector2i.ZERO, room.size())
+		rect = rect.abs()
 		rect = rect.intersection(room_rect)
 		_rays.append(TileOP.ray(rect.position, Vector2i.RIGHT, rect.size.x, room))
 		_rays.append(TileOP.ray(rect.position, Vector2i.DOWN, rect.size.y, room))
