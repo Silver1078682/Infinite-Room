@@ -4,13 +4,16 @@ const HEIGHT = 20
 
 
 static func _static_init() -> void:
-	Console.add_command("place", _place_block_cmd, "place a block at a given coordinate")
+	Console.add_command("place", _command_place_block, "place a block at a given coordinate")
 
-static func _place_block_cmd(x: int, y: int, block_name: StringName):
-	if not Room.current.has_coord(Vector2i(x, Room.HEIGHT - y - 1)):
+
+static func _command_place_block(x: int, y: int, block_name: StringName):
+	var coord: Vector2i = Main.Map.h2gui(Vector2i(x, y))
+	if not Room.current.has_coord(coord):
 		Console.error("coordinate (x, y) not at map")
 		return
-	Room.current.place_blockn(Vector2i(x, Room.HEIGHT - y - 1), block_name)
+	Room.current.place_blockn(coord, block_name)
+
 
 # Don't set this property, use Main.enter_room instead
 static var current: Room:
@@ -134,8 +137,10 @@ func update_map():
 		if get_block(i):
 			place_block(i, get_block(i))
 
+
 func update_camera():
 	Main.Camera.instance.set_limit_x(0, size().x)
+
 
 func update_blocks_arr():
 	_blocks = Lib.Arr.matrix_2d(size(), null)

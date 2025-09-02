@@ -13,14 +13,23 @@ func spawn(at: Vector2, room := Room.current):
 
 
 static func _static_init() -> void:
-	Console.add_command("struct", _command_save_struct_from, "Save a structure from")
+	Console.add_command("struct", _command_add_struct_prerange, "Save a structure from")
 
 
-static func _command_save_struct_from(from_x: int, from_y: int) -> Structure:
+static var _command_struct_pre_range: Rect2i
+
+
+static func _command_add_struct_prerange(from_x: int, from_y: int, size_x: int, size_y: int) -> Structure:
+	var from: Vector2i = Main.Map.h2gui(Vector2i(from_x, from_y))
+	var size: Vector2i = Main.Map.h2gui(Vector2i(size_x, size_y))
+	_command_struct_pre_range.position = from
+	_command_struct_pre_range.end = size
+	print(from, size)
+	save_struct_from(from, size)
 	return
 
 
-static func save_struct_from(from: Vector2, to: Vector2) -> Structure:
-	for coord in TileOP.rect(from, to, true, null):
-		pass
+static func save_struct_from(from: Vector2i, size: Vector2i) -> Structure:
+	for coord in TileOP.rect(from, size, true, Room.current):
+		print(coord)
 	return
