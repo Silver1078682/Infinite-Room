@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var min_length_between_nodes := 1.5
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	line2d.clear_points()
 	var root_position = Vector2.ZERO
 	for i in get_children():

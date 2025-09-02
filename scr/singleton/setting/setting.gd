@@ -5,7 +5,7 @@ static var log_dir := "user://logs"
 const FONT_SIZE_STEP = 19
 static var font_size := 1:
 	set(p_size):
-		p_size = clampf(p_size, 1, 3)
+		p_size = clampi(p_size, 1, 3)
 		update_font_size(p_size)
 		font_size = p_size
 

@@ -427,15 +427,18 @@ theme_override_constants/margin_bottom = 5
 
 [node name="ConsoleContainer" type="VBoxContainer" parent="CanvasLayer/UI/Control/ConsoleMargin"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 mouse_filter = 0
 mouse_force_pass_scroll_events = false
 script = ExtResource("11_ixuf4")
 metadata/_custom_type_script = "uid://p4inwor7gtoo"
 
-[node name="ExitCommandMode" type="Button" parent="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer" groups=["FontResizable"]]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer"]
 layout_mode = 2
+
+[node name="ExitCommandMode" type="Button" parent="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer/HBoxContainer" groups=["FontResizable"]]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 8
 mouse_default_cursor_shape = 2
 text = " exit command mode "
@@ -538,7 +541,7 @@ metadata/_custom_type_script = "uid://bg1demqsxdw7o"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamGenerator_ixuf4")
 
-[connection signal="pressed" from="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer/ExitCommandMode" to="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer" method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer/HBoxContainer/ExitCommandMode" to="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer" method="_on_exit_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/Resume" to="CanvasLayer/UI/Pause" method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/Setting" to="CanvasLayer/UI/Pause" method="_on_setting_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/StartMenu" to="CanvasLayer/UI/Pause" method="_on_start_menu_pressed"]

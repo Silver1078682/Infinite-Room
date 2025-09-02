@@ -40,5 +40,5 @@ const CAMERA_BORDER = 40
 
 
 func set_limit_x(left := 0, right := Room.current.size().x):
-	set_limit_left(left * Block.SIZE.x - CAMERA_BORDER)
-	set_limit_right(right * Block.SIZE.x + CAMERA_BORDER)
+	set_limit_left(int(left * Block.SIZE.x - CAMERA_BORDER))
+	set_limit_right(int(right * Block.SIZE.x + CAMERA_BORDER))

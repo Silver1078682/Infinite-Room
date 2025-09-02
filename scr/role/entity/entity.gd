@@ -11,8 +11,6 @@ var coord: Vector2i:
 	set(p_coord):
 		position = Main.Map.to_pos(p_coord)
 
-var _speed_factor_from_block: float
-
 
 func _get_speed_factor() -> float:
 	var block := get_floor_block()
@@ -35,7 +33,7 @@ var _last_coord: Vector2i
 func _on_coord_changed():
 	pass
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if coord != _last_coord:
 		_last_coord = coord
 		_on_coord_changed()

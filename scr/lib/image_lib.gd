@@ -29,6 +29,6 @@ static func colors(img: Image) -> PackedColorArray:
 
 
 
-static func scale(img: Image, scale_factor: Vector2, interpolation: Image.Interpolation) -> void:
+static func scale(img: Image, scale_factor: Vector2i, interpolation: Image.Interpolation) -> void:
 	img.resize(img.get_width() * scale_factor.x, img.get_height() * scale_factor.y, interpolation)
 	pass

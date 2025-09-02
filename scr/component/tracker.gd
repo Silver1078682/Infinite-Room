@@ -50,7 +50,7 @@ func _process(_delta) -> void:
 		return
 	text = ""
 	for node_path in _property_to_be_printed:
-		var value = _get_value_by_node_path(node, node_path)
+		var value = _get_value_by_node_path(node_path)
 		text += format % [node_path, value]
 	add_theme_constant_override("outline_size", 0)
 
@@ -82,7 +82,7 @@ func _get_node_to_be_tracked() -> Node:
 	return node if node else get_parent()
 
 
-func _get_value_by_node_path(node: Node, prop_path: String):
+func _get_value_by_node_path(prop_path: String):
 	if not prop_path.begins_with("$"):
 		return _get_node_to_be_tracked().get(prop_path)
 	var node_path = prop_path.right(-1)

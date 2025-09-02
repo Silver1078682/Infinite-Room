@@ -1,17 +1,17 @@
 class_name Structure
 extends Resource
-@export var template := ArrLib.matrix_2d(Vector2(10, 10), null, [])
+@export var template := Lib.Arr.matrix_2d(Vector2(10, 10), null, [])
 @export var project_mode: ProjectMode
 enum ProjectMode { KEEP, LANDSCAPE, STRETCH }
 @export var place_mode: PlaceMode
 enum PlaceMode { REPLACE, WHITELIST, BLACKLIST }
 
 
-func spawn(at: Vector2, room := Room.current):
+func spawn(at: Vector2i, room := Room.current):
 	for y in template.size():
 		var row = template[y]
 		for x in row.size():
-			room.set_blockn(Vector2i(x, y), row[x], false)
+			room.set_blockn(Vector2i(x, y) + at, row[x], false)
 
 
 static func _static_init() -> void:
@@ -21,17 +21,17 @@ static func _static_init() -> void:
 
 ## screenshot an area of a room, return a corresponding structure
 static func screenshot(op: TileOP.FilledRect, room := Room.current) -> Structure:
-	var result: Structure
+	var result := Structure.new()
 	var name_arr: Array[String] = []
-	var template := Lib.Arr.matrix_2d(op.size, null, name_arr)
+	var p_template := Lib.Arr.matrix_2d(op.size, null, name_arr)
 
 	var start: Vector2i = Rect2i(op.start.coord, op.size).abs().position  #get the top left corner
 	for global_coord: Vector2i in op:
 		var coord := global_coord - start
 		var block := room.get_block(global_coord)
-		template[coord.y][coord.x] = block.config.name if block else ""
+		p_template[coord.y][coord.x] = block.config.name if block else &""
 
-	result.template = template
+	result.template = p_template
 	return result
 
 
