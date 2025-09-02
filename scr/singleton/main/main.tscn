@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://8f1u7k6r8i4r"]
+[gd_scene load_steps=26 format=3 uid="uid://8f1u7k6r8i4r"]
 
 [ext_resource type="Script" uid="uid://bkluwrodslno3" path="res://scr/singleton/main/main.gd" id="1_3ug3s"]
 [ext_resource type="PackedScene" uid="uid://cgx8c4ej4ke8f" path="res://scr/role/player/player/player.tscn" id="2_cmlka"]
 [ext_resource type="Script" uid="uid://b4bsfc5ge01qa" path="res://scr/singleton/camera/camera.gd" id="3_1lcm0"]
+[ext_resource type="Script" uid="uid://cyphcjp3ay3gc" path="res://scr/singleton/main/autosaver.gd" id="3_r3uhi"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_3lpfe"]
 [ext_resource type="Script" uid="uid://bgbny6u1e74so" path="res://scr/singleton/light_system/light_map.gd" id="5_r1tqi"]
 [ext_resource type="Texture2D" uid="uid://b7um1k53t6meg" path="res://asset/texture/White.png" id="5_r3uhi"]
@@ -16,6 +17,8 @@
 [ext_resource type="Script" uid="uid://bg1demqsxdw7o" path="res://scr/singleton/main/stats.gd" id="12_i0gvd"]
 [ext_resource type="Script" uid="uid://cmress3mnidyx" path="res://scr/ui/pause.gd" id="12_q6vu8"]
 [ext_resource type="PackedScene" uid="uid://k274qfrqt8jv" path="res://scr/ui/pause_menu/setting_menu.tscn" id="13_r3uhi"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_ixuf4"]
 
 [sub_resource type="Gradient" id="Gradient_ixuf4"]
 offsets = PackedFloat32Array(1)
@@ -332,10 +335,21 @@ texture_region_size = Vector2i(1, 1)
 tile_size = Vector2i(1, 1)
 sources/0 = SubResource("TileSetAtlasSource_og303")
 
-[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_ixuf4"]
-
 [node name="Main" type="Node2D"]
 script = ExtResource("1_3ug3s")
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("12_i0gvd")
+metadata/_custom_type_script = "uid://bg1demqsxdw7o"
+
+[node name="AutoSaver" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+ignore_time_scale = true
+script = ExtResource("3_r3uhi")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamGenerator_ixuf4")
 
 [node name="EnvironmentLight" type="CanvasModulate" parent="."]
 
@@ -535,13 +549,7 @@ blend_mode = 1
 shadow_enabled = true
 shadow_color = Color(1, 0.745098, 1, 0.137255)
 
-[node name="Stats" type="Node" parent="."]
-script = ExtResource("12_i0gvd")
-metadata/_custom_type_script = "uid://bg1demqsxdw7o"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamGenerator_ixuf4")
-
+[connection signal="timeout" from="AutoSaver" to="AutoSaver" method="_on_timeout"]
 [connection signal="pressed" from="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer/HBoxContainer/ExitCommandMode" to="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer" method="_on_exit_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/Resume" to="CanvasLayer/UI/Pause" method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/Setting" to="CanvasLayer/UI/Pause" method="_on_setting_pressed"]

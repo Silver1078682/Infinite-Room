@@ -16,7 +16,7 @@ static func update_font_size(p_size: int = font_size) -> void:
 	for control: Control in Lib.get_tree().get_nodes_in_group(&"FontResizable"):
 		control.add_theme_font_size_override("font_size", p_size * FONT_SIZE_STEP)
 
-
+static var auto_save_time_interval := 30.0
 
 static var volume = 100.0
 
