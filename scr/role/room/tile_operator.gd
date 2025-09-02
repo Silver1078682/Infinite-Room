@@ -68,22 +68,42 @@ class Detector:
 
 	func fill(block_name: StringName, update := true) -> void:
 		for coord: Vector2i in self:
-			if not room.has_coord(coord):
-				continue
-			room.set_blockn(coord, block_name, update)
+			if room.has_coord(coord):
+				room.set_blockn(coord, block_name, update)
 
 	func fill_rand(blocks: Dictionary[StringName, float], update := true) -> void:
 		var rand_picker := Lib.Rand.bs_wrs(blocks)
 		for coord: Vector2i in self:
-			if not room.has_coord(coord):
-				continue
-			room.set_blockn(coord, rand_picker.pick(), update)
+			if room.has_coord(coord):
+				room.set_blockn(coord, rand_picker.pick(), update)
 
+## See [method Room.erase]
 	func erase() -> void:
+		for coord: Vector2i in self:
+			if room.has_coord(coord):
+				room.erase_block(coord)
+
+## See [method Room.remove_block]
+	func remove() -> void:
+		for coord: Vector2i in self:
+			if room.has_coord(coord):
+				room.remove_block(coord)
+
+## See [method Room.remove_block_safe]
+	func remove_safe() -> void:
 		for coord: Vector2i in self:
 			if not room.has_coord(coord):
 				continue
-			room.erase_block(coord)
+			room.remove_block_safe(coord)
+
+## Call a function on each block in the detector's scope
+	func call_each(func_name: StringName) -> void:
+		for coord: Vector2i in self:
+			var block := room.get_block_safe(coord)
+			if not block:
+				continue
+			block.call(func_name, coord)
+
 
 	func _iter_init(_iter: Array) -> bool:
 		return false
