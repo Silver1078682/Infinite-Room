@@ -7,8 +7,8 @@ const SCENE := preload(SCENE_PATH)
 
 
 func _ready() -> void:
-	drop_polygon.polygon = normal
-	entity_polygon.polygon = normal
+	drop_polygon.polygon = DETECT_POLYGON
+	entity_polygon.polygon = DETECT_POLYGON
 
 
 func can_lay() -> bool:
@@ -19,9 +19,10 @@ func can_lay() -> bool:
 	return true
 
 
-const normal: PackedVector2Array = [
-	Vector2i(-Block.SIZE.x, -Block.SIZE.x) / 2,
-	Vector2i(Block.SIZE.x, -Block.SIZE.x) / 2,
-	Vector2i(Block.SIZE.x, Block.SIZE.x) / 2,
-	Vector2i(-Block.SIZE.x, Block.SIZE.x) / 2,
+
+const DETECT_POLYGON: PackedVector2Array = [
+	Vector2(-Block.SIZE.x, -Block.SIZE.x) / 2,
+	Vector2(Block.SIZE.x, -Block.SIZE.x) / 2,
+	Vector2(Block.SIZE.x, Block.SIZE.x) / 2,
+	Vector2(-Block.SIZE.x, Block.SIZE.x) / 2,
 ]
