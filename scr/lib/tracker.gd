@@ -24,7 +24,7 @@ var _property_to_be_printed: Array
 @export var tracking := false
 
 static func _static_init() -> void:
-	Console.add_command("tracker", _command_tracker, "turn on/off the debug tracker")
+	Console.add_command("tracker", _command_tracker, "Turn on/off the debug tracker.")
 
 
 static func _command_tracker(on: bool):

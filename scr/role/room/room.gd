@@ -4,7 +4,7 @@ const HEIGHT = 20
 
 
 static func _static_init() -> void:
-	Console.add_command("place", _command_place_block, "place a block at a given coordinate")
+	Console.add_command("place", _command_place_block, "Place a block at a given coordinate.")
 
 
 static func _command_place_block(x: int, y: int, block_name: StringName):

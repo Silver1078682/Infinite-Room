@@ -23,9 +23,9 @@ var _history_index: int
 
 
 func _init() -> void:
-	add_command("clear", clear, "clear the console history.")
-	add_command("help", _command_help, "show all console command.")
-	add_command("echo", print, "print a string")
+	add_command("clear", clear, "Clear the console history.")
+	add_command("help", _command_help, "Show all console command.")
+	add_command("echo", print, "Print a string.")
 
 
 ## Return [param true] if the console has a command.
