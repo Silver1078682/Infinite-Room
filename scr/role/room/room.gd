@@ -100,7 +100,7 @@ func erase_block(coord: Vector2i, update := true) -> void:
 	_blocks[coord.y][coord.x] = null
 
 
-## advanced api compared to [func erase_block]
+## advanced api compared to [func erase_block], update the Map and so on
 func remove_block(coord: Vector2i) -> void:
 	Main.Map.erase_block(coord)
 	Main.Map.update_block(coord)
@@ -108,6 +108,15 @@ func remove_block(coord: Vector2i) -> void:
 	block.notify_exit()
 	_blocks[coord.y][coord.x] = null
 
+## similar to [func remove_block], but won't raise an error when removing a non-existent block
+func remove_block_safe(coord: Vector2i) -> void:
+	if not get_block_safe(coord):
+		return
+	Main.Map.erase_block(coord)
+	Main.Map.update_block(coord)
+	var block: Block = _blocks[coord.y][coord.x]
+	block.notify_exit()
+	_blocks[coord.y][coord.x] = null
 
 var _blocks: Array[Array]
 
