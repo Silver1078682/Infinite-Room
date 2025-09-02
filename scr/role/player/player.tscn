@@ -300,6 +300,7 @@ offset_left = -111.0
 offset_top = -74.0
 offset_right = 401.0
 offset_bottom = 438.0
+mouse_filter = 2
 
 [node name="SubViewport" type="SubViewport" parent="PixelSnapper"]
 disable_3d = true
@@ -353,7 +354,11 @@ visible = false
 shape = SubResource("CircleShape2D_lk4kw")
 debug_color = Color(0.898039, 0.917647, 0.8, 0.0431373)
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="RayCastAboveHead" type="RayCast2D" parent="."]
+position = Vector2(0, -21.0358)
+target_position = Vector2(0, -8)
+
+[node name="RayCastDown" type="RayCast2D" parent="."]
 position = Vector2(0, -11)
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]

@@ -501,6 +501,8 @@ texture_filter = 2
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(16, 16)
+focus_mode = 0
+mouse_filter = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="LinearFilterer"]

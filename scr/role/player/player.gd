@@ -9,9 +9,6 @@ const JUMP_VELOCITY = -300.0
 @onready var tail_line: Line2D = %TailLine2D
 static var local_instance: Player
 
-
-
-
 var last_velocity: Vector2
 var facing_right := true:
 	set(p_facing_right):
@@ -20,14 +17,17 @@ var facing_right := true:
 			flippable.transform.x *= -1
 			facing_right = p_facing_right
 
+
 func _init() -> void:
 	if not local_instance:
 		local_instance = self
+
 
 func _ready() -> void:
 	Log.info("Player Instance Ready")
 
 	await Lib.ensure_ready(Player.local_instance)
+
 
 func _physics_process(delta: float) -> void:
 	super(delta)
@@ -36,11 +36,11 @@ func _physics_process(delta: float) -> void:
 		if not fsm.is_state("Fall") or fsm.is_state("JumpRev"):
 			if last_velocity.y <= 0 and velocity.y > 0 and fsm.is_state("JumpUpward"):
 				fsm.change_to("JumpRev")
-			elif last_velocity.y > 0 and velocity.y > 0 and not $RayCast2D.is_colliding():
+			elif last_velocity.y > 0 and velocity.y > 0 and not $RayCastDown.is_colliding():
 				fsm.change_to("JumpRev")
 
 	elif is_on_floor():
-		if Main.input("pressed", &"jump"):
+		if Main.input("pressed", &"jump") and not $RayCastAboveHead.is_colliding():
 			fsm.change_to("JumpUpward")
 			velocity.y = JUMP_VELOCITY
 		elif last_velocity.y > 0:

@@ -16,6 +16,7 @@ var terrian_height: Array
 @export var bg_color: Color
 @export var world_modulate: Color
 
+
 func create() -> Room:
 	var room := Room.new()
 
@@ -27,6 +28,7 @@ func create() -> Room:
 	_spawn(room)
 	return room
 
+
 func _spawn(room: Room):
 	if frame_on:
 		Log.info("Spawning Frame...")
@@ -34,9 +36,11 @@ func _spawn(room: Room):
 	Log.info("Spawning terrian...")
 	_spawn_terrian(room)
 
+
 func _spawn_frame(room: Room) -> void:
 	var frame := TileOP.rect(Vector2i.ZERO, room.size() - Vector2i.ONE, false, room)
 	frame.fill("Frame", false)
+
 
 func _spawn_terrian(room: Room) -> void:
 	terrian_height.resize(room.width - 2)
@@ -51,10 +55,12 @@ func _spawn_terrian(room: Room) -> void:
 				TileOP.ray(Vector2i(x + 1, current_height), Vector2i.UP, current_height - target_height, room).fill(block_type, false)
 			terrian_height[x] = target_height
 
+
 func _spawn_stucture(room: Room) -> void:
 	for i: Structure in structures:
 		#i.spawn(self)
 		pass
+
 
 func _update_name() -> void:
 	name = resource_path.split("/")[-1].split(".")[0]

@@ -3,6 +3,7 @@
 extends PhantomCamera2D
 ## Camera
 
+## How much to scale up or scale down for each time
 const ZOOM_SCALE = 1.0
 const MIN_ZOOM = 2.0
 const MAX_ZOOM = 4.0
