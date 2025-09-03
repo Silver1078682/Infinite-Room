@@ -10,7 +10,7 @@ const MAX_ZOOM = 4.0
 @onready var _target_zoom := zoom
 
 static var instance: Main.Camera
-## coordinate of the camera, get-only attribute
+## coordinate of the camera, read-only attribute
 var coord: Vector2i:
 	get:
 		return Main.Map.to_coord(position)
