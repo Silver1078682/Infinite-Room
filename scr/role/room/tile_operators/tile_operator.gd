@@ -36,22 +36,24 @@ static func rect(position, size: Vector2i, filled := false, room := Room.current
 
 
 
-
+## Returns the first block with block_name
 func search(block_name: StringName):
 	for coord: Vector2i in self:
-		if not room.has_coord(coord):
+		var block := room.get_block_safe(coord)
+		if not block:
 			continue
-		elif room.get_block(coord).config.name == block_name:
+		elif block.config.name == block_name:
 			return coord
 	return Vector2i(-1, -1)
 
-
+## Returns all blocks with block_name in an array
 func search_all(block_name: StringName) -> Array[Vector2i]:
 	var coords := []
 	for coord: Vector2i in self:
-		if not room.has_coord(coord):
+		var block := room.get_block_safe(coord)
+		if not block:
 			continue
-		elif room.get_block(coord).config.name == block_name:
+		elif block.config.name == block_name:
 			coords.append(coord)
 	return coords
 

@@ -35,6 +35,9 @@ func _spawn(room: Room):
 		_spawn_frame(room)
 	Log.info("Spawning terrian...")
 	_spawn_terrian(room)
+	Log.info("Spawning structure...")
+	_spawn_structure(room)
+	Log.info("Spawning finished")
 
 
 func _spawn_frame(room: Room) -> void:
@@ -56,11 +59,15 @@ func _spawn_terrian(room: Room) -> void:
 			terrian_height[x] = target_height
 
 
-func _spawn_stucture(room: Room) -> void:
+func _spawn_structure(room: Room) -> void:
 	for i: Structure in structures:
-		## TODO here
-		i.spawn(Vector2i.ONE ,room)
-		pass
+		var spawn_coord := i.find_place(room)
+		if spawn_coord != Vector2i(-1, -1):
+			if not i.spawn(spawn_coord, room):
+				Log.info("A structure has failed to spawn")
+			else:
+				Log.info("A structure instance extending %s has been spawned" % i)
+
 
 
 func _update_name() -> void:

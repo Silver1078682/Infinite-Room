@@ -8,7 +8,7 @@ var start: RefCounted
 
 @export var dire: Vector2i
 
-@export var max_length: int
+@export var max_length := 10
 var current := 0
 
 
