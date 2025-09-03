@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BlockConfig" load_steps=7 format=3 uid="uid://ba0sagu5kwum2"]
 
-[ext_resource type="Script" uid="uid://bt3s4cqa1jhvf" path="res://scr/role/item.gd" id="1_nyl5e"]
+[ext_resource type="Script" uid="uid://bt3s4cqa1jhvf" path="res://scr/role/items/item.gd" id="1_nyl5e"]
 [ext_resource type="AudioStream" uid="uid://cnpfypvdbxacl" path="res://asset/sfx/Walking.wav" id="1_t0xje"]
 [ext_resource type="Resource" uid="uid://c0eqnh7tcuur" path="res://scr/role/items/type/CraftTable.tres" id="2_80h35"]
 [ext_resource type="Script" uid="uid://dfj6lxbkko0on" path="res://scr/role/blocks/block_config.gd" id="2_ss8cn"]

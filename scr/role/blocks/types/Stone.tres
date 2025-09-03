@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BlockConfig" load_steps=7 format=3 uid="uid://cmhxn6guw0p5l"]
 
-[ext_resource type="Script" uid="uid://bt3s4cqa1jhvf" path="res://scr/role/item.gd" id="1_knby7"]
+[ext_resource type="Script" uid="uid://bt3s4cqa1jhvf" path="res://scr/role/items/item.gd" id="1_knby7"]
 [ext_resource type="Resource" uid="uid://cluyi25x3d4h0" path="res://scr/role/items/type/Stone.tres" id="2_16j8t"]
 [ext_resource type="Script" uid="uid://dfj6lxbkko0on" path="res://scr/role/blocks/block_config.gd" id="2_lvsi5"]
 [ext_resource type="Texture2D" uid="uid://d3ij3v0n0o6ga" path="res://asset/texture/Block.png" id="3_lvsi5"]

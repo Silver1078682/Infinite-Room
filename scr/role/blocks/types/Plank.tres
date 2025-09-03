@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dfj6lxbkko0on" path="res://scr/role/blocks/block_config.gd" id="1_c1qbw"]
 [ext_resource type="AudioStream" uid="uid://cnpfypvdbxacl" path="res://asset/sfx/Walking.wav" id="1_f0chw"]
-[ext_resource type="Script" uid="uid://bt3s4cqa1jhvf" path="res://scr/role/item.gd" id="1_fcmoe"]
+[ext_resource type="Script" uid="uid://bt3s4cqa1jhvf" path="res://scr/role/items/item.gd" id="1_fcmoe"]
 [ext_resource type="Resource" uid="uid://coxsrl4crim86" path="res://scr/role/items/type/Plank.tres" id="2_iha3r"]
 [ext_resource type="AudioStream" uid="uid://qf7t034lmbwp" path="res://asset/sfx/WalkingWoodenFloor.wav" id="3_mruxs"]
 [ext_resource type="Texture2D" uid="uid://d3ij3v0n0o6ga" path="res://asset/texture/Block.png" id="4_iha3r"]
