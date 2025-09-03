@@ -180,7 +180,10 @@ class AResWRS:
 
 	func assign(dict: Dictionary):
 		_items = dict
-
+	
+	func get_left_items() -> Dictionary:
+		return _items.duplicate()
+	
 	func pop(count := 1) -> Array:
 		var pool := _calc_eigen_value()
 		var keys := pool.keys()
