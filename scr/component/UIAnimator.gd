@@ -14,8 +14,8 @@ extends Node
 @export var autoplay := true
 @export var no_interupt := true
 @export_subgroup("tween_property")
-@export var trans : Tween.TransitionType
-@export var ease: Tween.EaseType
+@export var trans_type : Tween.TransitionType
+@export var ease_type: Tween.EaseType
 
 @export_group("scope")
 ## What nodes will be affected
@@ -57,4 +57,4 @@ func _get_animated_nodes() -> Array[Node]:
 	return node
 
 func _get_tween_of(node: Node) -> Tween:
-	return node.create_tween().set_ease(ease).set_trans(trans)
+	return node.create_tween().set_ease(ease_type).set_trans(trans_type)

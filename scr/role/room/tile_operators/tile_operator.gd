@@ -7,12 +7,12 @@ extends Resource
 var room: Room
 
 
-static func ray(from, dire := Vector2i.DOWN, max_length := 10, room := Room.current) -> TileOPRay:
+static func ray(from, dire := Vector2i.DOWN, max_length := 10, target_room := Room.current) -> TileOPRay:
 	var ray_operator = TileOPRay.new()
 	ray_operator.start = _make_coord(from)
 	ray_operator.dire = dire
 	ray_operator.max_length = max_length
-	ray_operator.room = room
+	ray_operator.room = target_room
 	return ray_operator
 
 
@@ -27,11 +27,11 @@ static func ray(from, dire := Vector2i.DOWN, max_length := 10, room := Room.curr
 ## #  3 * * *   3 |     |
 ## #            4 | - - E
 ## [/codeblock]
-static func rect(position, size: Vector2i, filled := false, room := Room.current) -> TileOPRaySet:
+static func rect(position, size: Vector2i, filled := false, target_room := Room.current) -> TileOPRaySet:
 	var rect_operator = TileOPFilledRect.new() if filled else TileOPEmptyRect.new()
 	rect_operator.start = _make_coord(position)
 	rect_operator.size = size
-	rect_operator.room = room
+	rect_operator.room = target_room
 	return rect_operator
 
 

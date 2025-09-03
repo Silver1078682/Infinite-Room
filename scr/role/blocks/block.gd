@@ -17,7 +17,7 @@ const CONFIG_DIR_PATH = "res://scr/role/blocks/types/%s.tres"
 var coord: Vector2i
 
 ## see [prop block cling_to]
-var neighbour_bind: Dictionary[Block, Vector2i] = {}
+var neighbor_bind: Dictionary[Block, Vector2i] = {}
 
 
 ## Create a block. Return null on failure
@@ -56,8 +56,8 @@ func instant_break():
 
 
 func notify_exit() -> void:
-	for i in neighbour_bind:
-		#WARNING if two adjacent blocks get each other bind in this list, will cause inifite loops
+	for i in neighbor_bind:
+		#WARNING if two adjacent blocks get each other bind in this list, will cause infinite loops
 		i.instant_break()
 
 

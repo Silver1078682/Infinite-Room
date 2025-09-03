@@ -81,7 +81,7 @@ static func string(length := 10, chars = "1234567890") -> String:
 ## #banana
 ## #apple
 ##
-## super_tree.refill()                  # manually reinitiate the shuffle bag
+## super_tree.refill()                  # manually reinitialize the shuffle bag
 ## for fruit in super_tree:             # Use iterator to get elements, end the loop when there's no element left
 ##     print(fruit)
 ## #apple

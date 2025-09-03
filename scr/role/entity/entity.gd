@@ -4,7 +4,7 @@ extends CharacterBody2D
 ## NOTE: call super() for every child class in _physics_process.
 
 ## The coordinate of the [Entity].[br]
-## please make sure the position should be near the entity's feet.(where the hitbox touch the ground)
+## please make sure the position should be near the entity's feet.(where the collision box touch the ground)
 var coord: Vector2i:
 	get:
 		return Main.Map.to_coord(position)
@@ -24,8 +24,8 @@ func get_floor_block() -> Block:
 ## Please set true for all moving entity
 @export var record_coord_changed := true
 
-## emiited when the coordinate of the [Entity] changed,
-## requiring [prop record_coord_chenged] set true
+## emitted when the coordinate of the [Entity] changed,
+## requiring [prop record_coord_changed] set true
 signal coord_changed
 var _last_coord: Vector2i
 
