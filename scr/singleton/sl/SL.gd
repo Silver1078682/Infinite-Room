@@ -12,7 +12,7 @@ static func save_game(save_name := Main.save_name):
 		Log.error("Saving failed")
 		return
 	for name in to_save:
-		Log.info("Saving " + name)
+		Log.info("Saving " + name + " ...")
 		to_save[name] = to_save[name].get_save()
 	var json_string = JSON.stringify(to_save)
 	save_file.store_line(json_string)
