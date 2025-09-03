@@ -54,7 +54,7 @@ func get_block_safe(coord: Vector2i) -> Block:
 	return _blocks[coord.y][coord.x]
 
 
-## basic api, only use when neccessary
+## basic api, only use when necessary
 ## place the [param block] at [param coord]. will replace the previous block[br]
 ## update the block in Main.Map if [param update] set true.
 ## Typically, the [param update] should be set true if the room is in SceneTree, otherwise set false
@@ -65,7 +65,7 @@ func set_block(coord: Vector2i, block: Block, update := true) -> void:
 	_blocks[coord.y][coord.x] = block
 
 
-## basic api, only use when neccessary
+## basic api, only use when necessary
 ## Same as [func set_block], use block_name to refer to a block instead.
 func set_blockn(coord: Vector2i, block_name: String, update := true) -> void:
 	set_block(coord, Block.create(block_name), update)
@@ -76,9 +76,9 @@ func set_blockn(coord: Vector2i, block_name: String, update := true) -> void:
 ## Typically, the [param update] should be set true if the room is in SceneTree, otherwise set false
 func place_block(coord: Vector2i, block: Block) -> void:
 	for i in block.config.cling_to:
-		var neighbour_block := get_block_safe(coord + i)
-		if neighbour_block and neighbour_block.match_condition(block.config.cling_to[i]):
-			neighbour_block.neighbour_bind[block] = coord
+		var neighbor_block := get_block_safe(coord + i)
+		if neighbor_block and neighbor_block.match_condition(block.config.cling_to[i]):
+			neighbor_block.neighbor_bind[block] = coord
 		else:
 			return
 	block.coord = coord
@@ -92,7 +92,7 @@ func place_blockn(coord: Vector2i, block_name: String) -> void:
 	place_block(coord, Block.create(block_name))
 
 
-## basic api, only use when neccessary
+## basic api, only use when necessary
 ## simply erase the block from [Map], and unreference it
 func erase_block(coord: Vector2i, update := true) -> void:
 	if update:

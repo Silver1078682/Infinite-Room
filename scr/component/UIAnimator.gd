@@ -12,7 +12,7 @@ extends Node
 ## Will The animation play automatically on ready
 @export var offset := 80
 @export var autoplay := true
-@export var no_interupt := true
+@export var no_interrupt := true
 @export_subgroup("tween_property")
 @export var trans_type : Tween.TransitionType
 @export var ease_type: Tween.EaseType
@@ -33,7 +33,7 @@ func _ready() -> void:
 
 var _is_playing := false
 func play() -> void:
-	if _is_playing and no_interupt:
+	if _is_playing and no_interrupt:
 		return
 	_is_playing = true
 	await Lib.wait(startup_time)

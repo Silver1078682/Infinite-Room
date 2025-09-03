@@ -19,7 +19,7 @@ var block: Block:
 
 var _block_ref: WeakRef  # to avoid block not being freed after a new save is loaded
 
-## Damage starts at 0 and accumlates as block being mined.[br]
+## Damage starts at 0 and accumulates as block being mined.[br]
 ## Break the block when it outnumbers the hardness[br]
 var damage: float:
 	set(p_damage):

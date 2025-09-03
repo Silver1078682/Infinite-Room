@@ -18,7 +18,7 @@ func _ready() -> void:
 @export var initial_offset : Vector2
 
 # don't move this function to _physics_process for sync problems
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var parent_velocity = follow.velocity.normalized() * parent_speed_factor
 	position = -parent_velocity
 	

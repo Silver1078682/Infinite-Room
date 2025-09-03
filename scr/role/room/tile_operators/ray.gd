@@ -5,6 +5,7 @@ var start: RefCounted
 @export var _start: Vector2i:
 	set(p_start):
 		start = TileOP._make_coord(p_start)
+		_start = p_start
 
 @export var dire: Vector2i
 

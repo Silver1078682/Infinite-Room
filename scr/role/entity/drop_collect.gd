@@ -28,7 +28,7 @@ func remove_from_black_list(drop: Item.Drop):
 		collect(drop)
 
 
-## collect a drop, do not guarrantee success
+## collect a drop, do not guarantee success
 func collect(drop: Item.Drop):
 	if drop.target or drop in _blacklist:
 		return

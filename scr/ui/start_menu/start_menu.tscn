@@ -76,8 +76,6 @@ startup_time = 0.1
 duration = 0.1
 offset = 0
 autoplay = false
-trans = 1
-ease = 1
 applies_to = 0
 
 [node name="LoadGame" type="Button" parent="MainMenu/VBoxContainer/Panel/VBoxContainer" groups=["FontResizable"]]
@@ -93,8 +91,6 @@ startup_time = 0.1
 duration = 0.1
 offset = 0
 autoplay = false
-trans = 1
-ease = 1
 applies_to = 0
 
 [node name="Settings" type="Button" parent="MainMenu/VBoxContainer/Panel/VBoxContainer" groups=["FontResizable"]]
@@ -108,8 +104,6 @@ startup_time = 0.1
 duration = 0.1
 offset = 0
 autoplay = false
-trans = 1
-ease = 1
 applies_to = 0
 
 [node name="QuitGame" type="Button" parent="MainMenu/VBoxContainer/Panel/VBoxContainer" groups=["FontResizable"]]
@@ -124,8 +118,6 @@ startup_time = 0.1
 duration = 0.1
 offset = 0
 autoplay = false
-trans = 1
-ease = 1
 applies_to = 0
 
 [node name="SaveManager" type="MarginContainer" parent="."]

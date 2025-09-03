@@ -1,3 +1,4 @@
+@tool
 extends "res://addons/godot-console/scripts/console_container.gd"
 
 

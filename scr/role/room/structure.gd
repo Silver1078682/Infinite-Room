@@ -88,13 +88,15 @@ func find_place(room := Room.current) -> Vector2i:
 					y = _ares_wrs.pop()[0]
 			var coord := Vector2i(x, y)
 			coord = project(coord, room)
-			if can_spawn_at(coord):
+			if can_spawn_at(coord, room):
 				return coord
 	return Vector2i(-1, -1)
 
 
 ## whether the [Structure] can be spawned
-func can_spawn_at(coord: Vector2i) -> bool:
+func can_spawn_at(coord: Vector2i, room := Room.current) -> bool:
+	if not room.has_coord(coord):
+		return false
 	return true
 
 

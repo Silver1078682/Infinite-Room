@@ -20,7 +20,7 @@ func sum(arr: Array) -> Variant:
 	return arr.reduce(func(a, b): return a + b)
 
 
-## Returns a callable correspondant to the operator given
+## Returns a callable according to the operator given
 func op(operator: Variant.Operator) -> Callable:
 	match operator:
 		OP_ADD:

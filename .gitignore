@@ -22,3 +22,6 @@ mono_crash.*.json
 
 # test_dir
 xxx/
+
+# vscode
+.vscode

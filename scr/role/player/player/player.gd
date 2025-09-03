@@ -4,7 +4,7 @@ extends Entity
 const SPEED = 100.0
 const ACCELERATE = 50.0
 const JUMP_VELOCITY = -300.0
-@onready var flippable: Node2D = $Flippable
+@onready var flipable: Node2D = $Flipable
 @onready var fsm: FSM = $FSM
 @onready var tail_line: Line2D = %TailLine2D
 static var local_instance: Player
@@ -14,7 +14,7 @@ var facing_right := true:
 	set(p_facing_right):
 		if facing_right != p_facing_right:
 			tail_line.position *= -1
-			flippable.transform.x *= -1
+			flipable.transform.x *= -1
 			facing_right = p_facing_right
 
 
@@ -185,9 +185,9 @@ func lay_at(coords: Vector2i):
 
 #
 #
-const DROP_IMPLUSE = 200.0
+const DROP_IMPULSE = 200.0
 const DROP_INITIAL_OFFSET = 5.0
-const DROP_ANGLE_OFFEST = TAU / 20
+const DROP_ANGLE_OFFSET = TAU / 20
 
 
 func drop_item():
@@ -197,12 +197,12 @@ func drop_item():
 	ItemSlotContainer.selected.amount -= 1
 
 	var is_right := 1 if facing_right else -1
-	var dire_vect := Vector2(is_right, 0)
-	var drop_velocity := dire_vect * DROP_IMPLUSE
+	var dire_vector := Vector2(is_right, 0)
+	var drop_velocity := dire_vector * DROP_IMPULSE
 	var local_mouse := get_local_mouse_position()
-	var angle_offset := randf_range(-DROP_ANGLE_OFFEST, DROP_ANGLE_OFFEST)
-	drop_velocity = drop_velocity.rotated(-local_mouse.angle_to(dire_vect) + angle_offset)  #mouse control
-	drop_velocity += velocity  #interia
+	var angle_offset := randf_range(-DROP_ANGLE_OFFSET, DROP_ANGLE_OFFSET)
+	drop_velocity = drop_velocity.rotated(-local_mouse.angle_to(dire_vector) + angle_offset)  #mouse control
+	drop_velocity += velocity  #inertia
 
 	var drop_position = self.global_position
 	drop_position.x += is_right * DROP_INITIAL_OFFSET

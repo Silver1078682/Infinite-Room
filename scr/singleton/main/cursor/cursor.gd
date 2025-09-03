@@ -40,7 +40,7 @@ func _process(_delta: float) -> void:
 	if _last_coord != coord:
 		coord_changed.emit()
 		var block := Room.current.get_block_safe(coord)
-		if block and block.config.interactable:
+		if block and block.config.interactive:
 			shape_override(TYPE.INTERACT)
 		else:
 			shape_override(TYPE.ARROW)

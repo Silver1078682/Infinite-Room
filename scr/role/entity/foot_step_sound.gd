@@ -7,7 +7,9 @@ var parent_fsm: FSM
 	&"Land": null,
 	
 }
-@export var aftersound_length := 0.1
+
+## How long will sound extends after the source is stopped
+@export var lingering_sound := 0.1
 
 func _enter_tree() -> void:
 	parent = get_parent()
@@ -21,7 +23,7 @@ func _process(_delta: float) -> void:
 	if parent_fsm.state.name in when_to_play:
 		var floor_block = parent.get_floor_block()
 		if not floor_block:
-			await Lib.wait(aftersound_length)
+			await Lib.wait(lingering_sound)
 			stop()
 			return
 		if stream != floor_block.config.footstep:
@@ -31,5 +33,5 @@ func _process(_delta: float) -> void:
 		if not playing:
 			play(stream.get_length() * randf_range(0.1, 0.5))
 	else:
-		await Lib.wait(aftersound_length)
+		await Lib.wait(lingering_sound)
 		stop()

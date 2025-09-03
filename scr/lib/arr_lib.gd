@@ -1,6 +1,6 @@
 extends Node
 
-## Library for useful functiona about [Array].
+## Library for useful functions about [Array].
 
 const FOUR_DIRECTIONS_2D = [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]
 const SIX_DIRECTIONS_3D = [Vector3i.LEFT, Vector3i.RIGHT, Vector3i.UP, Vector3i.DOWN, Vector3i.FORWARD, Vector3i.BACK]
@@ -125,7 +125,7 @@ static func split(arr: Array, step: int) -> Array:
 ### Iterate each element in [param a], and iterate [param b] for each element in [param a].[br]
 ### Pass element in [param a] and element in [param b] to [param method] in order,
 ### and returns a new array filled with the values returned by [param method].[br][br]
-### equavient to following code:
+### equivalent to following code:
 ### [codeblock]
 ### var result = []
 ### for i in a:

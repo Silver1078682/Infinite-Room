@@ -304,7 +304,7 @@ script = ExtResource("1_3b1vh")
 [node name="FSM" type="Node" parent="." node_paths=PackedStringArray("initial_state", "animated_sprite")]
 script = ExtResource("3_fhpf4")
 initial_state = NodePath("Idle")
-animated_sprite = NodePath("../Flippable/Sprite")
+animated_sprite = NodePath("../Flipable/Sprite")
 metadata/_custom_type_script = "uid://b4lw0w84ddybb"
 
 [node name="Idle" type="Node" parent="FSM"]
@@ -367,15 +367,15 @@ position = Vector2(-4.57833, -0.0281115)
 width = 2.0
 default_color = Color(0.054902, 0.2, 0.313726, 1)
 
-[node name="Flippable" type="Node2D" parent="."]
+[node name="Flipable" type="Node2D" parent="."]
 
-[node name="TailJoint" type="Sprite2D" parent="Flippable"]
+[node name="TailJoint" type="Sprite2D" parent="Flipable"]
 modulate = Color(0.054902, 0.2, 0.313726, 1)
 position = Vector2(-5, -4.5)
 scale = Vector2(2, 3)
 texture = ExtResource("3_i13nu")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="Flippable"]
+[node name="Sprite" type="AnimatedSprite2D" parent="Flipable"]
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_8arj0")
 animation = &"Fall"
@@ -444,7 +444,7 @@ metadata/_custom_type_script = "uid://b7nuse0s8o0y3"
 
 [node name="AnimatedShape2D" type="Node" parent="." node_paths=PackedStringArray("animated_sprite", "collision_shape")]
 script = ExtResource("11_a14xv")
-animated_sprite = NodePath("../Flippable/Sprite")
+animated_sprite = NodePath("../Flipable/Sprite")
 collision_shape = NodePath("../CollisionShape")
 shape_frames = SubResource("Resource_7xdv8")
 metadata/_custom_type_script = "uid://duyyn272jr774"

@@ -1,7 +1,7 @@
 @tool
 class_name BlockConfig
 extends Resource
-## The config of the block, storing basic infomation
+## The config of the block, storing basic information
 
 ## the identifier of the block
 @export var name: StringName
@@ -21,7 +21,7 @@ extends Resource
 @export var speed_factor: float = 1.0
 @export var jump_factor: float = 1.0
 
-@export_subgroup("block_behaviour")
+@export_subgroup("block_behavior")
 @export var solid := true
 ## If a blockA is clinged to another blockB, blockA should be broken if blockB is broken
 ## and blockB can only be placed on BlockA
@@ -55,7 +55,7 @@ extends Resource
 		return destroy_or_mine if destroy_or_mine or Engine.is_editor_hint() else default_sound
 
 @export_group("interact")
-@export var interactable := false
+@export var interactive := false
 @export_group("drop")
 @export var drop: Array[Item] = []
 

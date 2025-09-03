@@ -4,11 +4,14 @@
         "autoplay",
         "blockn",
         "elif",
+        "floori",
         "lerp",
+        "onready",
         "printerr",
         "randf",
         "Stringname",
         "structop",
-        "tscn"
+        "tscn",
+        "weakref"
     ]
 }
