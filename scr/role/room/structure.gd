@@ -1,7 +1,9 @@
 class_name Structure
 extends Resource
 @export var template := Lib.Arr.matrix_2d(Vector2(10, 10), null, [])
-@export var operators : Array[TileOP] = []
+@export_group("tile_operator")
+@export var blocks : Dictionary[TileOP, PackedStringArray] = {}
+@export_group("place_behaviour")
 @export var project_mode: ProjectMode
 enum ProjectMode { KEEP, LANDSCAPE, STRETCH }
 @export var place_mode: PlaceMode
@@ -13,6 +15,9 @@ func spawn(at: Vector2i, room := Room.current):
 		var row = template[y]
 		for x in row.size():
 			room.set_blockn(Vector2i(x, y) + at, row[x], false)
+	
+	for i in blocks:
+		blocks[i]
 
 
 static func _static_init() -> void:
@@ -21,7 +26,7 @@ static func _static_init() -> void:
 
 
 ## screenshot an area of a room, return a corresponding structure
-static func screenshot(op: TileOP.FilledRect, room := Room.current) -> Structure:
+static func screenshot(op: TileOPFilledRect, room := Room.current) -> Structure:
 	var result := Structure.new()
 	var name_arr: Array[String] = []
 	var p_template := Lib.Arr.matrix_2d(op.size, null, name_arr)
@@ -37,7 +42,7 @@ static func screenshot(op: TileOP.FilledRect, room := Room.current) -> Structure
 
 
 # console command stuffs below
-static var _command_struct_pre_op: TileOP.FilledRect
+static var _command_struct_pre_op: TileOPFilledRect
 static var _command_pre_area_display : ColorRect
 const _COMMAND_PRERANGE_COLOR := Color(Color.CORAL, 0.2)
 

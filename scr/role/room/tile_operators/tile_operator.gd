@@ -7,8 +7,8 @@ extends Resource
 var room: Room
 
 
-static func ray(from, dire := Vector2i.DOWN, max_length := 10, room := Room.current) -> Ray:
-	var ray_operator = Ray.new()
+static func ray(from, dire := Vector2i.DOWN, max_length := 10, room := Room.current) -> TileOPRay:
+	var ray_operator = TileOPRay.new()
 	ray_operator.start = _make_coord(from)
 	ray_operator.dire = dire
 	ray_operator.max_length = max_length
@@ -27,8 +27,8 @@ static func ray(from, dire := Vector2i.DOWN, max_length := 10, room := Room.curr
 ## #  3 * * *   3 |     |
 ## #            4 | - - E
 ## [/codeblock]
-static func rect(position, size: Vector2i, filled := false, room := Room.current) -> RaySet:
-	var rect_operator = FilledRect.new() if filled else EmptyRect.new()
+static func rect(position, size: Vector2i, filled := false, room := Room.current) -> TileOPRaySet:
+	var rect_operator = TileOPFilledRect.new() if filled else TileOPEmptyRect.new()
 	rect_operator.start = _make_coord(position)
 	rect_operator.size = size
 	rect_operator.room = room
@@ -114,7 +114,7 @@ func _iter_get(_iter: Variant) -> Variant:
 	## coordholder is simply an object with a property coord.
 
 
-class CoordHolder:
+class CoordHolder extends RefCounted:
 	var coord: Vector2i
 
 # accept a Vector2i or an object with property "coord"
@@ -128,81 +128,3 @@ static func _make_coord(from) -> Object:
 	else:
 		assert(from.has_property("coord"))
 	return result
-
-class Ray:
-	extends TileOP
-	var dire: Vector2i
-	var start: Object
-	var max_length: int
-	var current := 0
-
-	func _iter_init(_iter: Array) -> bool:
-		current = 0
-		return max_length != 0
-
-	func _iter_next(_iter: Array) -> bool:
-		current += 1
-		return current < max_length
-
-	func _iter_get(_iter: Variant) -> Variant:
-		return get_value()
-
-	func get_value() -> Vector2i:
-		return start.coord + dire * current
-
-
-class RaySet:
-	extends TileOP
-	var _rays: Array[Ray]
-	var current_ray: int
-
-	func _iter_init(_iter: Array) -> bool:
-		current_ray = 0
-		return not _rays.is_empty()
-
-	func _iter_get(_iter: Variant) -> Variant:
-		return _rays[current_ray].get_value()
-
-	func _iter_next(_iter: Array) -> bool:
-		_rays[current_ray].current += 1
-		while _rays[current_ray].current >= _rays[current_ray].max_length:
-			current_ray += 1
-			if current_ray >= _rays.size():
-				return false
-		return true
-
-
-
-class FilledRect:
-	extends RaySet
-	var start: Object
-	var size: Vector2i
-
-	func _iter_init(_iter: Array) -> bool:
-		_rays.clear()
-		var rect := Rect2i(start.coord, size)
-		var room_rect := Rect2i(Vector2i.ZERO, room.size())
-		rect = rect.abs()
-		rect = rect.intersection(room_rect)
-		for i in rect.size.y:
-			var pos = Vector2i(rect.position.x, rect.position.y + i)
-			_rays.append(TileOP.ray(pos, Vector2i.RIGHT, rect.size.x, room))
-		return super(_iter)
-
-
-class EmptyRect:
-	extends RaySet
-	var start: Object
-	var size: Vector2i
-
-	func _iter_init(iter: Array) -> bool:
-		_rays.clear()
-		var rect := Rect2i(start.coord, size)
-		var room_rect := Rect2i(Vector2i.ZERO, room.size())
-		rect = rect.abs()
-		rect = rect.intersection(room_rect)
-		_rays.append(TileOP.ray(rect.position, Vector2i.RIGHT, rect.size.x, room))
-		_rays.append(TileOP.ray(rect.position, Vector2i.DOWN, rect.size.y, room))
-		_rays.append(TileOP.ray(rect.end - Vector2i.ONE, Vector2i.LEFT, rect.size.x, room))
-		_rays.append(TileOP.ray(rect.end - Vector2i.ONE, Vector2i.UP, rect.size.y, room))
-		return super(iter)
