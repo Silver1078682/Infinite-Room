@@ -1,6 +1,7 @@
 class_name Structure
 extends Resource
 @export var template := Lib.Arr.matrix_2d(Vector2(10, 10), null, [])
+@export var operators : Array[TileOP] = []
 @export var project_mode: ProjectMode
 enum ProjectMode { KEEP, LANDSCAPE, STRETCH }
 @export var place_mode: PlaceMode
@@ -37,7 +38,7 @@ static func screenshot(op: TileOP.FilledRect, room := Room.current) -> Structure
 
 # console command stuffs below
 static var _command_struct_pre_op: TileOP.FilledRect
-static var _command_pre_area_display := ColorRect.new()
+static var _command_pre_area_display : ColorRect
 const _COMMAND_PRERANGE_COLOR := Color(Color.CORAL, 0.2)
 
 
@@ -46,7 +47,8 @@ static func _command_add_struct_pre_area(from_x: int, from_y: int, size_x: int, 
 	var size: Vector2i = Vector2i(size_x, -size_y)
 	_command_struct_pre_op = TileOP.rect(from, size, true, Room.current)
 
-	if not _command_pre_area_display.is_node_ready():
+	if not is_instance_valid(_command_pre_area_display):
+		_command_pre_area_display = ColorRect.new()
 		_command_pre_area_display.color = _COMMAND_PRERANGE_COLOR
 		_command_pre_area_display.size = Block.SIZE
 		Main.instance.add_child.call_deferred(_command_pre_area_display)

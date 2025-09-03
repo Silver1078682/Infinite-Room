@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Structure" load_steps=2 format=3 uid="uid://c2es4xu67bq0"]
+
+[ext_resource type="Script" uid="uid://qdbq1k33qav6" path="res://scr/role/room/structure.gd" id="1_xdn8w"]
+
+[resource]
+script = ExtResource("1_xdn8w")
+template = null
+project_mode = 0
+place_mode = 0
+metadata/_custom_type_script = "uid://qdbq1k33qav6"
