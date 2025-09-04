@@ -133,3 +133,64 @@ static func _make_coord(from) -> Object:
 	else:
 		assert(from.has_property("coord"))
 	return result
+
+
+static func _static_init() -> void:
+	Console.add_command("struct", _command_add_struct_pre_area, "Add a structure prepare area")
+	Console.add_command("structop", _command_struct_op, "Operates a structure prepare area")
+
+
+static var _command_struct_pre_op: TileOPFilledRect
+static var _command_pre_area_display: ColorRect
+const _COMMAND_PRE_RANGE_COLOR := Color(Color.CORAL, 0.2)
+
+
+static func _command_add_struct_pre_area(from_x: int, from_y: int, size_x: int, size_y: int) -> void:
+	var from: Vector2i = Main.Map.h2gui(Vector2i(from_x, from_y))
+	var size: Vector2i = Vector2i(size_x, -size_y)
+	_command_struct_pre_op = TileOP.rect(from, size, true, Room.current)
+
+	if not is_instance_valid(_command_pre_area_display):
+		_command_pre_area_display = ColorRect.new()
+		_command_pre_area_display.color = _COMMAND_PRE_RANGE_COLOR
+		_command_pre_area_display.size = Block.SIZE
+		Main.instance.add_child.call_deferred(_command_pre_area_display)
+
+	_command_pre_area_display.position = Main.Map.to_pos(from) - Block.SIZE / 2
+	_command_pre_area_display.scale = size
+	return
+
+
+static func _command_struct_op(operator_name := "save", parameter := "") -> void:
+	assert(Room.current, "the command must operate on Room.current")
+	if not _command_struct_pre_op:
+		Console.warning('No existing prepare area, use "struct" command to create one')
+		return
+	match operator_name:
+		"save":
+			if not OS.is_debug_build():
+				Console.warning("save command is only available in debug mode")
+				return
+			_command_struct_save(parameter)
+
+		"clear":
+			_command_struct_pre_op.remove_block_safe()
+
+		"mine":
+			_command_struct_pre_op.call_each("instant_break")
+
+		"cancel":
+			_command_struct_pre_op = null
+			_command_pre_area_display.hide()
+
+		_:
+			Console.print("subcommands available: save clear mine cancel")
+
+
+const STRUCTURE_SAVE_DIR_PATH = "res://scr/role/room/structure/"
+
+
+static func _command_struct_save(name := "") -> void:
+	var structure := Structure.screenshot(_command_struct_pre_op)
+	SL.save_something(STRUCTURE_SAVE_DIR_PATH, structure)
+	Log.notice("Saving a struct named %s" % name)
