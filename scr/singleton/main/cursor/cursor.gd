@@ -11,7 +11,7 @@ enum TYPE {
 	FORBIDDEN = Input.CURSOR_FORBIDDEN,
 }
 
-const TILE_SHEET_PATH = "res://asset/texture/Cursor.png"
+const TILE_SHEET_PATH = "res://asset/texture/Cursor/Cursor.png"
 const TILE_SHEET = preload(TILE_SHEET_PATH)
 ## coordinate of the mouse cursor (relative to the room)
 static var coord:

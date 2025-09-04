@@ -9,7 +9,8 @@ const SIZE = Vector2(16, 16)
 
 const TILE_SET_PATH = "res://asset/texture/Block.png"
 const TILE_SET = preload(TILE_SET_PATH)
-const CONFIG_DIR_PATH = "res://scr/role/blocks/types/%s.tres"
+const CONFIG_DIR_PATH = "res://scr/role/blocks/types/"
+const CONFIG_FILE_PATH = "res://scr/role/blocks/types/%s.tres"
 
 @export var config: BlockConfig
 
@@ -25,7 +26,7 @@ static func create(block_name: StringName) -> Block:
 	if not block_name:
 		return null
 	var block := Block.new()
-	block.config = load("res://scr/role/blocks/types/%s.tres" % block_name)
+	block.config = load(CONFIG_FILE_PATH % block_name)
 	if not block:
 		Log.warning("try to create an non-existent BlockConfig named %s" % block_name)
 		assert(block)

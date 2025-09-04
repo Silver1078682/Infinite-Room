@@ -2,9 +2,11 @@ extends CharacterBody2D
 ## draw the physics state of a tail in a Line2D
 
 @export var line2d: Line2D
-@export var max_length_between_nodes := 2.0
-@export var min_length_between_nodes := 1.5
 
+@export var min_length_between_nodes := 1.5
+@export var max_length_between_nodes := 2.0:
+	set(p_max_length_between_nodes):
+		max_length_between_nodes = clampf(p_max_length_between_nodes, min_length_between_nodes, INF)
 
 func _process(_delta: float) -> void:
 	line2d.clear_points()
