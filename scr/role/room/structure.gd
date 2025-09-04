@@ -11,33 +11,36 @@ extends Resource
 @export_group("place_behavior")
 ## the size of a structure,
 ## when set Vector2i(-1, -1), will autoresize according to its template size
+## NOTE this property use a pointing-up Y axis !
 @export var size := UNDEFINED_VECTOR2i
 @export var project_mode: ProjectMode  ## TODO
 enum ProjectMode {
-	NONE,
-	KEEP,
-	LANDSCAPE,
+	NONE,  ## Don't project, keep where it is , see initial_y_mode
+	KEEP,  ## Projected to the terrian, but keep its main structure unchanged
+	TERRIAN,  ## Projected to the terrian and may change the structure to adadpt to the terrian
 	STRETCH,
 	PLATFORM,
 }
 @export var project_dire := Vector2i.DOWN
 @export var project_max_length := 20
+
 @export var place_mode: PlaceMode  ## TODO
 enum PlaceMode {
+	PLACE,
+	ERASE,
 	REPLACE,
-	WHITELIST,
-	BLACKLIST,
 }
+@export var replace_blacklist: Dictionary[StringName, int] = {&"Frame": 0}
 
 @export_group("initial_y_position")
 ## This determine the initial position of the [Structure][br]
-## NOTE the structure will then be projected to the landscape according to its [prop project_mode]
+## NOTE the structure will then be projected to the terrian according to its [prop project_mode]
 ## or will try another possible position if projection failed
 @export var initial_y_mode: InitialYMode
 enum InitialYMode {
 	FIXED,  ## Always spawn on a fixed height
 	WEIGHTED,  ## Use [prop height_possibility_curve] to determine its initial height
-	## not recommended to use with ProjectMode.STRETCH or ProjectMode.LANDSCAPE
+	## not recommended to use with ProjectMode.STRETCH or ProjectMode.TERRIAN
 }
 
 @export var initial_y := 1
@@ -112,38 +115,86 @@ func spawn(at: Vector2i, room := Room.current) -> bool:
 	return true
 
 
+var _x_offset: Array[int] = []
+var _y_offset: Array[int] = []
+
+
 func spawn_template(at: Vector2i, room := Room.current):
-	var last_row = template[-1]
+	print(at)
+	_y_offset.resize(size.x)
+	_x_offset.resize(size.y)
+	if project_mode == ProjectMode.TERRIAN:
+		if project_dire.y:
+			var y := size.y if project_dire.y < 0 else 0
+			for x in size.x:
+				_y_offset[x] = _project_to_terrian(at + Vector2i(x, y), room).y - y - at.y
+		if project_dire.x:
+			var x := size.x if project_dire.x > 0 else 0
+			for y in size.y:
+				_x_offset[y] = _project_to_terrian(at + Vector2i(x, y), room).x - x - at.x
+	print(_x_offset, _y_offset)
+
 	for y in template.size():
 		var row = template[y]
 		for x in row.size():
 			if row[x]:
-				room.set_blockn(at + Vector2i(x, y), row[x], false)
+				var block_coord := at + Vector2i(x + _x_offset[y], y + _y_offset[x])
+				place_a_blockn(block_coord, row[x], room)
 
 
-## project a coordinate to landscape
-func project(from: Vector2i, room := Room.current, mode := project_mode) -> Vector2i:
-	print(size)
-	match mode:
+# Doon't be confused with Room.place_block
+## place a block in room, the exact behaviour is determined by property place_mode
+func place_a_blockn(coord: Vector2i, block_name: StringName, room := Room.current) -> void:
+	if not room.has_coord(coord):
+		return
+	match place_mode:
+		PlaceMode.PLACE:
+			var prev := room.get_block(coord)
+			if not prev or not prev.config.solid:
+				room.set_blockn(coord, block_name, false)
+		PlaceMode.ERASE:
+			room.erase_block(coord)
+		PlaceMode.REPLACE:
+			var prev := room.get_block(coord)
+			if prev and prev.config.name in replace_blacklist:
+				return
+			room.set_blockn(coord, block_name)
+
+
+## project a coordinate to terrian according to the [project_mode]
+func project(from: Vector2i, room := Room.current) -> Vector2i:
+	match project_mode:
 		ProjectMode.NONE:
 			return from
 		ProjectMode.KEEP:
-			return _project_down(from, room)
-		ProjectMode.LANDSCAPE:
-			return _project_down(from, room)
+			return _project_to_terrian(from, room)
+		ProjectMode.TERRIAN:
+			return _project_to_terrian(from, room)
 		ProjectMode.STRETCH:
 			return from
 	return UNDEFINED_VECTOR2i
 
-func _project_down(from: Vector2i, room := Room.current):
+
+## project a coordinate to terrian
+func _project_to_terrian(from: Vector2i, room := Room.current) -> Vector2i:
+	print("from",from)
+	var has_met_barrier := false
 	for i in TileOP.ray(from, project_dire, project_max_length, room):
 		if not room.has_coord(i):
 			break
 		var block := room.get_block(i)
 		print("\tblock:", block)
-		if block and block.config.solid:
-			return i - size * project_dire
+
+		while block and block.config.solid:  # meet barriers, go in the opposite direction
+			i -= size * project_dire
+			block = room.get_block_safe(i)
+			if not block:
+				print(i)
+				return i
+
+
 	return UNDEFINED_VECTOR2i
+
 
 func set_height_possibility_curve(p_curve: Curve) -> void:
 	# generate the dictionary for weighted random sampling
@@ -153,8 +204,6 @@ func set_height_possibility_curve(p_curve: Curve) -> void:
 	for i in Room.HEIGHT:
 		_weighted_dictionary[i] = p_curve.sample(i)
 	height_possibility_curve = p_curve
-
-
 
 
 ## screenshot an area of a room, return a corresponding structure

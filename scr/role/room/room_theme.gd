@@ -67,7 +67,7 @@ func _spawn_structure(room: Room) -> void:
 			if not i.spawn(spawn_coord, room):
 				Log.info("A structure has failed to spawn")
 			else:
-				Log.info("A structure instance extending %s has been spawned" % i)
+				Log.info("A structure instance extending %s has been spawned at %s" % [i, spawn_coord])
 		else:
 			Log.info("A structure has failed to spawn, reason: No feasible position found")
 
