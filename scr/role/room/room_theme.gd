@@ -9,8 +9,8 @@ extends Resource
 @export var max_width := 40
 @export var frame_on := true
 @export_group("terrian")
-@export var terrian_layers: Array[Terrian]
-var terrian_height: Array
+@export var terrain_layers: Array[Terrain]
+var terrain_height: Array
 @export var structures: Array[Structure] = []
 @export_group("environment")
 @export var bg_color: Color
@@ -46,17 +46,17 @@ func _spawn_frame(room: Room) -> void:
 
 
 func _spawn_terrian(room: Room) -> void:
-	terrian_height.resize(room.width - 2)
-	terrian_height.fill(Room.HEIGHT + Vector2i.UP.y * 2)
-	for layer in terrian_layers:
+	terrain_height.resize(room.width - 2)
+	terrain_height.fill(Room.HEIGHT + Vector2i.UP.y * 2)
+	for layer in terrain_layers:
 		layer.set_width(room.width)
 		for x in room.width - 2:
 			var target_height = Room.HEIGHT - layer.get_value(x)
 			var block_type = layer.block_type
-			var current_height = terrian_height[x]
+			var current_height = terrain_height[x]
 			if block_type:
 				TileOP.ray(Vector2i(x + 1, current_height), Vector2i.UP, current_height - target_height, room).fill(block_type, false)
-			terrian_height[x] = target_height
+			terrain_height[x] = target_height
 
 
 func _spawn_structure(room: Room) -> void:

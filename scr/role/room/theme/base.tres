@@ -1,13 +1,38 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://cxq7wkfk16eeh"]
+[gd_resource type="Resource" load_steps=9 format=3 uid="uid://cxq7wkfk16eeh"]
 
 [ext_resource type="Script" uid="uid://em18wwpg7gbg" path="res://scr/role/room/theme/base.gd" id="1_8ldc8"]
 [ext_resource type="Script" uid="uid://qdbq1k33qav6" path="res://scr/role/room/structure.gd" id="2_ryxk3"]
-[ext_resource type="Resource" uid="uid://dc71r5eogxw13" path="res://scr/role/room/structure/plain_remains.tres" id="3_8n0rt"]
-[ext_resource type="Script" uid="uid://bgye7tfwxg4ra" path="res://scr/role/room/terrian.gd" id="3_axyj7"]
+[ext_resource type="Resource" uid="uid://boyi4slep3p0f" path="res://scr/role/room/structure/plain_remains.tres" id="3_8n0rt"]
+[ext_resource type="Script" uid="uid://bgye7tfwxg4ra" path="res://scr/role/room/terrain.gd" id="4_8n0rt"]
+
+[sub_resource type="Resource" id="Resource_8n0rt"]
+script = ExtResource("4_8n0rt")
+block_type = &"Stone"
+block_weight_list = Dictionary[StringName, float]({})
+min_value = 2
+max_value = 8
+max_sample_value_gap = -0.5
+min_sample_interval = 5.0
+max_sample_interval = 8.0
+smooth = true
+metadata/_custom_type_script = "uid://bgye7tfwxg4ra"
+
+[sub_resource type="Resource" id="Resource_4d6tr"]
+script = ExtResource("4_8n0rt")
+block_type = &"Soil"
+block_weight_list = Dictionary[StringName, float]({})
+min_value = 8
+max_value = 15
+max_sample_value_gap = -0.5
+min_sample_interval = 5.0
+max_sample_interval = 8.0
+smooth = true
+metadata/_custom_type_script = "uid://bgye7tfwxg4ra"
 
 [sub_resource type="Resource" id="Resource_qwipb"]
-script = ExtResource("3_axyj7")
+script = ExtResource("4_8n0rt")
 block_type = &"Stone"
+block_weight_list = Dictionary[StringName, float]({})
 min_value = 2
 max_value = 8
 max_sample_value_gap = -0.5
@@ -17,8 +42,9 @@ smooth = true
 metadata/_custom_type_script = "uid://bgye7tfwxg4ra"
 
 [sub_resource type="Resource" id="Resource_8ldc8"]
-script = ExtResource("3_axyj7")
+script = ExtResource("4_8n0rt")
 block_type = &"Soil"
+block_weight_list = Dictionary[StringName, float]({})
 min_value = 8
 max_value = 15
 max_sample_value_gap = -0.5
@@ -33,7 +59,8 @@ name = &"Base"
 min_width = 40
 max_width = 40
 frame_on = true
-terrian_layers = Array[ExtResource("3_axyj7")]([SubResource("Resource_qwipb"), SubResource("Resource_8ldc8")])
+terrian_layers = Array[ExtResource("4_8n0rt")]([SubResource("Resource_qwipb"), SubResource("Resource_8ldc8")])
+terrain_layers = Array[ExtResource("4_8n0rt")]([SubResource("Resource_8n0rt"), SubResource("Resource_4d6tr")])
 structures = Array[ExtResource("2_ryxk3")]([ExtResource("3_8n0rt")])
 bg_color = Color(0.436049, 0.69214, 0.85839, 1)
 world_modulate = Color(0.974565, 0.912154, 0.924793, 1)

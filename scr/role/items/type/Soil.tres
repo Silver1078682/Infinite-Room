@@ -12,7 +12,7 @@ script = ExtResource("1_c2t7x")
 name = "Soil"
 texture = SubResource("AtlasTexture_42tmd")
 material = 0
-imflammable = false
+inflammable = false
 stack_amount = 100
 meta = Dictionary[String, Variant]({
 "block": "Soil"

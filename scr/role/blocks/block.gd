@@ -12,6 +12,9 @@ const TILE_SET = preload(TILE_SET_PATH)
 const CONFIG_DIR_PATH = "res://scr/role/blocks/types/"
 const CONFIG_FILE_PATH = "res://scr/role/blocks/types/%s.tres"
 
+# we can assure that every valid block has a valid config.
+# To make that happens, avoid using Block.new() in any circumstance
+## The [BlockConfig] of the block
 @export var config: BlockConfig
 
 ## The current coordinate the block is in
@@ -48,7 +51,6 @@ func mined(speed: float, delta: float) -> void:
 		Main.instance.add_child.call_deferred(mine)
 		mine.block = self
 	mine.mined(speed, delta)
-
 
 
 ## Break the block in a flash

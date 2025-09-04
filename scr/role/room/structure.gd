@@ -10,14 +10,14 @@ extends Resource
 
 @export_group("place_behavior")
 ## the size of a structure,
-## when set Vector2i(-1, -1), will autoresize according to its template size
+## when set Vector2i(-1, -1), will automatically resize according to its template size
 ## NOTE this property use a pointing-up Y axis !
 @export var size := UNDEFINED_VECTOR2i
 @export var project_mode: ProjectMode  ## TODO
 enum ProjectMode {
 	NONE,  ## Don't project, keep where it is , see initial_y_mode
-	KEEP,  ## Projected to the terrian, but keep its main structure unchanged
-	TERRIAN,  ## Projected to the terrian and may change the structure to adadpt to the terrian
+	KEEP,  ## Projected to the terrain, but keep its main structure unchanged
+	TERRAIN,  ## Projected to the terrain and may change the structure to adapt to the terrain
 	STRETCH,
 	PLATFORM,
 }
@@ -34,13 +34,13 @@ enum PlaceMode {
 
 @export_group("initial_y_position")
 ## This determine the initial position of the [Structure][br]
-## NOTE the structure will then be projected to the terrian according to its [prop project_mode]
+## NOTE the structure will then be projected to the terrain according to its [prop project_mode]
 ## or will try another possible position if projection failed
 @export var initial_y_mode: InitialYMode
 enum InitialYMode {
 	FIXED,  ## Always spawn on a fixed height
 	WEIGHTED,  ## Use [prop height_possibility_curve] to determine its initial height
-	## not recommended to use with ProjectMode.STRETCH or ProjectMode.TERRIAN
+	## not recommended to use with ProjectMode.STRETCH or [const ProjectMode.TERRAIN]
 }
 
 @export var initial_y := 1
@@ -123,15 +123,15 @@ func spawn_template(at: Vector2i, room := Room.current):
 	print(at)
 	_y_offset.resize(size.x)
 	_x_offset.resize(size.y)
-	if project_mode == ProjectMode.TERRIAN:
+	if project_mode == ProjectMode.TERRAIN:
 		if project_dire.y:
 			var y := size.y if project_dire.y < 0 else 0
 			for x in size.x:
-				_y_offset[x] = _project_to_terrian(at + Vector2i(x, y), room).y - y - at.y
+				_y_offset[x] = _project_to_terrain(at + Vector2i(x, y), room).y - y - at.y
 		if project_dire.x:
 			var x := size.x if project_dire.x > 0 else 0
 			for y in size.y:
-				_x_offset[y] = _project_to_terrian(at + Vector2i(x, y), room).x - x - at.x
+				_x_offset[y] = _project_to_terrain(at + Vector2i(x, y), room).x - x - at.x
 	print(_x_offset, _y_offset)
 
 	for y in template.size():
@@ -142,8 +142,8 @@ func spawn_template(at: Vector2i, room := Room.current):
 				place_a_blockn(block_coord, row[x], room)
 
 
-# Doon't be confused with Room.place_block
-## place a block in room, the exact behaviour is determined by property place_mode
+# Don't be confused with Room.place_block
+## place a block in room, the exact behavior is determined by property place_mode
 func place_a_blockn(coord: Vector2i, block_name: StringName, room := Room.current) -> void:
 	if not room.has_coord(coord):
 		return
@@ -161,24 +161,23 @@ func place_a_blockn(coord: Vector2i, block_name: StringName, room := Room.curren
 			room.set_blockn(coord, block_name)
 
 
-## project a coordinate to terrian according to the [project_mode]
+## project a coordinate to terrain according to the [project_mode]
 func project(from: Vector2i, room := Room.current) -> Vector2i:
 	match project_mode:
 		ProjectMode.NONE:
 			return from
 		ProjectMode.KEEP:
-			return _project_to_terrian(from, room)
-		ProjectMode.TERRIAN:
-			return _project_to_terrian(from, room)
+			return _project_to_terrain(from, room)
+		ProjectMode.TERRAIN:
+			return _project_to_terrain(from, room)
 		ProjectMode.STRETCH:
 			return from
 	return UNDEFINED_VECTOR2i
 
 
-## project a coordinate to terrian
-func _project_to_terrian(from: Vector2i, room := Room.current) -> Vector2i:
+## project a coordinate to terrain
+func _project_to_terrain(from: Vector2i, room := Room.current) -> Vector2i:
 	print("from",from)
-	var has_met_barrier := false
 	for i in TileOP.ray(from, project_dire, project_max_length, room):
 		if not room.has_coord(i):
 			break
