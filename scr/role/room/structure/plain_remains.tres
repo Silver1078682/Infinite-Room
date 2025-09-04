@@ -1,11 +1,7 @@
-[gd_resource type="Resource" script_class="Structure" load_steps=4 format=3 uid="uid://c2es4xu67bq0"]
+[gd_resource type="Resource" script_class="Structure" load_steps=3 format=3 uid="uid://c2es4xu67bq0"]
 
 [ext_resource type="Script" uid="uid://cldu45opgh0bg" path="res://scr/role/room/tile_operators/tile_operator.gd" id="1_maq4o"]
 [ext_resource type="Script" uid="uid://qdbq1k33qav6" path="res://scr/role/room/structure.gd" id="1_xdn8w"]
-
-[sub_resource type="Curve" id="Curve_uisbg"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
 
 [resource]
 script = ExtResource("1_xdn8w")
@@ -17,6 +13,5 @@ project_max_length = 0
 place_mode = 0
 initial_y_mode = 0
 initial_y = 0
-height_possibility_curve = SubResource("Curve_uisbg")
 x_step = 5
 metadata/_custom_type_script = "uid://qdbq1k33qav6"

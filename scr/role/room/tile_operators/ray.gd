@@ -9,7 +9,9 @@ var start: RefCounted
 
 @export var dire: Vector2i
 
-@export var max_length := 10
+@export var max_length := 10:
+	set(p_max_length):
+		max_length = max(p_max_length, 0)
 var current := 0
 
 
@@ -29,3 +31,7 @@ func _iter_get(_iter: Variant) -> Variant:
 
 func get_value() -> Vector2i:
 	return start.coord + dire * current
+
+
+func _to_string() -> String:
+	return "Ray[@%s, >%s, ==%s]"%[start.coord, dire, max_length]

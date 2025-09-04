@@ -59,6 +59,7 @@ folder_colors={
 "res://scr/role/player/": "green",
 "res://scr/role/room/": "green",
 "res://scr/role/room/structure/": "red",
+"res://scr/role/room/structure/editor_tool/": "blue",
 "res://scr/role/room/theme/": "red",
 "res://xxx/": "gray"
 }

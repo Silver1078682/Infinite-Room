@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Structure" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scr/role/room/tile_operators/tile_operator.gd" id="1_4kyic"]
+[ext_resource type="Script" path="res://scr/role/room/structure.gd" id="2_ekf4d"]
+
+[resource]
+script = ExtResource("2_ekf4d")
+template = Array[Array]([[&"Stone", &"Stone", &"Stone", null, null, null, null], [&"Stone", &"Stone", &"Stone", &"Stone", null, null, null], [null, null, null, null, &"Stone", null, null], [null, null, null, null, &"Stone", null, null], [null, null, null, null, &"Stone", &"Stone", null], [null, null, null, null, null, &"Stone", null], [null, null, null, null, null, &"Stone", &"Stone"], [null, null, null, null, null, null, &"Stone"]])
+blocks = Dictionary[ExtResource("1_4kyic"), Dictionary]({})
+project_mode = 0
+project_dire = Vector2i(0, 0)
+project_max_length = 0
+place_mode = 0
+initial_y_mode = 0
+initial_y = 0
+x_step = 5
