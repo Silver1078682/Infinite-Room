@@ -7,11 +7,12 @@ extends Resource
 var room: Room
 
 
-static func ray(from, dire := Vector2i.DOWN, max_length := 10, target_room := Room.current) -> TileOPRay:
+## Returns a ray with a fixed size
+static func ray(from, dire := Vector2i.DOWN, length := 10, target_room := Room.current) -> TileOPRay:
 	var ray_operator = TileOPRay.new()
 	ray_operator.start = _make_coord(from)
 	ray_operator.dire = dire
-	ray_operator.max_length = max_length
+	ray_operator.max_length = length
 	ray_operator.room = target_room
 	return ray_operator
 
@@ -35,7 +36,6 @@ static func rect(position, size: Vector2i, filled := false, target_room := Room.
 	return rect_operator
 
 
-
 ## Returns the first block with block_name
 func search(block_name: StringName):
 	for coord: Vector2i in self:
@@ -45,6 +45,7 @@ func search(block_name: StringName):
 		elif block.config.name == block_name:
 			return coord
 	return Vector2i(-1, -1)
+
 
 ## Returns all blocks with block_name in an array
 func search_all(block_name: StringName) -> Array[Vector2i]:
@@ -116,8 +117,10 @@ func _iter_get(_iter: Variant) -> Variant:
 	## coordholder is simply an object with a property coord.
 
 
-class CoordHolder extends RefCounted:
+class CoordHolder:
+	extends RefCounted
 	var coord: Vector2i
+
 
 # accept a Vector2i or an object with property "coord"
 # return a CoordHolder if a Vector2i is passed
