@@ -5,7 +5,7 @@ extends Resource
 ## You can use the static function to get a corresponding [TileOP]
 ## Use the given methods of a Operator or iterate a Operator
 var room: Room
-
+var start: RefCounted
 
 ## Returns a ray with a fixed size
 static func ray(from, dire := Vector2i.DOWN, length := 10, target_room := Room.current) -> TileOPRay:
@@ -114,8 +114,7 @@ func _iter_next(_iter: Array) -> bool:
 func _iter_get(_iter: Variant) -> Variant:
 	return
 
-	## coordholder is simply an object with a property coord.
-
+## coordholder is simply an [RefCounted] with a property coord.
 
 class CoordHolder:
 	extends RefCounted

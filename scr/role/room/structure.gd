@@ -143,6 +143,7 @@ func _project_down(from: Vector2i, room := Room.current):
 		print("\tblock:", block)
 		if block and block.config.solid:
 			return i - size * project_dire
+	return UNDEFINED_VECTOR2i
 
 func set_height_possibility_curve(p_curve: Curve) -> void:
 	# generate the dictionary for weighted random sampling

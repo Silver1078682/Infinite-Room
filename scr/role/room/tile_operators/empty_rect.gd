@@ -1,6 +1,6 @@
 class_name TileOPEmptyRect extends TileOPRaySet
 
-var start: RefCounted
+
 ## editor-only
 @export var _start: Vector2i:
 	set(p_start):

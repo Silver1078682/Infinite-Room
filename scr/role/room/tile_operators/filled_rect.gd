@@ -1,6 +1,5 @@
 class_name TileOPFilledRect extends TileOPRaySet
 
-var start: RefCounted
 ## editor-only
 @export var _start: Vector2i:
 	set(p_start):
@@ -8,6 +7,7 @@ var start: RefCounted
 		_start = p_start
 
 var size: Vector2i
+
 
 func _iter_init(_iter: Array) -> bool:
 	_rays.clear()
