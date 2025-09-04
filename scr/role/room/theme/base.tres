@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://em18wwpg7gbg" path="res://scr/role/room/theme/base.gd" id="1_8ldc8"]
 [ext_resource type="Script" uid="uid://qdbq1k33qav6" path="res://scr/role/room/structure.gd" id="2_ryxk3"]
-[ext_resource type="Resource" uid="uid://c2es4xu67bq0" path="res://scr/role/room/structure/plain_remains.tres" id="3_8n0rt"]
+[ext_resource type="Resource" uid="uid://dc71r5eogxw13" path="res://scr/role/room/structure/plain_remains.tres" id="3_8n0rt"]
 [ext_resource type="Script" uid="uid://bgye7tfwxg4ra" path="res://scr/role/room/terrian.gd" id="3_axyj7"]
 
 [sub_resource type="Resource" id="Resource_qwipb"]

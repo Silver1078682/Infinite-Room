@@ -61,12 +61,15 @@ func _spawn_terrian(room: Room) -> void:
 
 func _spawn_structure(room: Room) -> void:
 	for i: Structure in structures:
+		i.auto_resize()
 		var spawn_coord := i.find_place(room)
 		if spawn_coord != Vector2i(-1, -1):
 			if not i.spawn(spawn_coord, room):
 				Log.info("A structure has failed to spawn")
 			else:
 				Log.info("A structure instance extending %s has been spawned" % i)
+		else:
+			Log.info("A structure has failed to spawn, reason: No feasible position found")
 
 
 

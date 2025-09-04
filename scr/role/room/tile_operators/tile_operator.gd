@@ -12,7 +12,7 @@ static func ray(from, dire := Vector2i.DOWN, length := 10, target_room := Room.c
 	var ray_operator = TileOPRay.new()
 	ray_operator.start = _make_coord(from)
 	ray_operator.dire = dire
-	ray_operator.max_length = length
+	ray_operator.length = length
 	ray_operator.room = target_room
 	return ray_operator
 

@@ -11,7 +11,7 @@ func _iter_get(_iter: Variant) -> Variant:
 
 func _iter_next(_iter: Array) -> bool:
 	_rays[current_ray].current += 1
-	while _rays[current_ray].current >= _rays[current_ray].max_length:
+	while _rays[current_ray].current >= _rays[current_ray].length:
 		current_ray += 1
 		if current_ray >= _rays.size():
 			return false
