@@ -1,7 +1,7 @@
 class_name Tracker
 extends Label
-## A label which prints a [Node]'s properties
-static var enabled := true
+## A label that tracks and prints a [Node]'s properties
+
 
 ## Print the properties declared by classes in this [Array].
 @export var class_get: PackedStringArray
@@ -13,13 +13,15 @@ static var enabled := true
 ## Even if its in property_get.
 @export var property_filter: PackedStringArray
 
-## Node for the node to analyze.
+## a Node for the node to analyze. Track its parent if set null.
 @export var node: Node
 
 # NodePath of all properties required to get.
 var _property_to_be_printed: Array
 
+## format in which the properties is printed
 @export var format := "%s | %s \n"
+## Whether the [Tracker] will be automatically set to the top of the [CanvasLayer] it is in.
 @export var max_ordering := true
 @export var tracking := false
 
