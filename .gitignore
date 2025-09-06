@@ -24,4 +24,4 @@ mono_crash.*.json
 xxx/
 
 # vscode
-.vscode
+.vscode/
