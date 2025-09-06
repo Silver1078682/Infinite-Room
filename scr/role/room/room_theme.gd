@@ -8,9 +8,9 @@ extends Resource
 @export var min_width := 20
 @export var max_width := 40
 @export var frame_on := true
-@export_group("terrian")
+@export_group("terrain")
 @export var terrain_layers: Array[Terrain]
-var terrain_height: Array
+var terrain_height: Array[int]
 @export var structures: Array[Structure] = []
 @export_group("environment")
 @export var bg_color: Color
@@ -33,8 +33,8 @@ func _spawn(room: Room):
 	if frame_on:
 		Log.info("Spawning Frame...")
 		_spawn_frame(room)
-	Log.info("Spawning terrian...")
-	_spawn_terrian(room)
+	Log.info("Spawning terrain...")
+	_spawn_terrain(room)
 	Log.info("Spawning structure...")
 	_spawn_structure(room)
 	Log.info("Spawning finished")
@@ -45,17 +45,19 @@ func _spawn_frame(room: Room) -> void:
 	frame.fill("Frame", false)
 
 
-func _spawn_terrian(room: Room) -> void:
+func _spawn_terrain(room: Room) -> void:
 	terrain_height.resize(room.width - 2)
 	terrain_height.fill(Room.HEIGHT + Vector2i.UP.y * 2)
 	for layer in terrain_layers:
 		layer.set_width(room.width)
 		for x in room.width - 2:
-			var target_height = Room.HEIGHT - layer.get_value(x)
-			var block_type = layer.block_type
-			var current_height = terrain_height[x]
-			if block_type:
-				TileOP.ray(Vector2i(x + 1, current_height), Vector2i.UP, current_height - target_height, room).fill(block_type, false)
+			var target_height := Room.HEIGHT - layer.get_value(x)
+			var current_height := terrain_height[x]
+			var ray := TileOP.ray(Vector2i(x + 1, current_height), Vector2i.UP, current_height - target_height, room)
+			if layer.block_weight_list:
+				ray.fill_rand(layer.block_weight_list, false)
+			elif layer.block_type:
+				ray.fill(layer.block_type, false)
 			terrain_height[x] = target_height
 
 

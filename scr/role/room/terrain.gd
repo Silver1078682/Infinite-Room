@@ -1,17 +1,25 @@
 class_name Terrain
 extends Resource
+## A Layer of the Terrain
+
+## The [prop block_type] will fill the [Terrain] layer. [br]
+## An empty layer filled with air wil be spawned
+## if neither [prop block_type] nor [prop block_weight_list] is set
 @export var block_type: StringName
 
 ## This property is ignored if set empty
 ## The list of blocks to spawn with possibility weights
 @export var block_weight_list: Dictionary[StringName, float]
 
-#minimum 
+## This property has y-axis pointing up
+## minimum height from room floor of the [Terrain] 
 @export var min_value := 2:
 	set(p_min_value):
 		_curve.min_value = p_min_value
 		min_value = p_min_value
 
+## This property has y-axis pointing up
+## maximum height from room floor of the [Terrain] 
 @export var max_value := 8:
 	set(p_max_value):
 		_curve.max_value = p_max_value
@@ -36,7 +44,7 @@ extends Resource
 var _curve := Curve.new()
 
 
-func get_value(x: int):
+func get_value(x: int) -> int:
 	var prev := _curve.sample(x - 1)
 	var next := _curve.sample(x + 1)
 	var cur := _curve.sample(x)
@@ -45,7 +53,7 @@ func get_value(x: int):
 	return int(cur)
 
 
-func set_width(x: int):
+func set_width(x: int) -> void:
 	_curve.max_domain = x
 	var sample_x := 0.0
 	var sample_y := randf_range(min_value, max_value)
