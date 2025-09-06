@@ -2,17 +2,17 @@
 class_name Structure
 extends Resource
 @export var template: Array[Array]
+## the size of a structure,
+## when set Vector2i(-1, -1), will automatically resize according to its template size
+## NOTE this property use a pointing-up Y axis !
+@export var size := _UNDEFINED_VECTOR2i
 
 @export_group("tile_operator")
 ## TileOPSets
 ## Will call in order when the [Structure] is spawned
 @export var blocks: Dictionary[TileOP, Dictionary] = {}
 
-@export_group("place_behavior")
-## the size of a structure,
-## when set Vector2i(-1, -1), will automatically resize according to its template size
-## NOTE this property use a pointing-up Y axis !
-@export var size := UNDEFINED_VECTOR2i
+@export_group("project_behavior")
 @export var project_mode: ProjectMode  ## TODO
 enum ProjectMode {
 	NONE,  ## Don't project, keep where it is , see initial_y_mode
@@ -21,9 +21,13 @@ enum ProjectMode {
 	STRETCH,
 	PLATFORM,
 }
+## The direction of projection. [br]
+## Setting this property with value which is not smaller 2 in length may cause unexpected behaviors.
 @export var project_dire := Vector2i.DOWN
+## The max length of projection it will try
 @export var project_max_length := 20
 
+@export_group("place_behavior")
 @export var place_mode: PlaceMode  ## TODO
 enum PlaceMode {
 	PLACE,
@@ -58,20 +62,24 @@ var _weighted_dictionary: Dictionary[int,float]
 var _ares_wrs := Lib.Rand.AResWRS.new()
 @export var x_step: int = 5
 
-const UNDEFINED_VECTOR2i := Vector2i(-1, -1)
+const _UNDEFINED_VECTOR2i := Vector2i(-1, -1)
+
+@export_group("random replace")
+## replace every block with a block in the list (with weighted possibility).
+## Only if the "keep" is returned, the block won't be replaced
+@export var random_replace: Dictionary[StringName, float] = {}
+var _random_replace_alias_wrs:= Lib.Rand.AliasWRS.new()
 
 
-func auto_resize() -> void:
-	if size == UNDEFINED_VECTOR2i:
-		if template:
-			size = Vector2i(template.size(), template[0].size())
-		else:
-			size = Vector2i.ZERO
+func preprocess() -> void:
+	auto_resize()
+	preprocess_random_replace()
 
 
 ## try find a place to spawn the structure
 ## return Vector2i(-1, -1) on failure
 func find_place(room := Room.current) -> Vector2i:
+	## iterate all x coordinate in the room in a random yet discontinuous order.
 	var offsets := range(0, x_step)
 	offsets.shuffle()
 	for offset in offsets:
@@ -89,7 +97,8 @@ func find_place(room := Room.current) -> Vector2i:
 			coord = project(coord, room)
 			if can_spawn_at(coord, room):
 				return coord
-	return UNDEFINED_VECTOR2i
+
+	return _UNDEFINED_VECTOR2i
 
 
 ## whether the [Structure] can be spawned
@@ -122,7 +131,7 @@ var _y_offset: Array[int] = []
 func spawn_template(at: Vector2i, room := Room.current):
 	print(at)
 	_y_offset.resize(size.x)
-	_x_offset.resize(size.y)
+	_x_offset.resize(size.y )
 	if project_mode == ProjectMode.TERRAIN:
 		if project_dire.y:
 			var y := size.y if project_dire.y < 0 else 0
@@ -147,18 +156,27 @@ func spawn_template(at: Vector2i, room := Room.current):
 func place_a_blockn(coord: Vector2i, block_name: StringName, room := Room.current) -> void:
 	if not room.has_coord(coord):
 		return
+	
+	var exact_name := block_name
+	if random_replace:
+		exact_name = _random_replace_alias_wrs.pick()
+		if exact_name == &"keep":
+			exact_name = block_name
+		elif not exact_name:
+			return
+	
 	match place_mode:
 		PlaceMode.PLACE:
 			var prev := room.get_block(coord)
 			if not prev or not prev.config.solid:
-				room.set_blockn(coord, block_name, false)
+				room.set_blockn(coord, exact_name, false)
 		PlaceMode.ERASE:
 			room.erase_block(coord)
 		PlaceMode.REPLACE:
 			var prev := room.get_block(coord)
 			if prev and prev.config.name in replace_blacklist:
 				return
-			room.set_blockn(coord, block_name)
+			room.set_blockn(coord, exact_name)
 
 
 ## project a coordinate to terrain according to the [project_mode]
@@ -172,12 +190,13 @@ func project(from: Vector2i, room := Room.current) -> Vector2i:
 			return _project_to_terrain(from, room)
 		ProjectMode.STRETCH:
 			return from
-	return UNDEFINED_VECTOR2i
+
+	return _UNDEFINED_VECTOR2i
 
 
 ## project a coordinate to terrain
 func _project_to_terrain(from: Vector2i, room := Room.current) -> Vector2i:
-	print("from",from)
+	print("from", from)
 	for i in TileOP.ray(from, project_dire, project_max_length, room):
 		if not room.has_coord(i):
 			break
@@ -191,8 +210,7 @@ func _project_to_terrain(from: Vector2i, room := Room.current) -> Vector2i:
 				print(i)
 				return i
 
-
-	return UNDEFINED_VECTOR2i
+	return _UNDEFINED_VECTOR2i
 
 
 func set_height_possibility_curve(p_curve: Curve) -> void:
@@ -204,6 +222,16 @@ func set_height_possibility_curve(p_curve: Curve) -> void:
 		_weighted_dictionary[i] = p_curve.sample(i)
 	height_possibility_curve = p_curve
 
+
+func auto_resize() -> void:
+	if size == _UNDEFINED_VECTOR2i:
+		if template:
+			size = Vector2i(template[0].size(), template.size())
+		else:
+			size = Vector2i.ZERO
+
+func preprocess_random_replace() -> void:
+	_random_replace_alias_wrs.assign(random_replace)
 
 ## screenshot an area of a room, return a corresponding structure
 static func screenshot(op: TileOPFilledRect, room := Room.current) -> Structure:
