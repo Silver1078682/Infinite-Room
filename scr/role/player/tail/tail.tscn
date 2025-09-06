@@ -88,21 +88,22 @@ can_sleep = false
 position = Vector2(1, -4.32134e-07)
 scale = Vector2(0.1, 0.1)
 node_a = NodePath("..")
-node_b = NodePath("../../Bone2D7")
+node_b = NodePath("../../TailTip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bone2D6"]
 shape = SubResource("RectangleShape2D_yx7kp")
 
-[node name="Bone2D7" type="RigidBody2D" parent="."]
+[node name="TailTip" type="RigidBody2D" parent="."]
 position = Vector2(0, 12)
 collision_layer = 512
 mass = 0.8
 can_sleep = false
 
-[node name="PinJoint2D" type="PinJoint2D" parent="Bone2D7"]
+[node name="PinJoint2D" type="PinJoint2D" parent="TailTip"]
 position = Vector2(2.38419e-07, 1)
 scale = Vector2(0.1, 0.1)
 node_a = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bone2D7"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TailTip"]
+unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_yx7kp")
