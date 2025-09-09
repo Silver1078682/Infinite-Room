@@ -11,15 +11,21 @@ extends Resource
 ## The list of blocks to spawn with possibility weights
 @export var block_weight_list: Dictionary[StringName, float]
 
+@export var layer_mode: Mode
+enum Mode {
+	ALTITUDE,
+	TERRAIN
+}
+
 ## This property has y-axis pointing up
-## minimum height from room floor of the [Terrain] 
+## minimum height from room floor of the [Terrain]
 @export var min_value := 2:
 	set(p_min_value):
 		_curve.min_value = p_min_value
 		min_value = p_min_value
 
 ## This property has y-axis pointing up
-## maximum height from room floor of the [Terrain] 
+## maximum height from room floor of the [Terrain]
 @export var max_value := 8:
 	set(p_max_value):
 		_curve.max_value = p_max_value
