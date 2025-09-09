@@ -6,7 +6,7 @@ extends Resource
 ## when set Vector2i(-1, -1), will automatically resize according to its template size
 ## NOTE this property use a pointing-up Y axis !
 @export var size := _UNDEFINED_VECTOR2i
-
+@export var spawn_weight := 10
 @export_group("tile_operator")
 ## TileOPSets
 ## Will call in order when the [Structure] is spawned
@@ -60,6 +60,8 @@ enum InitialYMode {
 
 var _weighted_dictionary: Dictionary[int,float]
 var _ares_wrs := Lib.Rand.AResWRS.new()
+
+@export_group("x_position")
 @export var x_step: int = 5
 
 const _UNDEFINED_VECTOR2i := Vector2i(-1, -1)
@@ -68,7 +70,7 @@ const _UNDEFINED_VECTOR2i := Vector2i(-1, -1)
 ## replace every block with a block in the list (with weighted possibility).
 ## Only if the "keep" is returned, the block won't be replaced
 @export var random_replace: Dictionary[StringName, float] = {}
-var _random_replace_alias_wrs:= Lib.Rand.AliasWRS.new()
+var _random_replace_alias_wrs := Lib.Rand.AliasWRS.new()
 
 
 func preprocess() -> void:
@@ -80,7 +82,7 @@ func preprocess() -> void:
 ## return Vector2i(-1, -1) on failure
 func find_place(room := Room.current) -> Vector2i:
 	## iterate all x coordinate in the room in a random yet discontinuous order.
-	var offsets := range(0, x_step)
+	var offsets := range(0, x_step - size.x)
 	offsets.shuffle()
 	for offset in offsets:
 		var xs := range(offset, room.size().x, x_step)
@@ -131,7 +133,7 @@ var _y_offset: Array[int] = []
 func spawn_template(at: Vector2i, room := Room.current):
 	print(at)
 	_y_offset.resize(size.x)
-	_x_offset.resize(size.y )
+	_x_offset.resize(size.y)
 	if project_mode == ProjectMode.TERRAIN:
 		if project_dire.y:
 			var y := size.y if project_dire.y < 0 else 0
@@ -156,7 +158,7 @@ func spawn_template(at: Vector2i, room := Room.current):
 func place_a_blockn(coord: Vector2i, block_name: StringName, room := Room.current) -> void:
 	if not room.has_coord(coord):
 		return
-	
+
 	var exact_name := block_name
 	if random_replace:
 		exact_name = _random_replace_alias_wrs.pick()
@@ -164,7 +166,7 @@ func place_a_blockn(coord: Vector2i, block_name: StringName, room := Room.curren
 			exact_name = block_name
 		elif not exact_name:
 			return
-	
+
 	match place_mode:
 		PlaceMode.PLACE:
 			var prev := room.get_block(coord)
@@ -230,8 +232,10 @@ func auto_resize() -> void:
 		else:
 			size = Vector2i.ZERO
 
+
 func preprocess_random_replace() -> void:
 	_random_replace_alias_wrs.assign(random_replace)
+
 
 ## screenshot an area of a room, return a corresponding structure
 static func screenshot(op: TileOPFilledRect, room := Room.current) -> Structure:
