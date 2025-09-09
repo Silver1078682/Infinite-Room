@@ -3,8 +3,8 @@ extends Node2D
 
 const SCENE_PATH = "res://scr/singleton/main/main.tscn"
 
-const Map: GDScript = preload("res://scr/singleton/main/map/map.gd")
-const Cursor: GDScript = preload("res://scr/singleton/main/cursor/cursor.gd")
+const Map: GDScript = preload("res://scr/singleton/map/map.gd")
+const Cursor: GDScript = preload("res://scr/singleton/cursor/cursor.gd")
 const Camera := preload("res://scr/singleton/camera/camera.gd")
 
 static var instance: Main
@@ -51,9 +51,9 @@ static func input(func_name: StringName, action_name: StringName, exact_match :=
 	return Input.call("is_action_" + func_name, action_name, exact_match)
 
 
-const BASE := preload("res://scr/role/room/theme/base.tres")
+const BASE := preload("res://scr/role/room/theme/nature.tres")
 static func new_game():
 	save_name = SaveManager.get_save_name_from_time()
-	Room.current = BASE.create()
+	RoomManager.enter_room(BASE.create())
 	await Main.instance.ready
 	SL.save_game()

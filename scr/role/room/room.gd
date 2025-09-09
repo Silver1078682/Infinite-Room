@@ -1,5 +1,13 @@
 class_name Room
 extends Node2D
+
+# typical LifeCycle of a room
+# 1. created by [RoomTheme]
+# 2. spawn landscape(see [RoomTheme]) for a new room / load map if we have entered this room
+# 3. added to tree via [RoomManager], see [method enter]
+# 4. exit from tree, see [method exit]
+
+## The height of all rooms
 const HEIGHT = 20
 
 
@@ -15,14 +23,15 @@ static func _command_place_block(x: int, y: int, block_name: StringName):
 	Room.current.place_blockn(coord, block_name)
 
 
-# Don't set this property, use Main.enter_room instead
+## It serves as an alias to get the current room in [SceneTree]
+## Read-only attribute
 static var current: Room:
 	set(p_current):
-		if current:
-			current._exit()
-		if p_current:
-			p_current._enter()
-		current = p_current
+		const WARNING = "Please don't set this read-only attribute"
+		const ADVICE = "call RoomManager.enter_room() instead"
+		Log.warning(WARNING + ", " + ADVICE)
+	get:
+		return RoomManager.get_current_room()
 
 var idx = 0
 var start_time: int
@@ -108,6 +117,7 @@ func remove_block(coord: Vector2i) -> void:
 	block.notify_exit()
 	_blocks[coord.y][coord.x] = null
 
+
 ## similar to [func remove_block], but won't raise an error when removing a non-existent block
 func remove_block_safe(coord: Vector2i) -> void:
 	if not get_block_safe(coord):
@@ -118,10 +128,14 @@ func remove_block_safe(coord: Vector2i) -> void:
 	block.notify_exit()
 	_blocks[coord.y][coord.x] = null
 
+
 var _blocks: Array[Array]
 
 
-#LifeCycle
+func enter() -> void:
+	_enter()
+
+
 func _enter() -> void:
 	Main.instance.add_child(self)
 	await tree_entered
