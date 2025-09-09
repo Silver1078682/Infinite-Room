@@ -4,7 +4,11 @@ const SAVE_FILE_SUFFIX = "/%s.json"
 
 
 static func save_game(save_name := Main.save_name):
-	var to_save := {"room": Room.current, "player": Player.local_instance, "inventory": UI.instance.backpack}
+	var to_save := {
+		"room": Room.current, ## room on exit
+		"player": Player.local_instance,
+		"inventory": UI.instance.backpack,
+	}
 	Log.info("Start saving")
 	var save_path = save_directory_path + SAVE_FILE_SUFFIX % save_name
 	var save_file = simple_open_file(save_path, FileAccess.WRITE)
@@ -46,10 +50,10 @@ static func load_game(save_name: String):
 
 	var room_data = json.data["room"]
 
-	var room := (load(room_data["theme"]) as RoomTheme).create()
+	var room := (load(room_data["theme"]) as RoomTheme).create(false)
 	if Room.current:
 		Room.current.queue_free()
-	Room.current = room
+	RoomManager.enter_room(room)
 	room.load_save(room_data)
 
 	Player.local_instance.load_save(json.data["player"])

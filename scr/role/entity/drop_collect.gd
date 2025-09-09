@@ -12,7 +12,9 @@ func _process(_delta: float) -> void:
 
 ## the default freeze time after a drop is added to the blacklist
 ## see [func add_to_blacklist]
-@export var default_freeze_time := 0.8
+@export var default_freeze_time := 0.8:
+	set(p_default_freeze_time):
+		default_freeze_time = maxf(p_default_freeze_time, 0)
 
 
 ## prevent the area the [para drop] from being collected by this [DropCollect] for [para freeze_time]

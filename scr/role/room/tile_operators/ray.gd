@@ -10,7 +10,9 @@ class_name TileOPRay extends TileOP
 @export var dire: Vector2i
 
 ## this property take no effect if random_length set true
-@export var length := max_length
+@export var length := max_length:
+	set(p_length):
+		length = max(p_length, 0)
 
 @export_group("random_length")
 @export var random_length := false
