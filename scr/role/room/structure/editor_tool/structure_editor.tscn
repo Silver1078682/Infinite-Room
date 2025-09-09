@@ -29,7 +29,7 @@ sources/0 = SubResource("TileSetAtlasSource_0qnm7")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0qnm7"]
 
 [node name="BlockLayer" type="TileMapLayer"]
-tile_map_data = PackedByteArray("AAAAAP//AAACAAMAAAABAP7/AAACAAMAAAACAP7/AAACAAMAAAACAP//AAACAAMAAAABAP//AAACAAMAAAAAAP7/AAACAAMAAAADAP//AAACAAMAAAAEAAAAAAACAAMAAAAEAAEAAAACAAMAAAAEAAIAAAACAAMAAAAFAAIAAAACAAMAAAAFAAMAAAACAAMAAAAFAAQAAAACAAMAAAAGAAQAAAACAAMAAAAGAAUAAAACAAMAAAA=")
+tile_map_data = PackedByteArray("AAAAAP//AAACAAMAAAABAP//AAACAAMAAAACAP//AAACAAMAAAADAP//AAACAAMAAAACAP7/AAADAAEAAAAAAP7/AAADAAEAAAADAP7/AAADAAEAAAAAAP3/AAADAAEAAAADAP3/AAADAAEAAAABAP7/AAADAAEAAAABAP3/AAADAAEAAAACAP3/AAADAAEAAAA=")
 tile_set = SubResource("TileSet_jwvr2")
 script = ExtResource("2_c8wd4")
 
@@ -39,10 +39,11 @@ script = ExtResource("2_c8wd4")
 script = ExtResource("4_0qnm7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 120.0
+offset_bottom = 93.0
 mouse_filter = 0
 
 [node name="DebugPrint" type="Button" parent="CanvasLayer/VBoxContainer"]
@@ -60,11 +61,17 @@ script = ExtResource("3_c8wd4")
 layout_mode = 2
 script = ExtResource("3_c8wd4")
 
-[node name="SaveName" type="LineEdit" parent="CanvasLayer"]
+[node name="LoadFrom" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("3_c8wd4")
+
+[node name="SaveName" type="LineEdit" parent="CanvasLayer/VBoxContainer"]
 unique_name_in_owner = true
-offset_top = 45.0
-offset_right = 32.0
-offset_bottom = 69.0
+layout_mode = 2
+
+[node name="UpdateTemplateOnLoad" type="CheckBox" parent="CanvasLayer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="Label" type="Label" parent="."]
 offset_left = -2.26218
