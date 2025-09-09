@@ -1,11 +1,11 @@
-[gd_scene load_steps=52 format=3 uid="uid://cgx8c4ej4ke8f"]
+[gd_scene load_steps=57 format=3 uid="uid://cgx8c4ej4ke8f"]
 
 [ext_resource type="Script" uid="uid://dql3b2cons3kv" path="res://scr/role/player/player/player.gd" id="1_3b1vh"]
 [ext_resource type="Texture2D" uid="uid://c46ot8p86falv" path="res://asset/texture/Player/Player.png" id="2_3l4yq"]
 [ext_resource type="Script" uid="uid://b4lw0w84ddybb" path="res://scr/lib/fsm/fsm.gd" id="3_fhpf4"]
 [ext_resource type="Texture2D" uid="uid://b7um1k53t6meg" path="res://asset/texture/White.png" id="3_i13nu"]
 [ext_resource type="Script" uid="uid://bcxqi5726xylk" path="res://scr/lib/fsm/state.gd" id="4_ang5y"]
-[ext_resource type="Script" uid="uid://cohwcikc8jlqd" path="res://scr/role/player/sub_viewport.gd" id="4_i13nu"]
+[ext_resource type="Script" uid="uid://cohwcikc8jlqd" path="res://scr/role/player/tail/sub_viewport.gd" id="4_i13nu"]
 [ext_resource type="PackedScene" uid="uid://bjy527l0g6hts" path="res://scr/role/player/tail/tail.tscn" id="4_pbyq6"]
 [ext_resource type="Script" uid="uid://bjoi5ccdfxveg" path="res://scr/role/entity/drop_collect.gd" id="5_4jodu"]
 [ext_resource type="Script" uid="uid://b7nuse0s8o0y3" path="res://scr/component/tracker.gd" id="6_3l4yq"]
@@ -85,6 +85,26 @@ region = Rect2(120, 40, 20, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_uq3tg"]
 atlas = ExtResource("2_3l4yq")
 region = Rect2(140, 40, 20, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a14xv"]
+atlas = ExtResource("2_3l4yq")
+region = Rect2(0, 120, 20, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lufy1"]
+atlas = ExtResource("2_3l4yq")
+region = Rect2(20, 120, 20, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trl8e"]
+atlas = ExtResource("2_3l4yq")
+region = Rect2(40, 120, 20, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jf8fe"]
+atlas = ExtResource("2_3l4yq")
+region = Rect2(60, 120, 20, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_027gf"]
+atlas = ExtResource("2_3l4yq")
+region = Rect2(80, 120, 20, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ijwj"]
 atlas = ExtResource("2_3l4yq")
@@ -201,6 +221,26 @@ animations = [{
 }],
 "loop": false,
 "name": &"Land",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a14xv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lufy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trl8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jf8fe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_027gf")
+}],
+"loop": true,
+"name": &"Mine",
 "speed": 5.0
 }, {
 "frames": [{
@@ -343,6 +383,10 @@ exit_when_animation_finished = true
 default_destination = "Idle"
 metadata/_custom_type_script = "uid://bcxqi5726xylk"
 
+[node name="Mine" type="Node" parent="FSM"]
+script = ExtResource("4_ang5y")
+metadata/_custom_type_script = "uid://bcxqi5726xylk"
+
 [node name="PixelSnapper" type="SubViewportContainer" parent="."]
 offset_left = -111.0
 offset_top = -74.0
@@ -378,7 +422,7 @@ texture = ExtResource("3_i13nu")
 [node name="Sprite" type="AnimatedSprite2D" parent="Flipable"]
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_8arj0")
-animation = &"Fall"
+animation = &"Mine"
 autoplay = "Idle"
 
 [node name="TailPhysics" parent="." node_paths=PackedStringArray("line2d") instance=ExtResource("4_pbyq6")]

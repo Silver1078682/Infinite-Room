@@ -1,6 +1,7 @@
 class_name Player
 extends Entity
 
+## speed of the player
 const SPEED = 100.0
 const ACCELERATE = 50.0
 const JUMP_VELOCITY = -300.0
@@ -66,7 +67,7 @@ func _physics_process(delta: float) -> void:
 	var speed := SPEED * _get_speed_factor()
 
 	if direction:
-		if (fsm.is_state("Idle") or fsm.is_state("Land")) and is_on_floor():
+		if [&"Idle", &"Land", &"Mine"].has(fsm.state.name) and is_on_floor():
 			fsm.change_to("StartRun")
 		velocity.x = move_toward(velocity.x, direction * speed, ACCELERATE)
 		facing_right = direction >= 0
@@ -81,7 +82,16 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	if Main.input("pressed", &"mine_and_attack"):
+		if not _is_mining:
+			_is_mining = true
+		if fsm.is_state("Idle"):
+			fsm.change_to("Mine")
 		mine_at(Main.Cursor.coord, delta)
+	else:
+		if _is_mining:
+			_is_mining = false
+		if fsm.is_state("Mine"):
+			fsm.change_to("Idle")
 	if Main.input("pressed", &"lay_and_interact"):
 		lay_at(Main.Cursor.coord)
 
@@ -97,7 +107,7 @@ const REACH_RANGE := Vector2i(10, 10)
 const MINE_SPEED = 1.0
 const MINE_RANGE := REACH_RANGE
 
-
+var _is_mining := false
 func mine_at(coords: Vector2i, delta: float):
 	var offset := (coords - self.coord).abs()
 	if offset.clamp(Vector2i.ZERO, MINE_RANGE) != offset:
