@@ -22,3 +22,7 @@ func _on_start_menu_pressed() -> void:
 
 func back_to_main_menu() -> void:
 	displayed = %MainMenu
+
+
+func _on_stats_pressed() -> void:
+	displayed = %Stats
