@@ -5,7 +5,7 @@ const SAVE_CONTAINER_SCENE = preload("res://scr/ui/start_menu/save_container.tsc
 const SaveContainer = preload("res://scr/ui/start_menu/save_container.gd")
 
 
-static func has_saves() -> bool:
+static func has_any_save() -> bool:
 	var dir = DirAccess.open(SL.save_directory_path)
 	var error := DirAccess.get_open_error()
 	if error == ERR_INVALID_PARAMETER:
@@ -13,6 +13,7 @@ static func has_saves() -> bool:
 		DirAccess.make_dir_recursive_absolute(global_path)
 		Log.info("create save directory at " + global_path)
 		return false
+	
 	elif not dir or not dir.get_files():
 		return false
 	return true
@@ -23,7 +24,7 @@ func _ready() -> void:
 
 
 func _try_load_saves() -> void:
-	if not has_saves():
+	if not has_any_save():
 		return
 	var dir := SL.simple_open_dir(SL.save_directory_path)
 	if not dir:
@@ -38,9 +39,7 @@ var _save_button_group := ButtonGroup.new()
 
 func _add_save_containers(dir: DirAccess) -> void:
 	var last_container: SaveContainer
-	for save_name in dir.get_files():
-		if not save_name.ends_with(".json"):
-			continue
+	for save_name in dir.get_directories():
 		var container: SaveContainer = SAVE_CONTAINER_SCENE.instantiate()
 		container.set_save(save_name)
 		last_container = container

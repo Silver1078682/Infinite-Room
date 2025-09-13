@@ -11,7 +11,7 @@ func _on_resume_pressed() -> void:
 
 
 func _on_setting_pressed() -> void:
-	displayed = %SettingMenu
+	displayed = %Setting
 
 
 func _on_start_menu_pressed() -> void:
