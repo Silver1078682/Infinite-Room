@@ -14,7 +14,7 @@ extends Node
 @export var autoplay := true
 @export var no_interrupt := true
 @export_subgroup("tween_property")
-@export var trans_type : Tween.TransitionType
+@export var trans_type: Tween.TransitionType
 @export var ease_type: Tween.EaseType
 
 @export_group("scope")
@@ -31,7 +31,10 @@ func _ready() -> void:
 	if autoplay:
 		play()
 
+
 var _is_playing := false
+
+
 func play() -> void:
 	if _is_playing and no_interrupt:
 		return
@@ -40,8 +43,10 @@ func play() -> void:
 	await _play()
 	_is_playing = false
 
+
 func is_playing():
 	return _is_playing
+
 
 func _play() -> void:
 	for i in _get_animated_nodes():
@@ -55,6 +60,7 @@ func _get_animated_nodes() -> Array[Node]:
 	var node: Array[Node] = []
 	node.append(get_parent())
 	return node
+
 
 func _get_tween_of(node: Node) -> Tween:
 	return node.create_tween().set_ease(ease_type).set_trans(trans_type)
