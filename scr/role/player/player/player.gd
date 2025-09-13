@@ -166,7 +166,7 @@ func lay_at(coords: Vector2i):
 	else:
 		place_detect = PlaceDetect.SCENE.instantiate()
 		place_detect.global_position = Main.Map.to_pos(coords)
-		Main.instance.add_child(place_detect)
+		Main.add_node(place_detect, "PlaceDetects")
 		_place_detect_lists[coords] = place_detect
 		await place_detect.ready
 

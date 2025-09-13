@@ -11,6 +11,12 @@ static var instance: Main
 static var save_name: String
 
 
+# This function is used to organize nodes in a better manner
+## Add a grandchild node, the grandchild's paarent is named [param under]
+static func add_node(node: Node, under: NodePath):
+	instance.get_node(under).add_child(node)
+
+
 func _init():
 	assert(not instance, "There can be only one Main instance at one time")
 	instance = self
@@ -51,7 +57,9 @@ static func input(func_name: StringName, action_name: StringName, exact_match :=
 	return Input.call("is_action_" + func_name, action_name, exact_match)
 
 
-const BASE := preload("res://scr/role/room/theme/nature.tres")
+const BASE := preload("res://scr/role/room/theme/Nature.tres")
+
+
 static func new_game():
 	save_name = SaveManager.get_save_name_from_time()
 	RoomManager.enter_room(BASE.create())

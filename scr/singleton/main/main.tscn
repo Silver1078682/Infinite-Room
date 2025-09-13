@@ -535,6 +535,10 @@ layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "exit"
 
+[node name="PlaceDetects" type="Node2D" parent="."]
+
+[node name="Mines" type="Node2D" parent="."]
+
 [node name="Cursor" type="Node2D" parent="."]
 z_index = 100
 scale = Vector2(2, 2)
