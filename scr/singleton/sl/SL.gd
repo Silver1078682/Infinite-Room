@@ -36,10 +36,9 @@ static func load_game(save_name: String):
 
 	var room_data = json.data["room"]
 
-	var room_theme_path = RoomTheme.FILE_PATH % room_data["theme"]
-	var room := (load(room_theme_path) as RoomTheme).create(false)
 	if Room.current:
 		Room.current.queue_free()
+	var room := RoomManager.create_a_room(room_data["theme"], false)
 	RoomManager.enter_room(room)
 	room.load_save(room_data)
 
@@ -56,7 +55,6 @@ static func load_game(save_name: String):
 	Main.save_name = save_name
 
 	Log.notice("Loading Save Finished")
-
 
 
 static func save_vector2(vector: Vector2, name: String, save: Dictionary) -> void:
@@ -81,6 +79,7 @@ static func load_to_object(object: Object, save: Dictionary) -> void:
 static func load_to_node(node: Node, save: Dictionary) -> void:
 	await Lib.ensure_ready(node)
 	load_to_object(node, save)
+
 
 ## Open a file, print human-readable error messages on failure.
 static func simple_open_file(path: String, access_mode: FileAccess.ModeFlags) -> FileAccess:

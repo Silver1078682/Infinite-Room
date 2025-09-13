@@ -28,17 +28,6 @@ var terrain_height: Array[int]
 @export var world_modulate: Color
 
 
-## If spawn set false return an empty room with no blocks and no size.
-func create(should_spawn := true) -> Room:
-	var room := Room.new()
-	room.theme = self
-
-	if should_spawn:
-		room.width = randi_range(min_width, max_width)
-		room.update_blocks_arr()
-		spawn(room)
-	return room
-
 
 func spawn(room: Room) -> void:
 	_spawn(room)
