@@ -49,7 +49,7 @@ metadata/_custom_type_script = "uid://bgye7tfwxg4ra"
 
 [resource]
 script = ExtResource("1_oy635")
-name = &"Base"
+name = &"Nature"
 min_width = 40
 max_width = 40
 frame_on = true

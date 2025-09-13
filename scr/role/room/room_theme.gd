@@ -1,21 +1,28 @@
-#@tool
+@tool
 class_name RoomTheme
 extends Resource
+const DIR_PATH := "res://scr/role/room/theme/"
+const FILE_PATH := "res://scr/role/room/theme/%s.tres"
+
 @export_group("name")
 @export var name: StringName
-#@export_tool_button("update according to file name") var update_name := _update_name
+@export_tool_button("update according to file name") var update_name := _update_name
+
 @export_group("size")
 @export var min_width := 20
 @export var max_width := 40
 @export var frame_on := true
+
 @export_group("terrain")
 @export var terrain_layers: Array[Terrain]
 var terrain_height: Array[int]
+
 @export_group("structure")
 @export var min_structure_weights_total: int = 10
 @export var max_structure_weights_total: int = 20
 @export var ignore_weight := false
 @export var structures: Array[Structure] = []
+
 @export_group("environment")
 @export var bg_color: Color
 @export var world_modulate: Color
