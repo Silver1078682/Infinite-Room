@@ -117,6 +117,9 @@ func fade_in(node, tween: Tween, offset := default_offset, duration := default_d
 	node.show()
 	await tween.tween_property(node, "modulate:a", 1, duration).finished
 
+func raise(node, tween: Tween, offset := default_offset, duration := default_duration):
+	await tween.tween_property(node, "position:y", node.position.y - offset, duration).finished
+	
 
 func from_left_to_center(node, tween: Tween, offset := default_offset, duration := default_duration):
 	await tween.tween_property(node, "position:x", get_node_center(node).x, duration).finished
