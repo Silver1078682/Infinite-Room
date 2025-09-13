@@ -1,7 +1,7 @@
 extends Sprite2D
 ## Mine
 ## Handle the mining process, including the visual effects and dropping
-## NOTE: A [Mine] instance is only created when the block is attempted to be mined
+## NOTE: A [Mine] instance is not created until the block is attempted to be mined
 
 const STATE = 10
 const SIZE = Vector2(16, 16)
@@ -28,11 +28,11 @@ var damage: float:
 			_on_end()
 		damage = p_damage
 
-
+## return if the a mining process is happening
 func is_mining():
 	return _mine_count > 0
 
-
+# counter to track mining process
 var _mine_count := 0
 # avoid dropping more items than needed
 var _broken := false

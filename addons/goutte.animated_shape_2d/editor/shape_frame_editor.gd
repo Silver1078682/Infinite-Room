@@ -19,7 +19,7 @@ var frame_index: int
 
 ## Zoom level of the preview.  Only integers are supported in there for now.
 var zoom_level := 1.0
-## Bakground color of the preview.
+## Background color of the preview.
 var background_color := Color.WEB_GRAY
 
 var undo_redo: EditorUndoRedoManager
@@ -380,7 +380,7 @@ func on_preview_shape_rectangle_changed():
 func on_preview_shape_rect_changed():
 	# I wanna know when this starts working.
 	print("Oh, now item_rect_changed signal works.  Used to not.")
-	# Enable this when it works, and remove workaraound?
+	# Enable this when it works, and remove workaround?
 	#update_from_preview_shape()
 
 

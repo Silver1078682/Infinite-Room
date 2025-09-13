@@ -17,6 +17,6 @@ func _ready():
 
 
 func delete_this_save() -> void:
-	DirAccess.remove_absolute(SL.save_directory_path + SL.SAVE_FILE_SUFFIX % save_name)
+	DirAccess.remove_absolute(SL.save_directory_path + "/%s" % save_name)
 	queue_free()
 	Log.notice("Save %s deleted" % save_name)

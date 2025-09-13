@@ -1,4 +1,5 @@
 extends SubViewport
+## lower the update loop of the subviewport
 
 var _update_cnt := 0
 const UPDATE_LOOP = 5

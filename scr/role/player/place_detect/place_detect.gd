@@ -1,4 +1,5 @@
 extends Node2D
+# detect whether a block can be laid at a position
 const SCENE_PATH := "res://scr/role/player/place_detect/place_detect.tscn"
 const SCENE := preload(SCENE_PATH)
 

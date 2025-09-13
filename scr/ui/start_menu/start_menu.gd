@@ -9,7 +9,7 @@ func _ready() -> void:
 		_on_boot()
 		game_started = true
 	displayed = $MainMenu
-	%LoadGame.disabled = not SaveManager.has_saves()
+	%LoadGame.disabled = not SaveManager.has_any_save()
 	Log.info("Start Menu Ready")
 
 
@@ -43,15 +43,14 @@ func back_to_main_menu():
 	displayed = $MainMenu
 
 
-
 func quit_game():
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 	get_tree().quit()
 
 
 func _print_os_info():
-	var os_name := OS.get_name() + " "
-	if os_name == "Linux":
+	var os_name := OS.get_name() + "\t"
+	if os_name == "Linux\t":
 		os_name += OS.get_distribution_name() + " "
 	os_name += OS.get_version()
 	Log.info("running on: " + os_name)

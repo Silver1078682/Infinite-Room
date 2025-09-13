@@ -16,6 +16,8 @@ func _get_speed_factor() -> float:
 	var block := get_floor_block()
 	return block.config.speed_factor if block else 1.0
 
+## return the block the [Entity] is standing on.
+## return null if the 【Entity】 is not on ground.
 func get_floor_block() -> Block:
 	if is_on_floor() and Room.current.get_block_safe(coord + Vector2i.DOWN):
 		return Room.current.get_block_safe(coord + Vector2i.DOWN)

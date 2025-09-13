@@ -1,6 +1,9 @@
 extends AudioStreamPlayer2D
 var parent: Entity
 var parent_fsm: FSM
+
+# the value of the [Dictionary] is currently useless
+## Play the foot step sound if the parent fsm is in following state.
 @export var when_to_play: Dictionary[StringName, Variant] = {
 	&"StartRun": null,
 	&"Run": null,
