@@ -31,6 +31,8 @@ class _ResourceDir:
 	var _locator_resource: Resource
 	var _dir: String
 	var dir: String:
+		set(p):
+			Lib.Warning
 		get:
 			return _dir
 	var file: String:

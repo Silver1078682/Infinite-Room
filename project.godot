@@ -23,15 +23,15 @@ boot_splash/use_filter=false
 
 [autoload]
 
-Log="*res://scr/systems/log/log.gd"
 Lib="*res://scr/lib/lib.gd"
-RandLib="*res://scr/lib/rand_lib.gd"
-ArrLib="*res://scr/lib/arr_lib.gd"
+RandLib="res://scr/lib/rand_lib.gd"
+ArrLib="res://scr/lib/arr_lib.gd"
+Log="*res://scr/systems/log/log.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 Console="*res://addons/godot-console/scripts/console.gd"
 UIAnimation="*res://addons/godot_ui_animations/UIAnimationHandler.tscn"
-ResPath="*res://scr/resource_managers/resource_path.tscn"
+ResPath="*res://scr/managers/resource_managers/resource_path.tscn"
 
 [display]
 

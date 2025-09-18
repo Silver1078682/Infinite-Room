@@ -1,11 +1,14 @@
 class_name Main
 extends Node2D
+## The [Main] is a running game, or more precisely The world player is in.
+# SO WHY DONT RENAME IT TO [World]!!!!???
 
 const SCENE_PATH = "res://scr/game_world/main/main.tscn"
 
+#namespaces
 const Map: GDScript = preload("res://scr/game_world/map/map.gd")
 const Cursor: GDScript = preload("res://scr/game_world/cursor/cursor.gd")
-const Camera := preload("res://scr/game_world/camera/camera.gd")
+const Camera: GDScript = preload("res://scr/game_world/camera/camera.gd")
 
 static var instance: Main
 static var save_name: String
@@ -56,9 +59,6 @@ static func input(func_name: StringName, action_name: StringName, exact_match :=
 	if input_cut:
 		return false
 	return Input.call("is_action_" + func_name, action_name, exact_match)
-
-
-
 
 
 static func new_game():

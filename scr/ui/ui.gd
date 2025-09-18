@@ -1,6 +1,6 @@
 class_name UI
 extends Control
-## NOTE This class only manages UI when a game instance is running
+## NOTE This class only manages UI when a Main instance is running
 ## See [StartMenu] for UI system when no game is running
 
 static var instance: UI

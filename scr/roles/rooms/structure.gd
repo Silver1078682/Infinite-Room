@@ -198,18 +198,15 @@ func project(from: Vector2i, room := Room.current) -> Vector2i:
 
 ## project a coordinate to terrain
 func _project_to_terrain(from: Vector2i, room := Room.current) -> Vector2i:
-	print("from", from)
 	for i in TileOP.ray(from, project_dire, project_max_length, room):
 		if not room.has_coord(i):
 			break
 		var block := room.get_block(i)
-		print("\tblock:", block)
 
 		while block and block.config.solid:  # meet barriers, go in the opposite direction
 			i -= size * project_dire
 			block = room.get_block_safe(i)
 			if not block:
-				print(i)
 				return i
 
 	return _UNDEFINED_VECTOR2i

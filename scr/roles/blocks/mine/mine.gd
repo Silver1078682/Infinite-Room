@@ -5,7 +5,7 @@ extends Sprite2D
 
 const STATE = 10
 const SIZE = Vector2(16, 16)
-const SCENE_PATH = "res://scr/roles/blocks/mine.tscn"
+const SCENE_PATH = "res://scr/roles/blocks/mine/mine.tscn"
 const SCENE = preload(SCENE_PATH)
 
 var block: Block:

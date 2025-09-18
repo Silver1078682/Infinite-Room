@@ -4,7 +4,9 @@ extends RefCounted
 ## Life process of a block: init, enter, mined(optional), freed
 ## See [Block.config]
 
-const Mine = preload("res://scr/roles/blocks/mine.gd")
+const Mine = preload("res://scr/roles/blocks/mine/mine.gd")
+
+## The size of a BLOCK in pixels
 const SIZE = Vector2(16, 16)
 
 # we can assure that every valid block has a valid config.
@@ -18,6 +20,7 @@ var coord: Vector2i
 ## see [prop block cling_to]
 var neighbor_bind: Dictionary[Block, Vector2i] = {}
 
+## The [Node] bind to the [Block]
 var node: Node
 
 
@@ -28,7 +31,7 @@ static func create(block_name: StringName) -> Block:
 	var block := Block.new()
 	block.config = load(ResPath.BLOCK.file % block_name)
 	if not block:
-		Log.warning("try to create an non-existent BlockConfig named %s" % block_name)
+		Lib.Warning.does_not_exist(block_name, "BlockConfig")
 		assert(block)
 		return null
 	return block
@@ -36,7 +39,6 @@ static func create(block_name: StringName) -> Block:
 
 func enter():
 	config.enter(self)
-
 
 ## see [class Block.Mine]
 var mine: Mine = null

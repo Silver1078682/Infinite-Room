@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://br7t2jg5xy6w6"]
 
 [ext_resource type="Texture2D" uid="uid://drmxnrau4a1e2" path="res://asset/texture/Block/Crack.tga" id="1_d88c2"]
-[ext_resource type="Script" uid="uid://bc307d7jhlq23" path="res://scr/roles/blocks/mine.gd" id="2_af7is"]
+[ext_resource type="Script" uid="uid://bc307d7jhlq23" path="res://scr/roles/blocks/mine/mine.gd" id="2_af7is"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x21pv"]
 resource_local_to_scene = true
