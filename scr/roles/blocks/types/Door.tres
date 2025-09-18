@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="BlockConfig" load_steps=7 format=3 uid="uid://bn1oeve7gooqo"]
+
+[ext_resource type="AudioStream" uid="uid://cnpfypvdbxacl" path="res://asset/sfx/Walking.wav" id="1_7nhcv"]
+[ext_resource type="Script" uid="uid://bt3s4cqa1jhvf" path="res://scr/roles/items/item.gd" id="2_l5wry"]
+[ext_resource type="Script" uid="uid://dfj6lxbkko0on" path="res://scr/roles/blocks/block_config.gd" id="3_5kplk"]
+[ext_resource type="PackedScene" uid="uid://dkm4nuij3b3ic" path="res://scr/roles/blocks/types/door.tscn" id="3_l5wry"]
+[ext_resource type="Texture2D" uid="uid://d3ij3v0n0o6ga" path="res://asset/texture/Block/Block.png" id="5_5kplk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hl8k"]
+atlas = ExtResource("5_5kplk")
+region = Rect2(48, 96, 16, 16)
+
+[resource]
+script = ExtResource("3_5kplk")
+name = &"Door"
+atlas_coord = Vector2i(3, 6)
+hardness = 1.0
+recovery = 0.1
+blast_resistance = 0.0
+speed_factor = 1.0
+jump_factor = 1.0
+solid = false
+cling_to = Dictionary[Vector2i, String]({})
+light_decay = 0
+light_level = 0
+default_sound = ExtResource("1_7nhcv")
+footstep_pitch_scale = 0.8
+footstep_volume_db = -5
+interactive = true
+drop = Array[ExtResource("2_l5wry")]([])
+texture = SubResource("AtlasTexture_1hl8k")
+color = Color(0.00887158, 0.00793363, 0.0070456, 0.0240479)
+scene = ExtResource("3_l5wry")
+meta = {}
+metadata/_custom_type_script = "uid://dfj6lxbkko0on"

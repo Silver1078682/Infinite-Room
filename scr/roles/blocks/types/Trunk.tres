@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="BlockConfig" load_steps=6 format=3 uid="uid://eedimdp1pln0"]
+
+[ext_resource type="AudioStream" uid="uid://cnpfypvdbxacl" path="res://asset/sfx/Walking.wav" id="1_45yqw"]
+[ext_resource type="Script" uid="uid://bt3s4cqa1jhvf" path="res://scr/roles/items/item.gd" id="1_h6a4p"]
+[ext_resource type="Script" uid="uid://dfj6lxbkko0on" path="res://scr/roles/blocks/block_config.gd" id="2_hy0rj"]
+[ext_resource type="Texture2D" uid="uid://d3ij3v0n0o6ga" path="res://asset/texture/Block/Block.png" id="3_hy0rj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45yqw"]
+atlas = ExtResource("3_hy0rj")
+region = Rect2(0, 16, 16, 16)
+
+[resource]
+script = ExtResource("2_hy0rj")
+name = &"Trunk"
+atlas_coord = Vector2i(0, 1)
+hardness = 1.0
+recovery = 0.1
+blast_resistance = 0.0
+speed_factor = 1.0
+jump_factor = 1.0
+solid = true
+cling_to = Dictionary[Vector2i, String]({})
+light_decay = -5
+light_level = 0
+default_sound = ExtResource("1_45yqw")
+footstep_pitch_scale = 0.8
+footstep_volume_db = -5
+interactable = false
+drop = Array[ExtResource("1_h6a4p")]([])
+texture = SubResource("AtlasTexture_45yqw")
+color = Color(0.341176, 0.215686, 0.0823529, 1)
+meta = {}
+metadata/_custom_type_script = "uid://dfj6lxbkko0on"

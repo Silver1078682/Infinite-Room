@@ -2,21 +2,22 @@
 
 [ext_resource type="Script" uid="uid://tyr4cr7inwvh" path="res://addons/gdscript_formatter/scripts/preference.gd" id="1_8cuqy"]
 
-[sub_resource type="InputEventKey" id="InputEventKey_t3318"]
+[sub_resource type="InputEventKey" id="InputEventKey_1sfu3"]
 device = -1
-alt_pressed = true
 shift_pressed = true
-keycode = 70
-unicode = 70
+ctrl_pressed = true
+pressed = true
+keycode = 73
+unicode = 73
 
-[sub_resource type="Shortcut" id="Shortcut_3j68t"]
-events = [SubResource("InputEventKey_t3318")]
+[sub_resource type="Shortcut" id="Shortcut_w62l6"]
+events = [SubResource("InputEventKey_1sfu3")]
 
 [resource]
 script = ExtResource("1_8cuqy")
 line_length = 220
 format_on_save = false
-shortcut = SubResource("Shortcut_3j68t")
+shortcut = SubResource("Shortcut_w62l6")
 fast_but_unsafe = false
 gdformat_command = "gdformat"
 pip_command = "pip"

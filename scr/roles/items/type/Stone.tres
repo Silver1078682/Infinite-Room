@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cluyi25x3d4h0"]
+
+[ext_resource type="Script" uid="uid://bt3s4cqa1jhvf" path="res://scr/roles/items/item.gd" id="1_yf07t"]
+[ext_resource type="Texture2D" uid="uid://d3ij3v0n0o6ga" path="res://asset/texture/Block/Block.png" id="2_ugvhj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87she"]
+atlas = ExtResource("2_ugvhj")
+region = Rect2(32, 48, 16, 16)
+
+[resource]
+script = ExtResource("1_yf07t")
+name = "Stone"
+texture = SubResource("AtlasTexture_87she")
+material = 0
+imflammable = false
+stack_amount = 25
+meta = Dictionary[String, Variant]({
+"block": "Stone"
+})
+metadata/_custom_type_script = "uid://bt3s4cqa1jhvf"

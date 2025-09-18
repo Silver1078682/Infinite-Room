@@ -1,7 +1,7 @@
 class_name IMGHelper
 extends Object
 ## Library for handling image.
-#quite useless actually.
+#pretty useless actually.
 
 
 static func average(img: Image, ignore_alpha = true) -> Color:

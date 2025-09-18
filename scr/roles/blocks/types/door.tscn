@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://dkm4nuij3b3ic"]
+
+[ext_resource type="Script" uid="uid://ccc7lshmvb2ks" path="res://scr/roles/blocks/types/door.gd" id="1_ne43i"]
+[ext_resource type="Texture2D" uid="uid://d3ij3v0n0o6ga" path="res://asset/texture/Block/Block.png" id="2_sjf41"]
+[ext_resource type="FontFile" uid="uid://cd17laerjhtfh" path="res://asset/font/Silver.ttf" id="3_sjf41"]
+[ext_resource type="Script" uid="uid://c1gu0dngnxge8" path="res://scr/ui/menus/start_menu/ui_anim.gd" id="4_4dbcx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dbcx"]
+atlas = ExtResource("2_sjf41")
+region = Rect2(0, 80, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mmgl"]
+atlas = ExtResource("2_sjf41")
+region = Rect2(16, 80, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p0omw"]
+atlas = ExtResource("2_sjf41")
+region = Rect2(32, 80, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dyyjo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dbcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mmgl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p0omw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_860n7"]
+size = Vector2(16, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ne43i"]
+
+[sub_resource type="FontVariation" id="FontVariation_ne43i"]
+base_font = ExtResource("3_sjf41")
+spacing_bottom = -10
+
+[sub_resource type="LabelSettings" id="LabelSettings_ne43i"]
+font = SubResource("FontVariation_ne43i")
+font_size = 19
+font_color = Color(0.684974, 0.772331, 0.878568, 1)
+outline_size = 2
+outline_color = Color(0.333128, 0.20999, 0.0892304, 1)
+
+[node name="Door" type="Node2D"]
+script = ExtResource("1_ne43i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_dyyjo")
+frame_progress = 0.0405497
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_860n7")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 10.0436
+offset_top = -27.4851
+offset_right = 62.0436
+offset_bottom = 0.514893
+pivot_offset = Vector2(26, 14)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ne43i")
+text = "press [E]
+to enter"
+label_settings = SubResource("LabelSettings_ne43i")
+horizontal_alignment = 1
+
+[node name="Node" type="Node" parent="Label"]
+script = ExtResource("4_4dbcx")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

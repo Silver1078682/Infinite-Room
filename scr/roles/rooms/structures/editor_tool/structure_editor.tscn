@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=4 uid="uid://ktmsnwdn22h"]
+
+[ext_resource type="Texture2D" uid="uid://d3ij3v0n0o6ga" path="res://asset/texture/Block/Block.png" id="1_pk5hn"]
+[ext_resource type="Script" uid="uid://dacbhdkj5t23j" path="res://scr/roles/rooms/structures/editor_tool/structure_editor.gd" id="2_c8wd4"]
+[ext_resource type="Script" uid="uid://b3yeel464vpaj" path="res://scr/roles/rooms/structures/editor_tool/call_my_name_button.gd" id="3_c8wd4"]
+[ext_resource type="Script" uid="uid://bebm5bsjitrp3" path="res://scr/roles/rooms/structures/editor_tool/tile_operators_editor.gd" id="4_0qnm7"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0qnm7"]
+texture = ExtResource("1_pk5hn")
+0:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+1:4/0 = 0
+1:2/0 = 0
+0:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_jwvr2"]
+sources/0 = SubResource("TileSetAtlasSource_0qnm7")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0qnm7"]
+
+[node name="BlockLayer" type="TileMapLayer"]
+tile_map_data = PackedByteArray("AAAAAP//AAACAAMAAAABAP//AAACAAMAAAACAP//AAACAAMAAAADAP//AAACAAMAAAACAP7/AAADAAEAAAAAAP7/AAADAAEAAAADAP7/AAADAAEAAAAAAP3/AAADAAEAAAADAP3/AAADAAEAAAABAP7/AAADAAEAAAABAP3/AAADAAEAAAACAP3/AAADAAEAAAA=")
+tile_set = SubResource("TileSet_jwvr2")
+script = ExtResource("2_c8wd4")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="TileMapDrawer" type="Node2D" parent="."]
+script = ExtResource("4_0qnm7")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_right = 120.0
+offset_bottom = 93.0
+mouse_filter = 0
+
+[node name="DebugPrint" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+button_mask = 3
+text = "DebugPrint"
+script = ExtResource("3_c8wd4")
+
+[node name="Update" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+button_mask = 3
+script = ExtResource("3_c8wd4")
+
+[node name="Save" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("3_c8wd4")
+
+[node name="LoadFrom" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("3_c8wd4")
+
+[node name="SaveName" type="LineEdit" parent="CanvasLayer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="UpdateTemplateOnLoad" type="CheckBox" parent="CanvasLayer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="."]
+offset_left = -2.26218
+offset_top = 169.864
+offset_right = 489.738
+offset_bottom = 221.864
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0qnm7")
+text = "Template:(edit in editor)
+Using native TileMapLayer gui
+
+Ray:(run the scene to edit)
+Click 2 different position on the screen: Create a Ray
+NOTE: The ray must start on a tile
+Hovering the start position of the Ray, and wheel down/up: shorten or extends the Ray.
+RighClick: delete a Ray "

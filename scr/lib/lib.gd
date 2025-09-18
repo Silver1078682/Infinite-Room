@@ -101,6 +101,7 @@ func change_scene_to(path: String):
 	scene_changed.emit()
 	get_tree().change_scene_to_file(path)
 
+
 class Iterator:
 	extends RefCounted
 	var start

@@ -4,7 +4,7 @@
 # The codes are intended for Controls, but seemingly applies to all Node2D
 extends Node
 
-var default_offset := 8.0
+var default_offset := Vector2(0, 0)
 var default_duration := 0.3
 
 
@@ -33,25 +33,25 @@ func slide_from_side(
 
 func slide_from_left(node, tween: Tween, offset := default_offset, duration := default_duration):
 	node.position.x = -node.size.x
-	await tween.tween_property(node, "position:x", offset, duration).finished
+	await tween.tween_property(node, "position:x", offset.x, duration).finished
 
 
 func slide_from_right(node, tween: Tween, offset := default_offset, duration := default_duration):
 	node.position.x = get_viewport().size.x
 	var vp_size = get_viewport().get_visible_rect().size.x
-	var target = (vp_size - node.size.x) - offset
+	var target = (vp_size - node.size.x) - offset.x
 	await tween.tween_property(node, "position:x", target, duration).finished
 
 
 func slide_from_top(node, tween: Tween, offset := default_offset, duration := default_duration):
 	node.position.y = -node.size.y
-	await tween.tween_property(node, "position:y", offset, duration).finished
+	await tween.tween_property(node, "position:y", offset.y, duration).finished
 
 
 func slide_from_bottom(node, tween: Tween, offset := default_offset, duration := default_duration):
 	node.position.y = get_viewport().size.y
 	var vp_size = get_viewport().get_visible_rect().size.y
-	var target = (vp_size - node.size.y) - offset
+	var target = (vp_size - node.size.y) - offset.y
 	await tween.tween_property(node, "position:y", target, duration).finished
 
 
@@ -99,16 +99,16 @@ func slide_to_bottom(node, tween: Tween, offset := default_offset, duration := d
 ## EaseOut
 func pop(node, tween: Tween, offset := default_offset, duration := default_duration):
 	node.show()
-	node.pivot_offset.x = node.size.x / 2 + offset
-	node.pivot_offset.y = node.size.y / 2 + offset
+	node.pivot_offset.x = node.size.x / 2 + offset.x
+	node.pivot_offset.y = node.size.y / 2 + offset.y
 	node.scale = Vector2.ZERO
 
 	await tween.tween_property(node, "scale", Vector2.ONE, duration).finished
 
 ## EaseIn
 func shrink(node, tween: Tween, offset := default_offset, duration := default_duration):
-	node.pivot_offset.x = node.size.x / 2 + offset
-	node.pivot_offset.y = node.size.y / 2 + offset
+	node.pivot_offset.x = node.size.x / 2 + offset.x
+	node.pivot_offset.y = node.size.y / 2 + offset.y
 	await tween.tween_property(node, "scale", Vector2.ZERO, duration)
 	node.hide()
 
@@ -117,8 +117,8 @@ func fade_in(node, tween: Tween, offset := default_offset, duration := default_d
 	node.show()
 	await tween.tween_property(node, "modulate:a", 1, duration).finished
 
-func raise(node, tween: Tween, offset := default_offset, duration := default_duration):
-	await tween.tween_property(node, "position:y", node.position.y - offset, duration).finished
+func move(node, tween: Tween, offset := default_offset, duration := default_duration):
+	await tween.tween_property(node, "position", node.position + offset, duration).finished
 	
 
 func from_left_to_center(node, tween: Tween, offset := default_offset, duration := default_duration):

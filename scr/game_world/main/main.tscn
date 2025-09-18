@@ -1,0 +1,590 @@
+[gd_scene load_steps=27 format=3 uid="uid://8f1u7k6r8i4r"]
+
+[ext_resource type="Script" uid="uid://bkluwrodslno3" path="res://scr/game_world/main/main.gd" id="1_opd2y"]
+[ext_resource type="Script" uid="uid://bg1demqsxdw7o" path="res://scr/systems/stats/stats.gd" id="2_lvwee"]
+[ext_resource type="Script" uid="uid://cwuhn0udsmwn6" path="res://scr/ui/menus/stats_menu/stats_label.gd" id="3_og303"]
+[ext_resource type="Script" uid="uid://cyphcjp3ay3gc" path="res://scr/systems/sl/autosaver.gd" id="3_xhfjt"]
+[ext_resource type="PackedScene" uid="uid://cgx8c4ej4ke8f" path="res://scr/roles/entities/player/player/player.tscn" id="4_uai8m"]
+[ext_resource type="Script" uid="uid://b4bsfc5ge01qa" path="res://scr/game_world/camera/camera.gd" id="5_tamyd"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_tqpf8"]
+[ext_resource type="Texture2D" uid="uid://d3ij3v0n0o6ga" path="res://asset/texture/Block/Block.png" id="7_pokiq"]
+[ext_resource type="Script" uid="uid://dks7075b472tp" path="res://scr/game_world/map/map.gd" id="8_gvyqm"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="9_n6vs1"]
+[ext_resource type="Script" uid="uid://dhet7thltkum6" path="res://scr/ui/ui.gd" id="10_edych"]
+[ext_resource type="PackedScene" uid="uid://csajuj2k57t2w" path="res://scr/ui/component/item_holder/inventory_panel.tscn" id="11_ad1b5"]
+[ext_resource type="Script" uid="uid://dyfbo47vgmvt0" path="res://scr/ui/component/console/console_container.gd" id="12_7jsph"]
+[ext_resource type="Script" uid="uid://cmress3mnidyx" path="res://scr/ui/menus/pause_menu/pause_menu.gd" id="13_6uxgi"]
+[ext_resource type="PackedScene" uid="uid://k274qfrqt8jv" path="res://scr/ui/menus/setting_menu/setting_menu.tscn" id="14_xe8te"]
+[ext_resource type="Script" uid="uid://cjtrfkx3j5825" path="res://scr/game_world/cursor/cursor.gd" id="15_ferae"]
+[ext_resource type="Texture2D" uid="uid://b7um1k53t6meg" path="res://asset/texture/White.png" id="16_stvj4"]
+[ext_resource type="Script" uid="uid://bgbny6u1e74so" path="res://scr/game_world/light_system/light_map.gd" id="17_hm4sn"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_ixuf4"]
+
+[sub_resource type="Gradient" id="Gradient_ixuf4"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ku4ab"]
+gradient = SubResource("Gradient_ixuf4")
+width = 16
+height = 16
+
+[sub_resource type="Resource" id="Resource_mi0cs"]
+script = ExtResource("6_tqpf8")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_007yk"]
+texture = ExtResource("7_pokiq")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-7, -8, 7, -8, 7, 8, -7, 8)
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:1/0 = 0
+6:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0 = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0/metadata/_better_terrain = {
+4: [0],
+&"type": 0
+}
+2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+9:6/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+9:7/0 = 0
+7:8/0 = 0
+8:8/0 = 0
+9:8/0 = 0
+7:9/0 = 0
+8:9/0 = 0
+9:9/0 = 0
+1:4/0 = 0
+1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:4/0/metadata/_better_terrain = {
+4: [0],
+12: [0],
+&"type": 0
+}
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+0:4/0 = 0
+0:5/0 = 0
+0:6/0 = 0
+0:7/0 = 0
+0:8/0 = 0
+0:9/0 = 0
+0:10/0 = 0
+0:11/0 = 0
+0:12/0 = 0
+0:13/0 = 0
+0:14/0 = 0
+0:15/0 = 0
+1:5/0 = 0
+1:6/0 = 0
+1:7/0 = 0
+1:8/0 = 0
+1:9/0 = 0
+1:10/0 = 0
+1:11/0 = 0
+1:12/0 = 0
+1:13/0 = 0
+1:14/0 = 0
+1:15/0 = 0
+2:2/0 = 0
+2:4/0 = 0
+2:5/0 = 0
+2:6/0 = 0
+2:7/0 = 0
+2:8/0 = 0
+2:9/0 = 0
+2:10/0 = 0
+2:11/0 = 0
+2:12/0 = 0
+2:13/0 = 0
+2:14/0 = 0
+2:15/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+3:4/0 = 0
+3:5/0 = 0
+3:6/0 = 0
+3:7/0 = 0
+3:8/0 = 0
+3:9/0 = 0
+3:10/0 = 0
+3:11/0 = 0
+3:12/0 = 0
+3:13/0 = 0
+3:14/0 = 0
+3:15/0 = 0
+4:2/0 = 0
+4:3/0 = 0
+4:4/0 = 0
+4:5/0 = 0
+4:6/0 = 0
+4:7/0 = 0
+4:8/0 = 0
+4:9/0 = 0
+4:10/0 = 0
+4:11/0 = 0
+4:12/0 = 0
+4:13/0 = 0
+4:14/0 = 0
+4:15/0 = 0
+5:2/0 = 0
+5:3/0 = 0
+5:4/0 = 0
+5:5/0 = 0
+5:6/0 = 0
+5:7/0 = 0
+5:8/0 = 0
+5:9/0 = 0
+5:10/0 = 0
+5:11/0 = 0
+5:12/0 = 0
+5:13/0 = 0
+5:14/0 = 0
+5:15/0 = 0
+6:2/0 = 0
+6:3/0 = 0
+6:4/0 = 0
+6:5/0 = 0
+6:6/0 = 0
+6:7/0 = 0
+6:8/0 = 0
+6:9/0 = 0
+6:10/0 = 0
+6:11/0 = 0
+6:12/0 = 0
+6:13/0 = 0
+6:14/0 = 0
+6:15/0 = 0
+7:2/0 = 0
+7:3/0 = 0
+7:4/0 = 0
+7:10/0 = 0
+7:11/0 = 0
+7:12/0 = 0
+7:13/0 = 0
+7:14/0 = 0
+7:15/0 = 0
+8:2/0 = 0
+8:3/0 = 0
+8:4/0 = 0
+8:10/0 = 0
+8:11/0 = 0
+8:12/0 = 0
+8:13/0 = 0
+8:14/0 = 0
+8:15/0 = 0
+9:2/0 = 0
+9:3/0 = 0
+9:4/0 = 0
+9:10/0 = 0
+9:11/0 = 0
+9:12/0 = 0
+9:13/0 = 0
+9:14/0 = 0
+9:15/0 = 0
+10:2/0 = 0
+10:3/0 = 0
+10:4/0 = 0
+10:5/0 = 0
+10:6/0 = 0
+10:7/0 = 0
+10:8/0 = 0
+10:9/0 = 0
+10:10/0 = 0
+10:11/0 = 0
+10:12/0 = 0
+10:13/0 = 0
+10:14/0 = 0
+10:15/0 = 0
+11:2/0 = 0
+11:3/0 = 0
+11:4/0 = 0
+11:5/0 = 0
+11:6/0 = 0
+11:7/0 = 0
+11:8/0 = 0
+11:9/0 = 0
+11:10/0 = 0
+11:11/0 = 0
+11:12/0 = 0
+11:13/0 = 0
+11:14/0 = 0
+11:15/0 = 0
+12:2/0 = 0
+12:3/0 = 0
+12:4/0 = 0
+12:5/0 = 0
+12:6/0 = 0
+12:7/0 = 0
+12:8/0 = 0
+12:9/0 = 0
+12:10/0 = 0
+12:11/0 = 0
+12:12/0 = 0
+12:13/0 = 0
+12:14/0 = 0
+12:15/0 = 0
+13:2/0 = 0
+13:3/0 = 0
+13:4/0 = 0
+13:5/0 = 0
+13:6/0 = 0
+13:7/0 = 0
+13:8/0 = 0
+13:9/0 = 0
+13:10/0 = 0
+13:11/0 = 0
+13:12/0 = 0
+13:13/0 = 0
+13:14/0 = 0
+13:15/0 = 0
+14:2/0 = 0
+14:3/0 = 0
+14:4/0 = 0
+14:5/0 = 0
+14:6/0 = 0
+14:7/0 = 0
+14:8/0 = 0
+14:9/0 = 0
+14:10/0 = 0
+14:11/0 = 0
+14:12/0 = 0
+14:13/0 = 0
+14:14/0 = 0
+14:15/0 = 0
+15:2/0 = 0
+15:3/0 = 0
+15:4/0 = 0
+15:5/0 = 0
+15:6/0 = 0
+15:7/0 = 0
+15:8/0 = 0
+15:9/0 = 0
+15:10/0 = 0
+15:11/0 = 0
+15:12/0 = 0
+15:13/0 = 0
+15:14/0 = 0
+15:15/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_b5l7j"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 14
+sources/0 = SubResource("TileSetAtlasSource_007yk")
+metadata/_better_terrain = {
+&"decoration": ["Decoration", Color(0.411765, 0.411765, 0.411765, 1), 3, [], {
+&"path": "res://addons/better-terrain/icons/Decoration.svg"
+}],
+&"terrains": [["New terrain", Color(0.7997, 0.578438, 0.843806, 1), 0, [], {
+&"path": ""
+}]],
+&"version": "0.2"
+}
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_og303"]
+texture = ExtResource("16_stvj4")
+texture_region_size = Vector2i(1, 1)
+0:0/next_alternative_id = 9
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_1imhh"]
+tile_size = Vector2i(1, 1)
+sources/0 = SubResource("TileSetAtlasSource_og303")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_opd2y")
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_lvwee")
+metadata/_custom_type_script = "uid://bg1demqsxdw7o"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Stats"]
+
+[node name="AutoSaver" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+ignore_time_scale = true
+script = ExtResource("3_xhfjt")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamGenerator_ixuf4")
+
+[node name="EnvironmentLight" type="CanvasModulate" parent="."]
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_ku4ab")
+centered = false
+
+[node name="PlayerManager" type="Node2D" parent="."]
+
+[node name="Player" parent="PlayerManager" instance=ExtResource("4_uai8m")]
+z_index = 1
+position = Vector2(52, 100)
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="PlayerManager"]
+spawn_path = NodePath("..")
+
+[node name="Camera" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(52, 110)
+script = ExtResource("5_tamyd")
+follow_mode = 2
+follow_target = NodePath("../PlayerManager/Player")
+zoom = Vector2(2, 2)
+tween_resource = SubResource("Resource_mi0cs")
+follow_offset = Vector2(0, 10)
+follow_damping = true
+follow_damping_value = Vector2(0.4, 0)
+
+[node name="Map" type="TileMapLayer" parent="."]
+z_index = 2
+tile_set = SubResource("TileSet_b5l7j")
+script = ExtResource("8_gvyqm")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+physics_interpolation_mode = 1
+position = Vector2(52, 110)
+zoom = Vector2(2, 2)
+process_callback = 0
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("9_n6vs1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("10_edych")
+
+[node name="Control" type="Control" parent="CanvasLayer/UI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BackpackMargin" type="MarginContainer" parent="CanvasLayer/UI/Control"]
+layout_mode = 0
+offset_right = 78.0
+offset_bottom = 50.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="BackpackPanel" parent="CanvasLayer/UI/Control/BackpackMargin" instance=ExtResource("11_ad1b5")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ConsoleMargin" type="MarginContainer" parent="CanvasLayer/UI/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 717.0
+offset_top = 240.0
+offset_right = 920.0
+offset_bottom = 500.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ConsoleContainer" type="VBoxContainer" parent="CanvasLayer/UI/Control/ConsoleMargin"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
+script = ExtResource("12_7jsph")
+metadata/_custom_type_script = "uid://p4inwor7gtoo"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer"]
+layout_mode = 2
+
+[node name="ExitCommandMode" type="Button" parent="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer/HBoxContainer" groups=["FontResizable"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+mouse_default_cursor_shape = 2
+text = " exit command mode "
+
+[node name="Pause" type="ColorRect" parent="CanvasLayer/UI"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.619608)
+script = ExtResource("13_6uxgi")
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer/UI/Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MainMenuCenter" type="CenterContainer" parent="CanvasLayer/UI/Pause/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" type="VBoxContainer" parent="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu" groups=["FontResizable"]]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = " Resume "
+
+[node name="Setting" type="Button" parent="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu" groups=["FontResizable"]]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = " Settings "
+
+[node name="StartMenu" type="Button" parent="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu" groups=["FontResizable"]]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = " Start Menu "
+
+[node name="Stats" type="Button" parent="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu" groups=["FontResizable"]]
+layout_mode = 2
+text = " Stats "
+
+[node name="Setting" parent="CanvasLayer/UI/Pause/PauseMenu" instance=ExtResource("14_xe8te")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="Stats" type="VBoxContainer" parent="CanvasLayer/UI/Pause/PauseMenu"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Stats" type="Label" parent="CanvasLayer/UI/Pause/PauseMenu/Stats"]
+layout_mode = 2
+script = ExtResource("3_og303")
+
+[node name="Exit" type="Button" parent="CanvasLayer/UI/Pause/PauseMenu/Stats" groups=["FontResizable"]]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "exit"
+
+[node name="PlaceDetects" type="Node2D" parent="."]
+
+[node name="Mines" type="Node2D" parent="."]
+
+[node name="Cursor" type="Node2D" parent="."]
+z_index = 100
+scale = Vector2(2, 2)
+script = ExtResource("15_ferae")
+
+[node name="Sprite2D" type="Sprite2D" parent="Cursor"]
+position = Vector2(0.5, 0.5)
+
+[node name="LinearFilterer" type="SubViewportContainer" parent="."]
+z_index = 20
+texture_filter = 2
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(16, 16)
+focus_mode = 0
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="LinearFilterer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(40, 40)
+render_target_update_mode = 4
+
+[node name="LightMap" type="TileMapLayer" parent="LinearFilterer/SubViewport"]
+modulate = Color(0, 0, 0, 1)
+tile_set = SubResource("TileSet_1imhh")
+script = ExtResource("17_hm4sn")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = 0.322886
+energy = 0.1
+blend_mode = 1
+shadow_enabled = true
+shadow_color = Color(1, 0.745098, 1, 0.137255)
+
+[connection signal="timeout" from="AutoSaver" to="AutoSaver" method="_on_timeout"]
+[connection signal="pressed" from="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer/HBoxContainer/ExitCommandMode" to="CanvasLayer/UI/Control/ConsoleMargin/ConsoleContainer" method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/Resume" to="CanvasLayer/UI/Pause" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/Setting" to="CanvasLayer/UI/Pause" method="_on_setting_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/StartMenu" to="CanvasLayer/UI/Pause" method="_on_start_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/MainMenuCenter/MainMenu/Stats" to="CanvasLayer/UI/Pause" method="_on_stats_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/Setting/Exit" to="CanvasLayer/UI/Pause" method="back_to_main_menu"]
+[connection signal="visibility_changed" from="CanvasLayer/UI/Pause/PauseMenu/Stats/Stats" to="CanvasLayer/UI/Pause/PauseMenu/Stats/Stats" method="_on_visibility_changed"]
+[connection signal="pressed" from="CanvasLayer/UI/Pause/PauseMenu/Stats/Exit" to="CanvasLayer/UI/Pause" method="back_to_main_menu"]
+
+[editable path="CanvasLayer/UI/Pause/PauseMenu/Setting"]

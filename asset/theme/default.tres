@@ -1,11 +1,11 @@
 [gd_resource type="Theme" load_steps=30 format=3 uid="uid://cr6b1j6kt3gwx"]
 
 [ext_resource type="FontFile" uid="uid://cd17laerjhtfh" path="res://asset/font/Silver.ttf" id="1_acvfc"]
-[ext_resource type="Texture2D" uid="uid://05sx2f35wrqk" path="res://asset/texture/ui/UiBackground.png" id="2_vkesy"]
+[ext_resource type="Texture2D" uid="uid://05sx2f35wrqk" path="res://asset/texture/UI/UiBackground.png" id="2_vkesy"]
 [ext_resource type="StyleBox" uid="uid://cayr00vhqhhm4" path="res://asset/theme/dark_style_box.tres" id="2_xkk1w"]
 [ext_resource type="StyleBox" uid="uid://mgrtho73hb4v" path="res://asset/theme/default_style_box.tres" id="3_085w5"]
-[ext_resource type="Texture2D" uid="uid://dqvhqnnj1l8xa" path="res://asset/texture/ui/UIUncheck.png" id="3_bu3ha"]
-[ext_resource type="Texture2D" uid="uid://5pr4km50tge4" path="res://asset/texture/ui/UICheck.png" id="3_p77u8"]
+[ext_resource type="Texture2D" uid="uid://dqvhqnnj1l8xa" path="res://asset/texture/UI/UIUncheck.png" id="3_bu3ha"]
+[ext_resource type="Texture2D" uid="uid://5pr4km50tge4" path="res://asset/texture/UI/UICheck.png" id="3_p77u8"]
 [ext_resource type="FontVariation" uid="uid://cdw40s5xpptte" path="res://asset/font/font_adjusted.tres" id="5_6ogrd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p77u8"]

@@ -104,38 +104,3 @@ static func split(arr: Array, step: int) -> Array:
 	for i in range(0, arr.size(), step):
 		result.append(arr.slice(i, i + step))
 	return result
-
-#Bad codes, deprecated
-### Call [param method] for each element in [param a],
-### and the element in [param b] with the same index is also passed to the [param method].[br]
-### Returns a new array filled with the values returned by [param method].[br]
-### [codeblock]
-###func add(a,b):
-###    return a + b
-###
-###map2([1, 2, 3], [1, 2, 3], add) # returns [2, 4, 6]
-###map2([1, 2, 3], [1, 2, 3, 4], add) # returns [2, 4, 6]
-###map2([1, 2, 3, 4], [1, 2, 3], add) # raise an error
-###map2([1, 2, 3, 4], [1, 2, 3], add, 0) # returns [2, 4, 6, 4]
-### [/codeblock]
-#static func map2(a: Array, b: Array, method: Callable, default_b = null) -> Array:
-#return range(a.size()).map(func(i): return method.call(a[i], b[i] if i < b.size() else default_b))
-#
-#
-### Iterate each element in [param a], and iterate [param b] for each element in [param a].[br]
-### Pass element in [param a] and element in [param b] to [param method] in order,
-### and returns a new array filled with the values returned by [param method].[br][br]
-### equivalent to following code:
-### [codeblock]
-### var result = []
-### for i in a:
-###     for j in b:
-###         result.append(method.call(i, j))
-### return result
-### [/codeblock]
-#static func iterate2(a: Array, b: Array, method: Callable) -> Array:
-#var result := []
-#for i in a:
-#for j in b:
-#result.append(method.call(i, j))
-#return result

@@ -1,0 +1,184 @@
+[gd_scene load_steps=11 format=3 uid="uid://c1oo5q6thv8lw"]
+
+[ext_resource type="Texture2D" uid="uid://gedtnk6mjp1o" path="res://asset/texture/UI/UiBackgroundDark.png" id="1_f0gwm"]
+[ext_resource type="Script" uid="uid://dnxs6dk4kdf82" path="res://scr/ui/menus/start_menu/start_menu.gd" id="1_l0xrg"]
+[ext_resource type="Script" uid="uid://dm101khnfp4u2" path="res://scr/ui/UiAnimator.gd" id="3_1s3mk"]
+[ext_resource type="Texture2D" uid="uid://dbo520efkhotw" path="res://asset/texture/UI/UILoad.png" id="4_1s3mk"]
+[ext_resource type="PackedScene" uid="uid://k274qfrqt8jv" path="res://scr/ui/menus/setting_menu/setting_menu.tscn" id="4_efnl0"]
+[ext_resource type="Script" uid="uid://rppf453aa6bf" path="res://scr/ui/UiAnimatorRestore.gd" id="4_mesgo"]
+[ext_resource type="Script" uid="uid://dtwb7bybh8u5o" path="res://scr/ui/menus/start_menu/save_manager.gd" id="4_s0t7g"]
+[ext_resource type="Texture2D" uid="uid://c1ggrbqjwh4ef" path="res://asset/texture/UI/UITrashBin.png" id="5_mesgo"]
+
+[sub_resource type="FontVariation" id="FontVariation_20mmv"]
+variation_embolden = 0.5
+variation_transform = Transform2D(1, 0.2, 0, 1, 0, 0)
+spacing_top = 5
+spacing_bottom = -15
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l0xrg"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = ExtResource("1_f0gwm")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l0xrg")
+
+[node name="MainMenu" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_20mmv")
+theme_override_font_sizes/font_size = 95
+text = " Inifite Room "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="PanelContainer" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_l0xrg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/VBoxContainer/Panel"]
+layout_mode = 2
+
+[node name="NewGame" type="Button" parent="MainMenu/VBoxContainer/Panel/VBoxContainer" groups=["FontResizable"]]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "New Game"
+
+[node name="LoadGame" type="Button" parent="MainMenu/VBoxContainer/Panel/VBoxContainer" groups=["FontResizable"]]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Load Game"
+
+[node name="Settings" type="Button" parent="MainMenu/VBoxContainer/Panel/VBoxContainer" groups=["FontResizable"]]
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitGame" type="Button" parent="MainMenu/VBoxContainer/Panel/VBoxContainer" groups=["FontResizable"]]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Quit Game"
+
+[node name="AnimatorRestore" type="Node" parent="MainMenu/VBoxContainer/Panel/VBoxContainer" node_paths=PackedStringArray("play_animator")]
+script = ExtResource("4_mesgo")
+play_animator = NodePath("AnimatorRaise")
+effect = "mouse_exited"
+play_signal = "mouse_exited"
+
+[node name="AnimatorRaise" type="Node" parent="MainMenu/VBoxContainer/Panel/VBoxContainer/AnimatorRestore"]
+script = ExtResource("3_1s3mk")
+effect = "move"
+offset = Vector2(0, -10)
+play_signal = "mouse_entered"
+applies_to = 2
+
+[node name="SaveManager" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+script = ExtResource("4_s0t7g")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SaveManager"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SaveManager/VBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SaveManager/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+
+[node name="Container" type="VBoxContainer" parent="SaveManager/VBoxContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SaveManager/VBoxContainer"]
+layout_mode = 2
+
+[node name="Load" type="Button" parent="SaveManager/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "LOAD"
+icon = ExtResource("4_1s3mk")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
+
+[node name="Predelete" type="Button" parent="SaveManager/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "delete this save"
+mouse_default_cursor_shape = 2
+text = "DELETE"
+icon = ExtResource("5_mesgo")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
+
+[node name="Exit" type="Button" parent="SaveManager/VBoxContainer/HBoxContainer" groups=["FontResizable"]]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Exit"
+
+[node name="AcceptDialog" type="AcceptDialog" parent="SaveManager"]
+position = Vector2i(0, 36)
+size = Vector2i(207, 100)
+ok_button_text = "  OK  "
+dialog_text = "You will lose the save forever! 
+Click OK if you made up your mind"
+
+[node name="SettingMenu" parent="." instance=ExtResource("4_efnl0")]
+layout_mode = 1
+
+[connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/NewGame" to="." method="new_game"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/LoadGame" to="." method="load_game"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/QuitGame" to="." method="quit_game"]
+[connection signal="pressed" from="SaveManager/VBoxContainer/HBoxContainer/Load" to="SaveManager" method="_on_load_pressed"]
+[connection signal="pressed" from="SaveManager/VBoxContainer/HBoxContainer/Predelete" to="SaveManager" method="_pop_up_deletion_warning"]
+[connection signal="pressed" from="SaveManager/VBoxContainer/HBoxContainer/Exit" to="." method="back_to_main_menu"]
+[connection signal="canceled" from="SaveManager/AcceptDialog" to="SaveManager" method="_on_deletion_canceled"]
+[connection signal="pressed" from="SettingMenu/Exit" to="." method="back_to_main_menu"]
+
+[editable path="SettingMenu"]
