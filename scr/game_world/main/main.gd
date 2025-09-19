@@ -1,7 +1,7 @@
 class_name World
 extends Node2D
 ## The [World] is a running game, or more precisely The world player is in.
-# SO WHY DONT RENAME IT TO [World]!!!!???
+
 
 const SCENE_PATH = "res://scr/game_world/main/main.tscn"
 
