@@ -1,6 +1,6 @@
 [gd_scene load_steps=27 format=3 uid="uid://8f1u7k6r8i4r"]
 
-[ext_resource type="Script" uid="uid://bkluwrodslno3" path="res://scr/game_world/main/main.gd" id="1_opd2y"]
+[ext_resource type="Script" uid="uid://bkluwrodslno3" path="res://scr/game_world/world/world.gd" id="1_opd2y"]
 [ext_resource type="Script" uid="uid://bg1demqsxdw7o" path="res://scr/systems/stats/stats.gd" id="2_lvwee"]
 [ext_resource type="Script" uid="uid://cwuhn0udsmwn6" path="res://scr/ui/menus/stats_menu/stats_label.gd" id="3_og303"]
 [ext_resource type="Script" uid="uid://cyphcjp3ay3gc" path="res://scr/systems/sl/autosaver.gd" id="3_xhfjt"]
@@ -32,9 +32,6 @@ height = 16
 
 [sub_resource type="Resource" id="Resource_mi0cs"]
 script = ExtResource("6_tqpf8")
-duration = 1.0
-transition = 0
-ease = 2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_007yk"]
 texture = ExtResource("7_pokiq")
@@ -365,7 +362,6 @@ centered = false
 [node name="Player" parent="PlayerManager" instance=ExtResource("4_uai8m")]
 z_index = 1
 position = Vector2(52, 100)
-record_coord_changed = true
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="PlayerManager"]
 spawn_path = NodePath("..")
@@ -374,41 +370,13 @@ spawn_path = NodePath("..")
 top_level = true
 position = Vector2(52, 110)
 script = ExtResource("5_tamyd")
-priority_override = null
-priority = null
 follow_mode = 2
 follow_target = NodePath("../PlayerManager/Player")
 zoom = Vector2(2, 2)
-snap_to_pixel = null
-frame_preview = null
 tween_resource = SubResource("Resource_mi0cs")
-tween_on_load = null
-inactive_update_mode = null
-host_layers = null
 follow_offset = Vector2(0, 10)
 follow_damping = true
 follow_damping_value = Vector2(0.4, 0)
-follow_axis_lock = null
-rotate_with_target = null
-rotation_offset = null
-rotation_damping = null
-rotation_damping_value = null
-auto_zoom = null
-auto_zoom_min = null
-auto_zoom_max = null
-auto_zoom_margin = null
-dead_zone_width = null
-dead_zone_height = null
-show_viewfinder_in_play = null
-draw_limits = null
-limit_left = null
-limit_top = null
-limit_right = null
-limit_bottom = null
-limit_target = null
-limit_margin = null
-_preview_noise = null
-noise_emitter_layer = null
 
 [node name="Map" type="TileMapLayer" parent="."]
 z_index = 2
