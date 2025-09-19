@@ -5,7 +5,9 @@ extends PhantomCamera2D
 
 ## How much to scale up or scale down for each time
 const ZOOM_SCALE = 1.0
+## minimum zoom scale
 const MIN_ZOOM = 2.0
+## maximum zoom scale
 const MAX_ZOOM = 4.0
 @onready var _target_zoom := zoom
 
@@ -32,6 +34,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
+	#scale in/ out
 	if Input.is_action_just_pressed("zoom_in", true):
 		_target_zoom += Vector2.ONE * ZOOM_SCALE
 	elif Input.is_action_just_pressed("zoom_out", true):

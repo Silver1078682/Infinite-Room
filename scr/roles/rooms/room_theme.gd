@@ -1,6 +1,8 @@
 @tool
 class_name RoomTheme
 extends Resource
+## RoomTheme determine how a room should be spawned and how they should look like.
+
 
 @export_group("name")
 @export var name: StringName
@@ -33,14 +35,14 @@ func spawn(room: Room) -> void:
 
 func _spawn(room: Room):
 	Log.info("Room %s start spawning" % room)
-	if frame_on:
-		Log.info("Spawning frame...")
-		_spawn_frame(room)
 	Log.info("Spawning terrain...")
 	_spawn_terrain(room)
 	Log.info("Spawning structure...")
 	_spawn_structures(room)
 	Log.info("Spawning finished")
+	if frame_on:
+		Log.info("Spawning frame...")
+		_spawn_frame(room)
 
 
 func _spawn_frame(room: Room) -> void:

@@ -1,5 +1,7 @@
 class_name Room
 extends Node2D
+## [Room] is any room that enters the world.
+## each [Room] has a [RoomTheme]
 
 # typical LifeCycle of a room
 # 1. created by [RoomTheme]
@@ -46,7 +48,7 @@ func size() -> Vector2i:
 	return Vector2i(width, HEIGHT)
 
 
-#
+## return if the [param coord] is inside room.
 func has_coord(coord: Vector2i) -> bool:
 	return 0 <= coord.x and coord.x < width and 0 <= coord.y and coord.y < HEIGHT
 
@@ -137,10 +139,6 @@ var _blocks: Array[Array]
 
 
 func enter() -> void:
-	_enter()
-
-
-func _enter() -> void:
 	World.instance.add_node(self)
 	await tree_entered
 	start_time = Time.get_ticks_usec()
@@ -149,6 +147,9 @@ func _enter() -> void:
 	update_environment()
 	Stats.room(theme.name).enter_counts += 1
 	Log.info("Room Instance %s is added to tree" % self)
+
+
+
 
 
 func update_time() -> void:

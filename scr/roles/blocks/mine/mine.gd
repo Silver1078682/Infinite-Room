@@ -8,6 +8,7 @@ const SIZE = Vector2(16, 16)
 const SCENE_PATH = "res://scr/roles/blocks/mine/mine.tscn"
 const SCENE = preload(SCENE_PATH)
 
+## The [Block] bind to the Mine
 var block: Block:
 	set(p_block):
 		assert(p_block)
