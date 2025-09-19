@@ -30,7 +30,7 @@ static func _static_init() -> void:
 
 
 static func _command_tracker(on: bool):
-	Main.instance.get_tree().call_group(&"Tracker", "set_tracking", on)
+	World.instance.get_tree().call_group(&"Tracker", "set_tracking", on)
 
 func set_tracking(on: bool):
 	tracking = on

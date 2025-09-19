@@ -50,7 +50,7 @@ static func intersection(a: Array, b: Array) -> Array:
 	return result
 
 
-## Returns a derangement of the [param arr].[br]
+## Returns a random derangement of the [param arr].[br]
 ## i.e shuffle the array but any element won't stay at its previous position.
 static func rand_derange(arr: Array) -> Array:
 	var size := arr.size()

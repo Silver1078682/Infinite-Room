@@ -78,7 +78,7 @@ var range_top_left: Vector2i
 
 func update_render_range(small_range := true) -> void:
 	var render_range := RENDER_SMALL_RANGE if small_range else RENDER_LARGE_RANGE
-	var camera_coord := Main.Camera.instance.coord
+	var camera_coord := World.Camera.instance.coord
 	range_bottom_right = Room.current.size().min(camera_coord + render_range) - Vector2i.ONE
 	range_top_left = Vector2i.ZERO.max(camera_coord - render_range)
 

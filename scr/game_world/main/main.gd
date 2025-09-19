@@ -1,6 +1,6 @@
-class_name Main
+class_name World
 extends Node2D
-## The [Main] is a running game, or more precisely The world player is in.
+## The [World] is a running game, or more precisely The world player is in.
 # SO WHY DONT RENAME IT TO [World]!!!!???
 
 const SCENE_PATH = "res://scr/game_world/main/main.tscn"
@@ -8,9 +8,9 @@ const SCENE_PATH = "res://scr/game_world/main/main.tscn"
 #namespaces
 const Map: GDScript = preload("res://scr/game_world/map/map.gd")
 const Cursor: GDScript = preload("res://scr/game_world/cursor/cursor.gd")
-const Camera: GDScript = preload("res://scr/game_world/camera/camera.gd")
+const Camera := preload("res://scr/game_world/camera/camera.gd")
 
-static var instance: Main
+static var instance: World
 static var save_name: String
 
 
@@ -21,17 +21,17 @@ static func add_node(node: Node, under: NodePath = "."):
 
 
 func _init():
-	assert(not instance, "There can be only one Main instance at one time")
+	assert(not instance, "There can be only one World instance at one time")
 	instance = self
-	Log.info("Main Instance Initialized")
+	Log.info("World Instance Initialized")
 
 
 func _ready() -> void:
-	Log.info("Main Instance Ready")
+	Log.info("World Instance Ready")
 
 
 func _input(_event: InputEvent) -> void:
-	if Main.input("just_pressed", &"ui_home"):
+	if World.input("just_pressed", &"ui_home"):
 		SL.save_game()
 	if _event.is_action_pressed("pause_game"):
 		pause_game()
@@ -64,5 +64,5 @@ static func input(func_name: StringName, action_name: StringName, exact_match :=
 static func new_game():
 	save_name = SaveManager.get_save_name_from_time()
 	RoomManager.enter_room(RoomManager.create_a_room("Nature"))
-	await Main.instance.ready
+	await World.instance.ready
 	SL.save_game()

@@ -5,7 +5,7 @@ const ROOM_SAVE_FILE_SUFFIX = "/%s/%s.json"
 
 
 ## Save a game
-static func save_game(save_name := Main.save_name):
+static func save_game(save_name := World.save_name):
 	var to_save := {
 		"room": Room.current,
 		"player": Player.local_instance,
@@ -52,7 +52,7 @@ static func load_game(save_name: String):
 	Player.local_instance.load_save(json.data["player"])
 	await Lib.ensure_ready(UI.instance)
 	UI.instance.backpack.load_save(json.data["inventory"])
-	Main.save_name = save_name
+	World.save_name = save_name
 
 	Log.notice("Loading Save Finished")
 

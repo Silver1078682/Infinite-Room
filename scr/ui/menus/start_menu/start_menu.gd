@@ -17,12 +17,12 @@ func _on_boot():
 	Log.notice("Game started")
 	_print_os_info()
 	Lib.scene_changed.connect(Setting.interface.update_font_size)
-	Main.Cursor.load_texture()
+	World.Cursor.load_texture()
 
 
 func new_game():
-	Lib.change_scene_to(Main.SCENE_PATH)
-	Main.new_game()
+	Lib.change_scene_to(World.SCENE_PATH)
+	World.new_game()
 
 
 var displayed: Control:

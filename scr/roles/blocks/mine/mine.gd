@@ -11,7 +11,7 @@ const SCENE = preload(SCENE_PATH)
 var block: Block:
 	set(p_block):
 		assert(p_block)
-		position = Main.Map.to_pos(p_block.coord)
+		position = World.Map.to_pos(p_block.coord)
 		_block_ref = weakref(p_block)
 		$AudioStreamPlayer2D.stream = block.config.destroy_or_mine
 	get:

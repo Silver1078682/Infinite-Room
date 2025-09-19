@@ -17,7 +17,7 @@ const TILE_SHEET = preload(TILE_SHEET_PATH)
 ## coordinate of the mouse cursor (relative to the room)
 static var coord:
 	get:
-		return Main.Map.to_coord(_instance.get_global_mouse_position())
+		return World.Map.to_coord(_instance.get_global_mouse_position())
 var _last_coord
 
 ## emitted when the mouse move from one coordinate to another

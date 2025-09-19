@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func _input(_event: InputEvent) -> void:
-	if Main.input("just_pressed", &"enter"):
+	if World.input("just_pressed", &"enter"):
 		if _player_count == 1:  ## replace it in multi-player
 			var new_room_theme := RoomManager.predict_next_theme()
 			var new_room = RoomManager.create_a_room(new_room_theme)

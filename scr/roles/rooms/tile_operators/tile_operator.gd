@@ -145,7 +145,7 @@ const _COMMAND_PRE_RANGE_COLOR := Color(Color.CORAL, 0.2)
 
 
 static func _command_add_struct_pre_area(from_x: int, from_y: int, size_x: int, size_y: int) -> void:
-	var from: Vector2i = Main.Map.h2gui(Vector2i(from_x, from_y))
+	var from: Vector2i = World.Map.h2gui(Vector2i(from_x, from_y))
 	var size: Vector2i = Vector2i(size_x, -size_y)
 	_command_struct_pre_op = TileOP.rect(from, size, true, Room.current)
 
@@ -153,9 +153,9 @@ static func _command_add_struct_pre_area(from_x: int, from_y: int, size_x: int, 
 		_command_pre_area_display = ColorRect.new()
 		_command_pre_area_display.color = _COMMAND_PRE_RANGE_COLOR
 		_command_pre_area_display.size = Block.SIZE
-		Main.add_node.call_deferred(_command_pre_area_display)
+		World.add_node.call_deferred(_command_pre_area_display)
 
-	_command_pre_area_display.position = Main.Map.to_pos(from) - Block.SIZE / 2
+	_command_pre_area_display.position = World.Map.to_pos(from) - Block.SIZE / 2
 	_command_pre_area_display.scale = size
 	return
 

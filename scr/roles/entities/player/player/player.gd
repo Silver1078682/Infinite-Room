@@ -34,8 +34,8 @@ func _ready() -> void:
 
 func _command_tp(x: float = INF, y: float = INF):
 	var target: Vector2i
-	target = Main.Cursor.coord if is_inf(y) else Main.Map.h2gui(Vector2(x, y))
-	Player.local_instance.position = Main.Map.to_pos(target)
+	target = World.Cursor.coord if is_inf(y) else World.Map.h2gui(Vector2(x, y))
+	Player.local_instance.position = World.Map.to_pos(target)
 
 
 func _physics_process(delta: float) -> void:
@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 				fsm.change_to("JumpRev")
 
 	elif is_on_floor():
-		if Main.input("pressed", &"jump") and not $RayCastAboveHead.is_colliding():
+		if World.input("pressed", &"jump") and not $RayCastAboveHead.is_colliding():
 			fsm.change_to("JumpUpward")
 			velocity.y = JUMP_VELOCITY
 		elif last_velocity.y > 0:
@@ -59,7 +59,7 @@ func _physics_process(delta: float) -> void:
 				fsm.change_to("Land")
 
 	var direction: float
-	if Main.input_cut:
+	if World.input_cut:
 		direction = 0
 	else:
 		direction = Input.get_axis(&"left", &"right")
@@ -81,23 +81,23 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta: float) -> void:
-	if Main.input("pressed", &"mine_and_attack"):
+	if World.input("pressed", &"mine_and_attack"):
 		if not _is_mining:
 			_is_mining = true
 		if fsm.is_state("Idle"):
 			fsm.change_to("Mine")
-		mine_at(Main.Cursor.coord, delta)
+		mine_at(World.Cursor.coord, delta)
 	else:
 		if _is_mining:
 			_is_mining = false
 		if fsm.is_state("Mine"):
 			fsm.change_to("Idle")
-	if Main.input("pressed", &"lay_and_interact"):
-		lay_at(Main.Cursor.coord)
+	if World.input("pressed", &"lay_and_interact"):
+		lay_at(World.Cursor.coord)
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("drop", true) and not Main.input_cut:
+	if event.is_action_pressed("drop", true) and not World.input_cut:
 		drop_item()
 
 
@@ -165,8 +165,8 @@ func lay_at(coords: Vector2i):
 		place_detect = _place_detect_lists[coords]
 	else:
 		place_detect = PlaceDetect.SCENE.instantiate()
-		place_detect.global_position = Main.Map.to_pos(coords)
-		Main.add_node(place_detect, "PlaceDetects")
+		place_detect.global_position = World.Map.to_pos(coords)
+		World.add_node(place_detect, "PlaceDetects")
 		_place_detect_lists[coords] = place_detect
 		await place_detect.ready
 

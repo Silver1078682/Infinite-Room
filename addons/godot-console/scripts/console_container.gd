@@ -114,7 +114,7 @@ func _on_visibility_changed() -> void:
 	if is_visible_in_tree():
 		_console_input.grab_focus()
 		_console_input.accept_event()
-	Main.input_cut = is_visible_in_tree()
+	World.input_cut = is_visible_in_tree()
 
 
 func _show_autocomplete(text: String) -> void:

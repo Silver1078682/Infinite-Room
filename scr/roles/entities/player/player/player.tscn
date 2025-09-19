@@ -340,7 +340,6 @@ collision_layer = 2
 collision_mask = 5
 input_pickable = true
 script = ExtResource("1_3b1vh")
-record_coord_changed = null
 
 [node name="FSM" type="Node" parent="." node_paths=PackedStringArray("initial_state", "animated_sprite")]
 script = ExtResource("3_fhpf4")

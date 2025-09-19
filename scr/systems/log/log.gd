@@ -28,6 +28,11 @@ func _init() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	file_path = dir.path_join("%s.txt") % Time.get_date_string_from_system()
 	set_file_path(file_path)
+	
+	# override default Lib.Warning function with Log function
+	Lib.Warning.info = info
+	Lib.Warning.error = error
+	Lib.Warning.warning = warning
 
 
 #---------------------------------------------------------------------------------------------------

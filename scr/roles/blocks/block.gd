@@ -47,7 +47,7 @@ var mine: Mine = null
 func mined(speed: float, delta: float) -> void:
 	if not mine:
 		mine = Mine.SCENE.instantiate()
-		Main.add_node.call_deferred(mine, "Mines")
+		World.add_node.call_deferred(mine, "Mines")
 		mine.block = self
 	mine.mined(speed, delta)
 

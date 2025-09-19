@@ -23,7 +23,7 @@ enum MATERIAL {
 
 ## drop an item at the given coordinate, also returns the drop
 static func drop_at(coord: Vector2i, item: Item, initial_velocity := _get_random_velocity()) -> Drop:
-	return drop_at_global_pos(Main.Map.to_pos(coord), item, initial_velocity)
+	return drop_at_global_pos(World.Map.to_pos(coord), item, initial_velocity)
 
 
 ## drop an item at the global position, also returns the drop
@@ -42,7 +42,7 @@ static func create(item_name: StringName) -> Item:
 		return null
 	var item: Item = load("res://scr/role/items/type/%s.tres" % item_name)
 	if not item:
-		Log.warning("try to create an non-existent Item named %s" % item_name)
+		Lib.Warning.does_not_exist(item_name, "Item")
 		assert(false)
 		return null
 	return item

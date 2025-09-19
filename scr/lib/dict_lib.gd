@@ -1,9 +1,9 @@
 extends Object
 
 
-func count(iterator) -> Dictionary[Variant, int]:
+func count(iteratable) -> Dictionary[Variant, int]:
 	var result: Dictionary[Variant, int] = {}
-	for i in iterator:
+	for i in iteratable:
 		if i in result:
 			result[i] += 1
 		else:

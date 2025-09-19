@@ -50,9 +50,6 @@ static func triangle(a: Vector2, b: Vector2, c: Vector2) -> Vector2:
 	return rb + rc + a
 
 
-#原作者：bm小生
-#链接：https://juejin.cn/post/7210945608877834295
-
 
 ## Returns a string containing only characters from [param chars]
 ## [codeblock]

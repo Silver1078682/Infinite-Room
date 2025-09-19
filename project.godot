@@ -58,6 +58,7 @@ folder_colors={
 "res://scr/roles/entities/player/": "green",
 "res://scr/roles/items/": "green",
 "res://scr/roles/items/type/": "red",
+"res://scr/roles/managers/": "green",
 "res://scr/roles/rooms/": "green",
 "res://scr/roles/rooms/structures/": "red",
 "res://scr/roles/rooms/structures/editor_tool/": "blue",

@@ -7,9 +7,9 @@ extends CharacterBody2D
 ## please make sure the position should be near the entity's feet.(where the collision box touch the ground)
 var coord: Vector2i:
 	get:
-		return Main.Map.to_coord(position)
+		return World.Map.to_coord(position)
 	set(p_coord):
-		position = Main.Map.to_pos(p_coord)
+		position = World.Map.to_pos(p_coord)
 
 
 func _get_speed_factor() -> float:

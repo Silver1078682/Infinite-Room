@@ -4,6 +4,7 @@ const Arr = preload("res://scr/lib/arr_lib.gd")
 const Dict = preload("res://scr/lib/dict_lib.gd")
 const Rand = preload("res://scr/lib/rand_lib.gd")
 const ImageUtil = preload("res://scr/lib/image_lib.gd")
+const Warning = preload("res://scr/lib/warning_lib.gd")
 
 ## Wait [para time] seconds, use await before the function
 func wait(time: float) -> void:

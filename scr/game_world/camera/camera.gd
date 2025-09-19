@@ -9,15 +9,19 @@ const MIN_ZOOM = 2.0
 const MAX_ZOOM = 4.0
 @onready var _target_zoom := zoom
 
-static var instance: Main.Camera
+static var instance: World.Camera
 ## coordinate of the camera, read-only attribute
 var coord: Vector2i:
+	set(p):
+		Lib.Warning.read_only("coord on Camera instance", p)
 	get:
-		return Main.Map.to_coord(position)
+		return World.Map.to_coord(position)
 
 
 func _init() -> void:
 	instance = self
+	pass
+	
 
 
 func _ready() -> void:
@@ -35,7 +39,7 @@ func _process(_delta: float) -> void:
 	_target_zoom = _target_zoom.clampf(MIN_ZOOM, MAX_ZOOM)
 	zoom = zoom.move_toward(_target_zoom, ZOOM_SCALE / 20)
 
-
+## The Camera Limit Border Width
 const CAMERA_BORDER = 40
 
 

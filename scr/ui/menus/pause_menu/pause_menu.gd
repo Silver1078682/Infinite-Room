@@ -7,7 +7,7 @@ extends ColorRect
 
 
 func _on_resume_pressed() -> void:
-	Main.instance.resume_game()
+	World.instance.resume_game()
 
 
 func _on_setting_pressed() -> void:

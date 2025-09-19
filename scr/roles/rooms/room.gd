@@ -16,7 +16,7 @@ static func _static_init() -> void:
 
 
 static func _command_place_block(x: int, y: int, block_name: StringName):
-	var coord: Vector2i = Main.Map.h2gui(Vector2i(x, y))
+	var coord: Vector2i = World.Map.h2gui(Vector2i(x, y))
 	if not Room.current.has_coord(coord):
 		Console.error("coordinate (x, y) not at map")
 		return
@@ -65,12 +65,12 @@ func get_block_safe(coord: Vector2i) -> Block:
 
 ## basic api, only use when necessary
 ## place the [param block] at [param coord]. will replace the previous block[br]
-## update the block in Main.Map if [param update] set true.
+## update the block in World.Map if [param update] set true.
 ## Typically, the [param update] should be set true if the room is in SceneTree, otherwise set false
 func set_block(coord: Vector2i, block: Block, update := true) -> void:
 	block.coord = coord
 	if update:
-		Main.Map.set_block(coord, block)
+		World.Map.set_block(coord, block)
 	_blocks[coord.y][coord.x] = block
 
 
@@ -81,7 +81,7 @@ func set_blockn(coord: Vector2i, block_name: String, update := true) -> void:
 
 
 ## place the [param block] at [param coord]. will replace the previous block[br]
-## update the block in Main.Map if [param update] set true.
+## update the block in World.Map if [param update] set true.
 ## Typically, the [param update] should be set true if the room is in SceneTree, otherwise set false
 func place_block(coord: Vector2i, block: Block) -> void:
 	for i in block.config.cling_to:
@@ -91,11 +91,11 @@ func place_block(coord: Vector2i, block: Block) -> void:
 		else:
 			return
 	block.coord = coord
-	Main.Map.set_block(coord, block)
+	World.Map.set_block(coord, block)
 	if block.config.scene:
 		block.node = block.config.scene.instantiate()
-		block.node.position = Main.Map.to_pos(coord)
-		Main.add_node.call_deferred(block.node)
+		block.node.position = World.Map.to_pos(coord)
+		World.add_node.call_deferred(block.node)
 	block.enter()
 	_blocks[coord.y][coord.x] = block
 
@@ -109,14 +109,14 @@ func place_blockn(coord: Vector2i, block_name: String) -> void:
 ## simply erase the block from [Map], and unreference it
 func erase_block(coord: Vector2i, update := true) -> void:
 	if update:
-		Main.Map.erase_block(coord)
+		World.Map.erase_block(coord)
 	_blocks[coord.y][coord.x] = null
 
 
 ## advanced api compared to [func erase_block], update the Map and so on
 func remove_block(coord: Vector2i) -> void:
-	Main.Map.erase_block(coord)
-	Main.Map.update_block(coord)
+	World.Map.erase_block(coord)
+	World.Map.update_block(coord)
 	var block: Block = _blocks[coord.y][coord.x]
 	block.notify_exit()
 	_blocks[coord.y][coord.x] = null
@@ -126,8 +126,8 @@ func remove_block(coord: Vector2i) -> void:
 func remove_block_safe(coord: Vector2i) -> void:
 	if not get_block_safe(coord):
 		return
-	Main.Map.erase_block(coord)
-	Main.Map.update_block(coord)
+	World.Map.erase_block(coord)
+	World.Map.update_block(coord)
 	var block: Block = _blocks[coord.y][coord.x]
 	block.notify_exit()
 	_blocks[coord.y][coord.x] = null
@@ -141,7 +141,7 @@ func enter() -> void:
 
 
 func _enter() -> void:
-	Main.instance.add_node(self)
+	World.instance.add_node(self)
 	await tree_entered
 	start_time = Time.get_ticks_usec()
 	update_map()
@@ -157,16 +157,16 @@ func update_time() -> void:
 
 
 func update_map():
-	Main.Map.reset()
+	World.Map.reset()
 	if Room.current != self:
-		Log.warning("a room instance outside the tree try to update the Main.Map")
+		Log.warning("a room instance outside the tree try to update the World.Map")
 	for i in TileOP.rect(Vector2i.ZERO, size(), true, self):
 		if get_block(i):
 			place_block(i, get_block(i))
 
 
 func update_camera():
-	Main.Camera.instance.set_limit_x(0, size().x)
+	World.Camera.instance.set_limit_x(0, size().x)
 
 
 func update_blocks_arr():
@@ -174,8 +174,8 @@ func update_blocks_arr():
 
 
 func update_environment():
-	var bg: Sprite2D = Main.instance.get_node("Background")
-	var el: CanvasModulate = Main.instance.get_node("EnvironmentLight")
+	var bg: Sprite2D = World.instance.get_node("Background")
+	var el: CanvasModulate = World.instance.get_node("EnvironmentLight")
 	bg.apply_scale(size())
 	bg.modulate = theme.bg_color
 	el.color = theme.world_modulate

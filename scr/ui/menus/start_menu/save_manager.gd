@@ -83,5 +83,5 @@ func _on_deletion_canceled() -> void:
 
 func _on_load_pressed() -> void:
 	if _get_selected_save():
-		Lib.change_scene_to(Main.SCENE_PATH)
+		Lib.change_scene_to(World.SCENE_PATH)
 		SL.load_game(_get_selected_save().save_name)
