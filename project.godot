@@ -16,7 +16,7 @@ ss2d/version="3.2.0"
 
 config/name="InfiniteRoom"
 run/main_scene="uid://c1oo5q6thv8lw"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
@@ -24,14 +24,13 @@ boot_splash/use_filter=false
 [autoload]
 
 Lib="*res://scr/lib/lib.gd"
-RandLib="res://scr/lib/rand_lib.gd"
-ArrLib="res://scr/lib/arr_lib.gd"
 Log="*res://scr/systems/log/log.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 Console="*res://addons/godot-console/scripts/console.gd"
 UIAnimation="*res://addons/godot_ui_animations/UIAnimationHandler.tscn"
 ResPath="*res://scr/managers/resource_managers/resource_path.tscn"
+SceneManager="*res://scr/managers/scene_manager/scene_manager.gd"
 
 [display]
 
@@ -40,6 +39,10 @@ window/size/viewport_height=540
 window/size/always_on_top=true
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
+
+[dotnet]
+
+project/assembly_name="InfiniteRoom"
 
 [editor_plugins]
 

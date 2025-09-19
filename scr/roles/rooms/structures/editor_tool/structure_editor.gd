@@ -11,14 +11,14 @@ func _ready() -> void:
 
 func update():
 	var atlas_to_block: Dictionary[Vector2i, StringName] = {}
-	var diraccess := SL.simple_open_dir(Block.CONFIG_DIR_PATH)
+	var diraccess := SL.simple_open_dir(ResPath.BLOCK.dir)
 	if not diraccess:
 		printerr(DirAccess.get_open_error())
 		return
 
 	for file_name in diraccess.get_files():
 		var block_name := file_name.split(".")[0]
-		var block: BlockConfig = load(Block.CONFIG_FILE_PATH % block_name)
+		var block: BlockConfig = load(ResPath.BLOCK.file % block_name)
 		atlas_to_block[block.atlas_coord] = block_name
 
 	var rect := get_used_rect()

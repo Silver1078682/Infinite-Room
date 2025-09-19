@@ -12,7 +12,6 @@ script = ExtResource("1_dmosk")
 name = "CraftTable"
 texture = SubResource("AtlasTexture_80h35")
 material = 1
-inflammable = false
 stack_amount = 10
 meta = Dictionary[String, Variant]({
 "block": "CraftTable"

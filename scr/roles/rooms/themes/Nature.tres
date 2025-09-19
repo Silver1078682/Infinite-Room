@@ -8,55 +8,37 @@
 [sub_resource type="Resource" id="Resource_8n0rt"]
 script = ExtResource("4_asvmw")
 block_type = &"Stone"
-block_weight_list = Dictionary[StringName, float]({})
-layer_mode = 0
 min_value = 4
 max_value = 7
 max_sample_value_gap = -0.5
 min_sample_interval = 5.0
 max_sample_interval = 8.0
-smooth = true
 metadata/_custom_type_script = "uid://bgye7tfwxg4ra"
 
 [sub_resource type="Resource" id="Resource_u3x1c"]
 script = ExtResource("4_asvmw")
-block_type = &""
 block_weight_list = Dictionary[StringName, float]({
 &"Soil": 5.0,
 &"Stone": 1.0
 })
-layer_mode = 0
 min_value = 7
-max_value = 8
-max_sample_value_gap = -0.8
-min_sample_interval = 8.0
-max_sample_interval = 12.0
-smooth = true
 metadata/_custom_type_script = "uid://bgye7tfwxg4ra"
 
 [sub_resource type="Resource" id="Resource_4d6tr"]
 script = ExtResource("4_asvmw")
 block_type = &"Soil"
-block_weight_list = Dictionary[StringName, float]({})
-layer_mode = 0
 min_value = 8
 max_value = 13
 max_sample_value_gap = -0.5
 min_sample_interval = 5.0
 max_sample_interval = 8.0
-smooth = true
 metadata/_custom_type_script = "uid://bgye7tfwxg4ra"
 
 [resource]
 script = ExtResource("1_oy635")
 name = &"Nature"
 min_width = 40
-max_width = 40
-frame_on = true
 terrain_layers = Array[ExtResource("4_asvmw")]([SubResource("Resource_8n0rt"), SubResource("Resource_u3x1c"), SubResource("Resource_4d6tr")])
-min_structure_weights_total = 10
-max_structure_weights_total = 20
-ignore_weight = false
 structures = Array[ExtResource("2_e11dv")]([ExtResource("3_dqib2")])
 bg_color = Color(0.436049, 0.69214, 0.85839, 1)
 world_modulate = Color(0.974565, 0.912154, 0.924793, 1)
