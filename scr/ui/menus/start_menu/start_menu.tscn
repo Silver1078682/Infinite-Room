@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1oo5q6thv8lw"]
+[gd_scene load_steps=9 format=3 uid="uid://c1oo5q6thv8lw"]
 
 [ext_resource type="Texture2D" uid="uid://gedtnk6mjp1o" path="res://asset/texture/UI/UiBackgroundDark.png" id="1_f0gwm"]
 [ext_resource type="Script" uid="uid://dnxs6dk4kdf82" path="res://scr/ui/menus/start_menu/start_menu.gd" id="1_l0xrg"]
-[ext_resource type="Script" uid="uid://dm101khnfp4u2" path="res://scr/ui/UiAnimator.gd" id="3_1s3mk"]
 [ext_resource type="Texture2D" uid="uid://dbo520efkhotw" path="res://asset/texture/UI/UILoad.png" id="4_1s3mk"]
 [ext_resource type="PackedScene" uid="uid://k274qfrqt8jv" path="res://scr/ui/menus/setting_menu/setting_menu.tscn" id="4_efnl0"]
-[ext_resource type="Script" uid="uid://rppf453aa6bf" path="res://scr/ui/UiAnimatorRestore.gd" id="4_mesgo"]
 [ext_resource type="Script" uid="uid://dtwb7bybh8u5o" path="res://scr/ui/menus/start_menu/save_manager.gd" id="4_s0t7g"]
 [ext_resource type="Texture2D" uid="uid://c1ggrbqjwh4ef" path="res://asset/texture/UI/UITrashBin.png" id="5_mesgo"]
 
@@ -85,19 +83,6 @@ layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Quit Game"
 
-[node name="AnimatorRestore" type="Node" parent="MainMenu/VBoxContainer/Panel/VBoxContainer" node_paths=PackedStringArray("play_animator")]
-script = ExtResource("4_mesgo")
-play_animator = NodePath("AnimatorRaise")
-effect = "mouse_exited"
-play_signal = "mouse_exited"
-
-[node name="AnimatorRaise" type="Node" parent="MainMenu/VBoxContainer/Panel/VBoxContainer/AnimatorRestore"]
-script = ExtResource("3_1s3mk")
-effect = "move"
-offset = Vector2(0, -10)
-play_signal = "mouse_entered"
-applies_to = 2
-
 [node name="SaveManager" type="MarginContainer" parent="."]
 visible = false
 layout_mode = 1
@@ -171,10 +156,10 @@ Click OK if you made up your mind"
 [node name="SettingMenu" parent="." instance=ExtResource("4_efnl0")]
 layout_mode = 1
 
-[connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/NewGame" to="." method="new_game"]
-[connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/LoadGame" to="." method="load_game"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/LoadGame" to="." method="_on_load_game_pressed"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/QuitGame" to="." method="quit_game"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Panel/VBoxContainer/QuitGame" to="." method="_on_quit_game_pressed"]
 [connection signal="pressed" from="SaveManager/VBoxContainer/HBoxContainer/Load" to="SaveManager" method="_on_load_pressed"]
 [connection signal="pressed" from="SaveManager/VBoxContainer/HBoxContainer/Predelete" to="SaveManager" method="_pop_up_deletion_warning"]
 [connection signal="pressed" from="SaveManager/VBoxContainer/HBoxContainer/Exit" to="." method="back_to_main_menu"]

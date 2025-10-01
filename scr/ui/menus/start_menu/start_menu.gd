@@ -1,7 +1,7 @@
 class_name StartMenu
 extends Control
 static var game_started := false
-const SCENE_PATH = "res://scr/ui/start_menu/start_menu.tscn"
+const SCENE_PATH = "res://scr/ui/menus/start_menu/start_menu.tscn"
 
 
 func _ready() -> void:
@@ -16,13 +16,7 @@ func _ready() -> void:
 func _on_boot():
 	Log.notice("Game started")
 	_print_os_info()
-	Lib.scene_changed.connect(Setting.interface.update_font_size)
 	World.Cursor.load_texture()
-
-
-func new_game():
-	Lib.change_scene_to(World.SCENE_PATH)
-	World.new_game()
 
 
 var displayed: Control:
@@ -31,21 +25,24 @@ var displayed: Control:
 		displayed = p_displayed
 
 
-func load_game():
-	displayed = $SaveManager
+func back_to_main_menu():
+	displayed = $MainMenu
+
+
+func _on_new_game_pressed() -> void:
+	Main.new_game()
 
 
 func _on_settings_pressed() -> void:
 	displayed = $SettingMenu
 
 
-func back_to_main_menu():
-	displayed = $MainMenu
+func _on_quit_game_pressed() -> void:
+	Main.quit_game()
 
 
-func quit_game():
-	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-	get_tree().quit()
+func _on_load_game_pressed() -> void:
+	displayed = $SaveManager
 
 
 func _print_os_info():
