@@ -1,3 +1,4 @@
+class_name Lib
 extends Node
 
 const Arr = preload("res://scr/lib/arr_lib.gd")
@@ -6,23 +7,52 @@ const Rand = preload("res://scr/lib/rand_lib.gd")
 const ImageUtil = preload("res://scr/lib/image_lib.gd")
 const Warning = preload("res://scr/lib/warning_lib.gd")
 
-## Wait [para time] seconds, use await before the function
-func wait(time: float) -> void:
-	await get_tree().create_timer(time).timeout
-
 
 ## Drops the null value of an array
-func drop_null(arr: Array) -> Array:
+static func drop_null(arr: Array) -> Array:
 	return arr.filter(func(variant): return variant != null)
 
 
 ## Returns the sum of an array
-func sum(arr: Array) -> Variant:
+static func sum(arr: Array) -> Variant:
 	return arr.reduce(func(a, b): return a + b)
 
 
+#func _ready() -> void:
+	#printerr = Log.error
+#@warning_ignore("shadowed_global_identifier")
+#var printerr : Callable
+
+
+## Open a file, print human-readable error messages on failure.
+static func simple_open_file(path: String, access_mode: FileAccess.ModeFlags) -> FileAccess:
+	var file = FileAccess.open(path, access_mode)
+	var error := FileAccess.get_open_error()
+	if error:
+		printerr("opening file at %s failed: " % ProjectSettings.globalize_path(path) + error_string(error))
+	return file
+
+
+## Open a directory, print human-readable error messages on failure.
+## When force set true, create the directory (recursively) if the directory does not exist.
+static func simple_open_dir(path: String, force := false) -> DirAccess:
+	var error: int
+	if force and not DirAccess.dir_exists_absolute(path):
+		error = DirAccess.make_dir_recursive_absolute(path)
+		if error:
+			printerr("creating directory at %s failed: " % ProjectSettings.globalize_path(path) + error_string(error))
+			return
+		return simple_open_dir(path, true)
+
+	var dir = DirAccess.open(path)
+	error = DirAccess.get_open_error()
+	if error:
+		printerr("opening directory at %s failed: " % ProjectSettings.globalize_path(path) + error_string(error))
+	return dir
+
+
 ## Returns a callable according to the operator given
-func op(operator: Variant.Operator) -> Callable:
+static func op(operator: Variant.Operator) -> Callable:
 	match operator:
 		OP_ADD:
 			return func(a,b) : return a + b
@@ -83,24 +113,21 @@ func op(operator: Variant.Operator) -> Callable:
 
 
 ## Queue free all children of the [param node]
-func free_children(node: Node) -> void:
+static func free_children(node: Node) -> void:
 	for child: Node in node.get_children():
 		child.queue_free()
 
-func ensure_ready(node: Node) -> void:
+
+static func ensure_ready(node: Node) -> void:
 	if not node.is_node_ready():
 		await node.ready
 
-func only_show_latter(prev: Control, next: Control) -> void:
+
+static func only_show_latter(prev: Control, next: Control) -> void:
 	if prev:
 		prev.hide()
 	if next:
 		next.show()
-
-signal scene_changed
-func change_scene_to(path: String):
-	scene_changed.emit()
-	get_tree().change_scene_to_file(path)
 
 
 class Iterator:

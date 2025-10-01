@@ -26,7 +26,7 @@ func _ready() -> void:
 func _try_load_saves() -> void:
 	if not has_any_save():
 		return
-	var dir := SL.simple_open_dir(SL.save_directory_path)
+	var dir := Lib.simple_open_dir(SL.save_directory_path)
 	if not dir:
 		return
 	await _add_save_containers(dir)
@@ -82,6 +82,6 @@ func _on_deletion_canceled() -> void:
 
 
 func _on_load_pressed() -> void:
-	if _get_selected_save():
-		Lib.change_scene_to(World.SCENE_PATH)
-		SL.load_game(_get_selected_save().save_name)
+	var save = _get_selected_save()
+	if save.save_name:
+		Main.load_game(_get_selected_save().save_name)

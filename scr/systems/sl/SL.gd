@@ -13,11 +13,11 @@ static func save_game(save_name := World.save_name):
 		"stats": Stats,
 	}  ## room on exit
 	Log.info("Start saving")
-	var save_dir_access = simple_open_dir(save_directory_path + "/%s/" % save_name, true)
+	var save_dir_access = Lib.simple_open_dir(save_directory_path + "/%s/" % save_name, true)
 	if not save_dir_access:
 		pass
 	var save_path = save_directory_path + MAIN_SAVE_FILE_SUFFIX % save_name
-	var save_file = simple_open_file(save_path, FileAccess.WRITE)
+	var save_file = Lib.simple_open_file(save_path, FileAccess.WRITE)
 	if not save_file:
 		Log.error("Saving failed")
 		return
@@ -81,35 +81,12 @@ static func load_to_node(node: Node, save: Dictionary) -> void:
 	load_to_object(node, save)
 
 
-## Open a file, print human-readable error messages on failure.
-static func simple_open_file(path: String, access_mode: FileAccess.ModeFlags) -> FileAccess:
-	var file = FileAccess.open(path, access_mode)
-	var error := FileAccess.get_open_error()
-	if error:
-		Log.error("opening file at %s failed: " % ProjectSettings.globalize_path(path) + error_string(error))
-	return file
 
-
-## Open a directory, print human-readable error messages on failure.
-## When force set true, create the directory (recursively) if the directory does not exist.
-static func simple_open_dir(path: String, force := false) -> DirAccess:
-	if force and not DirAccess.dir_exists_absolute(path):
-		var error := DirAccess.make_dir_recursive_absolute(path)
-		if error:
-			Log.error("creating directory at %s failed: " % ProjectSettings.globalize_path(path) + error_string(error))
-			return
-		return simple_open_dir(path, true)
-
-	var dir = DirAccess.open(path)
-	var error := DirAccess.get_open_error()
-	if error:
-		Log.error("opening directory at %s failed: " % ProjectSettings.globalize_path(path) + error_string(error))
-	return dir
 
 
 static func save_something(path: String, what: Object):
 	Log.info("Start saving %s" % what)
-	var save_file = simple_open_file(path, FileAccess.WRITE)
+	var save_file = Lib.simple_open_file(path, FileAccess.WRITE)
 	if not save_file:
 		Log.error("Saving failed")
 		return
