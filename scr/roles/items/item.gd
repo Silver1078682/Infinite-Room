@@ -40,7 +40,7 @@ static func drop_at_global_pos(position: Vector2, item: Item, initial_velocity :
 static func create(item_name: StringName) -> Item:
 	if not item_name:
 		return null
-	var item: Item = load("res://scr/role/items/type/%s.tres" % item_name)
+	var item: Item = load(ResPath.ITEM.file % item_name)
 	if not item:
 		Lib.Warning.does_not_exist(item_name, "Item")
 		assert(false)

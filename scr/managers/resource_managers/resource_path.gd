@@ -15,7 +15,8 @@ extends Node
 @onready var ROOM_THEME := _ResourceDir.new(_room_theme)
 @export var _block: BlockConfig
 @onready var BLOCK := _ResourceDir.new(_block)
-
+@export var _item: Item = preload("uid://c0eqnh7tcuur")
+@onready var ITEM := _ResourceDir.new(_item)
 
 class _ResourceDir:
 	func _get_dir_path(resource: Resource) -> String:
@@ -32,7 +33,7 @@ class _ResourceDir:
 	var _dir: String
 	var dir: String:
 		set(p):
-			Lib.Warning
+			Lib.Warning.read_only("dir", p)
 		get:
 			return _dir
 	var file: String:
