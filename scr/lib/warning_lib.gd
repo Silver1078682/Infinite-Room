@@ -49,3 +49,11 @@ static func in_range(prop_name: String, min, max, value = "") -> int:
 
 static func does_not_exist(object_name := "", type := "") -> void:
 	warning.call("The " + (type if type else "object") + " named %s does not exist" % object_name)
+
+
+static func try(err: Error) -> bool:
+	if err == OK:
+		return false
+	else:
+		warning.call(error_string(err))
+		return true
