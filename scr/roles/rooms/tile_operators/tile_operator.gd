@@ -124,13 +124,13 @@ class CoordHolder:
 # accept a Vector2i or an object with property "coord"
 # return a CoordHolder if a Vector2i is passed
 # The point is: we can always access a Vector2i by using interface result.coord
-static func _make_coord(from) -> Object:
+static func _make_coord(from: Variant) -> Object:
 	var result = from
 	if from is Vector2i:
 		result = TileOP.CoordHolder.new()
 		result.coord = from
 	else:
-		assert(from.has_property("coord"))
+		assert(from.get("coord"))
 	return result
 
 

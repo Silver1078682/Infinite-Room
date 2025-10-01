@@ -50,7 +50,6 @@ static func triangle(a: Vector2, b: Vector2, c: Vector2) -> Vector2:
 	return rb + rc + a
 
 
-
 ## Returns a string containing only characters from [param chars]
 ## [codeblock]
 ## var password := Rand.string(10, "1234567890qwertyuiopasdfghjkklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
@@ -151,7 +150,7 @@ class BinarySearchWRS:
 	func _search(rand: float) -> Variant:
 		if abs(_left - _right) <= 1:
 			return _items.keys()[_left]
-		var idx = (_left + _right) / 2
+		@warning_ignore("integer_division") var idx = (_left + _right) / 2
 		if _search_arr[idx] < rand:
 			_left = idx
 		else:
@@ -177,10 +176,10 @@ class AResWRS:
 
 	func assign(dict: Dictionary):
 		_items = dict
-	
+
 	func get_left_items() -> Dictionary:
 		return _items.duplicate()
-	
+
 	func pop(count := 1) -> Array:
 		var pool := _calc_eigen_value()
 		var keys := pool.keys()

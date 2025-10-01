@@ -26,7 +26,7 @@ func _process(_delta: float) -> void:
 	if parent_fsm.state.name in when_to_play:
 		var floor_block = parent.get_floor_block()
 		if not floor_block:
-			await Lib.wait(lingering_sound)
+			await Main.sleep(lingering_sound)
 			stop()
 			return
 		if stream != floor_block.config.footstep:
@@ -36,5 +36,5 @@ func _process(_delta: float) -> void:
 		if not playing:
 			play(stream.get_length() * randf_range(0.1, 0.5))
 	else:
-		await Lib.wait(lingering_sound)
+		await Main.sleep(lingering_sound)
 		stop()

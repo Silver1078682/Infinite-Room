@@ -11,12 +11,12 @@ func _ready() -> void:
 
 func update():
 	var atlas_to_block: Dictionary[Vector2i, StringName] = {}
-	var diraccess := SL.simple_open_dir(ResPath.BLOCK.dir)
-	if not diraccess:
+	var dir_access := Lib.simple_open_dir(ResPath.BLOCK.dir)
+	if not dir_access:
 		printerr(DirAccess.get_open_error())
 		return
 
-	for file_name in diraccess.get_files():
+	for file_name in dir_access.get_files():
 		var block_name := file_name.split(".")[0]
 		var block: BlockConfig = load(ResPath.BLOCK.file % block_name)
 		atlas_to_block[block.atlas_coord] = block_name

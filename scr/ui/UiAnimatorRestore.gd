@@ -3,7 +3,7 @@ extends "res://scr/ui/UiAnimator.gd"
 ## The property of the node will be used in restoration animation
 
 var modified_nodes: Dictionary[Node, Array] = {}
-const UIAnimator := preload("res://scr/ui/UiAnimator.gd")
+
 @export var play_animator: UIAnimator
 @export var restorable_properties: Array[String] = ["position"]
 
@@ -28,6 +28,7 @@ func _play_single(node: Node) -> void:
 	for prop in restorable_properties:
 		modified_nodes[node].append(node.get(prop))
 
-func connect_signal(node: Node, callable := play_single) -> void:
+
+func connect_signal(node: Node, _callable := Callable()) -> void:
 	play_animator.connect_signal(node, self.play_single)
 	super(node, self.restore)

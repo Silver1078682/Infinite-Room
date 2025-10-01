@@ -1,5 +1,6 @@
 extends Node
 ## Animate a node
+const UIAnimator := preload("res://scr/ui/UiAnimator.gd")
 
 @export_group("animation")
 ## name of the effect
@@ -48,7 +49,7 @@ func _ready() -> void:
 func play() -> void:
 	if _is_playing and no_interrupt:
 		return
-	await Lib.wait(startup_time)
+	await Main.sleep(startup_time)
 	for i in _get_animated_nodes():
 		if i is CanvasItem:
 			await play_single(i)
@@ -57,7 +58,7 @@ func play() -> void:
 func play_single(node: Node) -> void:
 	_is_playing = true
 	if effect:
-		_play_single(node)
+		await _play_single(node)
 	_is_playing = false
 
 
@@ -76,7 +77,7 @@ func _get_animated_nodes() -> Array[Node]:
 	var node: Array[Node] = []
 	match applies_to:
 		ApplyMode.SIBLINGS:
-			return get_parent().get_children()
+			return get_parent().get_children().filter(func(a): return a is not UIAnimator)
 		ApplyMode.PARENT:
 			node.append(get_parent())
 			return node

@@ -59,7 +59,7 @@ func _physics_process(_delta: float) -> void:
 		var p_position = position + linear_velocity
 		if (target.global_position - p_position).dot(linear_velocity) < 0.2:
 			_arrived = true
-			await Lib.wait(0.1)
+			await Main.sleep(0.1)
 			queue_free()
 			return
 		position = p_position
