@@ -1,6 +1,5 @@
-extends Node
+class_name Log
 
-signal entry_written(entry)
 
 enum DebugLevel {
 	#
@@ -14,17 +13,15 @@ enum DebugLevel {
 	_EMERGENCY
 }
 
-var _file: FileAccess
-var file_path: String
-var _level := DebugLevel.INFO
+static var _file: FileAccess
+static var file_path: String
+static var _level := DebugLevel.INFO
 
 
 #---------------------------------------------------------------------------------------------------
-func _init() -> void:
+static func _static_init() -> void:
 	const DEFAULT_FOLDER_PATH: String = "user://logs"
-	var setting_dir = Setting.log_dir
-	var dir = setting_dir if FileAccess.file_exists(setting_dir) else DEFAULT_FOLDER_PATH
-	#var dir = Setting.log_dir if FileAccess.file_exists(Setting.log_dir) else DEFAULT_FOLDER_PATH
+	var dir = DEFAULT_FOLDER_PATH
 	DirAccess.make_dir_recursive_absolute(dir)
 	file_path = dir.path_join("%s.txt") % Time.get_date_string_from_system()
 	set_file_path(file_path)
@@ -36,14 +33,14 @@ func _init() -> void:
 
 
 #---------------------------------------------------------------------------------------------------
-func set_file_path(value: String):
+static func set_file_path(value: String):
 	file_path = ProjectSettings.globalize_path(value)
 	if not FileAccess.file_exists(file_path):
 		FileAccess.open(file_path, FileAccess.WRITE).close()
 
 
 #---------------------------------------------------------------------------------------------------
-func _process(_delta):
+static func _process(_delta):
 	return
 	#if _file and _file.is_open():
 	#_file.close()
@@ -51,60 +48,59 @@ func _process(_delta):
 
 
 #---------------------------------------------------------------------------------------------------
-func set_level(value: DebugLevel):
+static func set_level(value: DebugLevel):
 	_level = value
 
 
 #---------------------------------------------------------------------------------------------------
-func write_entry(entry: Entry) -> void:
+static func write_entry(entry: Entry) -> void:
 	if entry.level < _level:
 		return
 	_godot_print(entry)
 	_simple_write("\n" + entry.to_string())
-	entry_written.emit(entry)
 
 
 #---------------------------------------------------------------------------------------------------
-func debug(message: Variant) -> void:
+static func debug(message: Variant) -> void:
 	# 调试
 	write_entry(Entry.new(str(message), DebugLevel.DEBUG))
 
 
 #---------------------------------------------------------------------------------------------------
-func info(message: Variant) -> void:
+static func info(message: Variant) -> void:
 	# 常规
 	write_entry(Entry.new(str(message), DebugLevel.INFO))
 
 
 #---------------------------------------------------------------------------------------------------
-func notice(message: Variant) -> void:
+static func notice(message: Variant) -> void:
 	# 消息
 	write_entry(Entry.new(str(message), DebugLevel.NOTICE))
 
 
 #---------------------------------------------------------------------------------------------------
-func warning(message: Variant) -> void:
+static func warning(message: Variant) -> void:
 	# 警告
 	write_entry(Entry.new(str(message), DebugLevel.WARNING))
 
 
 #---------------------------------------------------------------------------------------------------
-func error(message: Variant) -> void:
+static func error(message: Variant) -> void:
 	# 错误
 	write_entry(Entry.new(str(message), DebugLevel.ERROR))
 	_simple_write(_get_stack_string())
 
 
 #---------------------------------------------------------------------------------------------------
-func _simple_write(text: String):
+static func _simple_write(text: String):
 	if not _file or not _file.is_open():
 		_file = FileAccess.open(file_path, FileAccess.READ_WRITE)
-	_file.seek(_file.get_length())
-	_file.store_string(text)
+		_file.seek(_file.get_length())
+		_file.store_string(text)
 
 
 #---------------------------------------------------------------------------------------------------
-func _get_stack_string():
+static func _get_stack_string():
 	var result = ""
 	var stacks = get_stack()
 	stacks.pop_front()
@@ -116,7 +112,7 @@ func _get_stack_string():
 
 
 #---------------------------------------------------------------------------------------------------
-func _godot_print(entry: Entry) -> void:
+static func _godot_print(entry: Entry) -> void:
 	var text = entry.to_string()
 	match entry.level:
 		DebugLevel.INFO:
