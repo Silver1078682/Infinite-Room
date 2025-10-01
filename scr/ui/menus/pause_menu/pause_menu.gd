@@ -17,7 +17,7 @@ func _on_setting_pressed() -> void:
 func _on_start_menu_pressed() -> void:
 	get_tree().paused = false
 	await get_tree().process_frame
-	Lib.change_scene_to(StartMenu.SCENE_PATH)
+	Main.change_scene_to(StartMenu.SCENE_PATH)
 
 
 func back_to_main_menu() -> void:

@@ -1,9 +1,6 @@
 class_name World
 extends Node2D
-## The [World] is a running game, or more precisely The world player is in.
-
-
-const SCENE_PATH = "res://scr/game_world/main/main.tscn"
+## As its name suggest, the [World] is the environment player directly interact with in game.
 
 #namespaces
 const Map: GDScript = preload("res://scr/game_world/map/map.gd")
@@ -34,17 +31,19 @@ func _input(_event: InputEvent) -> void:
 	if World.input("just_pressed", &"ui_home"):
 		SL.save_game()
 	if _event.is_action_pressed("pause_game"):
-		pause_game()
+		pause()
 
 
-func pause_game():
+func pause():
+	assert(not get_tree().paused)
 	get_tree().paused = true
 	%UI/%Pause.show()
 	Room.current.update_time()
 	SL.save_game()
 
 
-func resume_game() -> void:
+func resume() -> void:
+	assert(get_tree().paused)
 	get_tree().paused = false
 	%UI/%Pause.hide()
 	Room.current.start_time = Time.get_ticks_usec()
