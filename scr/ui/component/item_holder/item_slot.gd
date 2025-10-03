@@ -17,7 +17,7 @@ var amount: int:
 			label.text = ""
 		amount = p_amount
 
-## What position the slot is in the ItemSlotContainerContainer
+## What position the slot is in the ItemSlotContainer
 var idx: int
 
 #

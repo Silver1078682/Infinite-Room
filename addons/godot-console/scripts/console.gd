@@ -26,11 +26,14 @@ static var _history: PackedStringArray
 static var _history_index: int
 
 
-static func _init() -> void:
+static func _static_init() -> void:
 	add_command("clear", clear, "Clear the console history.")
 	add_command("help", _command_help, "Show all console command.")
 	add_command("echo", print, "Print a string.")
 
+func _init() -> void:
+	assert(not instance)
+	instance = self
 
 ## Return [param true] if the console has a command.
 static func has_command(command: StringName) -> bool:

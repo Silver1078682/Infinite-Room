@@ -21,9 +21,9 @@ static var _level := DebugLevel.INFO
 #---------------------------------------------------------------------------------------------------
 static func _static_init() -> void:
 	const DEFAULT_FOLDER_PATH: String = "user://logs"
-	var dir = DEFAULT_FOLDER_PATH
-	DirAccess.make_dir_recursive_absolute(dir)
-	file_path = dir.path_join("%s.txt") % Time.get_date_string_from_system()
+	var folder = DEFAULT_FOLDER_PATH
+	DirAccess.make_dir_recursive_absolute(folder)
+	file_path = folder.path_join("%s.txt") % Time.get_date_string_from_system()
 	set_file_path(file_path)
 	
 	# override default Lib.Warning function with Log function

@@ -1,4 +1,7 @@
 extends AudioStreamPlayer2D
+## Use as a child of entity
+
+# node pointers
 var parent: Entity
 var parent_fsm: FSM
 

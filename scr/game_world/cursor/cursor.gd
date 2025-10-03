@@ -5,15 +5,14 @@ extends Node2D
 const SIZE = Vector2(8, 8)
 
 ## Don't use Input.CURSOR_* if possible,
-enum TYPE {
+enum Type {
 	ARROW = Input.CURSOR_ARROW,
 	HAND = Input.CURSOR_POINTING_HAND,
 	INTERACT = Input.CURSOR_CROSS,
 	FORBIDDEN = Input.CURSOR_FORBIDDEN,
 }
 
-const TILE_SHEET_PATH = "res://asset/texture/Cursor/Cursor.png"
-const TILE_SHEET = preload(TILE_SHEET_PATH)
+const TILE_SHEET = preload("uid://dr8dptmx8xtrv")
 ## coordinate of the mouse cursor (relative to the room)
 static var coord:
 	get:
@@ -31,9 +30,9 @@ func _ready() -> void:
 
 
 static func load_texture() -> void:
-	var type := TYPE.keys()
+	var type := Type.keys()
 	for i in type.size():
-		Input.set_custom_mouse_cursor(_read_at(Vector2i(i, 0)), TYPE[type[i]])
+		Input.set_custom_mouse_cursor(_read_at(Vector2i(i, 0)), Type[type[i]])
 
 
 func _process(_delta: float) -> void:
@@ -42,9 +41,9 @@ func _process(_delta: float) -> void:
 		coord_changed.emit()
 		var block := Room.current.get_block_safe(coord)
 		if block and block.config.interactive:
-			shape_override(TYPE.INTERACT)
+			shape_override(Type.INTERACT)
 		else:
-			shape_override(TYPE.ARROW)
+			shape_override(Type.ARROW)
 	_last_coord = coord
 
 
@@ -60,7 +59,7 @@ static func _read_at(at: Vector2i) -> Image:
 	Lib.ImageUtil.scale(result, Vector2.ONE * cursor_scale, Image.INTERPOLATE_NEAREST)
 	return result
 
-
+## get the cursor scale for current window
 static func _get_cursor_scale() -> int:
 	return 2
 
@@ -73,6 +72,10 @@ static func _get_cursor_scale() -> int:
 #	 Load small hardware cursor here.
 
 
-static func shape_override(shape: TYPE):
-	var shape_as_int: int = shape
-	Input.set_default_cursor_shape(shape_as_int)
+## override current mouse cursor shape,
+## NOTE: won't take effect immediately until player moves the mouse
+## [code_block]
+## shape_override(Cursor.Type.ARROW)
+## [/code_block]
+static func shape_override(shape: Type):
+	Input.set_default_cursor_shape((shape as int))

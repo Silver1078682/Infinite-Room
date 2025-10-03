@@ -1,3 +1,4 @@
+## DEPRECATED
 class_name Tail
 extends Line2D
 

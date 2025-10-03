@@ -1,18 +1,29 @@
 @tool
 class_name Item
 extends Resource
+# namespace
+const Drop = preload("uid://dj0cjb10ast4b")
+
+## the identifier of the name
 @export var name: String
 @export_tool_button("update according to file name") var update_name := _update_name
+## the texture displayed as Item (in an inventory) or as [Drop]
 @export var texture: Texture
+## the material the item is
 @export var material: MATERIAL
+## whether the item is inflammable
 @export var inflammable := false
+## the [PhysicsMaterial] applied to the [Drop]s of this item
 @export var drop_physics: PhysicsMaterial
+## the maximum amount an inventory slot of this [Item] can holds
 @export var stack_amount := 100
 @export var meta: Dictionary[String, Variant] = {}
+
+@export_subgroup("presets of common type of block")
 @export_group("preset")
 @export_tool_button("block") var add_block = _add_block
 
-const Drop := preload("res://scr/roles/items/drop/drop.gd")
+
 
 enum MATERIAL {
 	UNKNOWN,
