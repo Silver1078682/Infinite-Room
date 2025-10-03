@@ -38,7 +38,7 @@ static var current: Room:
 var idx = 0
 var start_time: int
 var total_time_spent := 0
-@export var theme := RoomTheme.new()
+var theme: RoomTheme
 
 #
 var width := 20
@@ -86,6 +86,7 @@ func set_blockn(coord: Vector2i, block_name: String, update := true) -> void:
 ## update the block in World.Map if [param update] set true.
 ## Typically, the [param update] should be set true if the room is in SceneTree, otherwise set false
 func place_block(coord: Vector2i, block: Block) -> void:
+	assert(has_coord(coord), "Given coordinate is not inside the room")
 	for i in block.config.cling_to:
 		var neighbor_block := get_block_safe(coord + i)
 		if neighbor_block and neighbor_block.match_condition(block.config.cling_to[i]):
@@ -139,17 +140,15 @@ var _blocks: Array[Array]
 
 
 func enter() -> void:
-	World.instance.add_node(self)
-	await tree_entered
+	World.add_node(self)
+	if not is_inside_tree():
+		await tree_entered
 	start_time = Time.get_ticks_usec()
 	update_map()
 	update_camera()
 	update_environment()
 	Stats.room(theme.name).enter_counts += 1
 	Log.info("Room Instance %s is added to tree" % self)
-
-
-
 
 
 func update_time() -> void:

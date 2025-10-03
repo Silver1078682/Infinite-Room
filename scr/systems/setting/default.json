@@ -1,0 +1,9 @@
+{
+	"Game": {
+		"intervals_between_autosave": {
+			"default": [
+				30
+			]
+		}
+	}
+}

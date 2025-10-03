@@ -1,12 +1,13 @@
 extends TileMapLayer
 # Heavy calculation, consider further optimization or(and) move it to C#.
-#inspired by terrraria.
+#inspired by terraria.
 
 ## The area range where light will be calculated
 const RENDER_SMALL_RANGE = Vector2i(15, 20)
+## The area range where light will be calculated
 const RENDER_LARGE_RANGE = Vector2i(20, 20)
 const AIR_DECAY = -1
-# The maximum of possible lightlevel in a tile
+# The maximum of possible light level in a tile
 const MAX_LIGHT = 63
 const MIN_LIGHT = 5
 const ATLAS := Vector2i.ZERO

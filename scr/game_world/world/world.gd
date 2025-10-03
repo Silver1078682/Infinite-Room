@@ -27,6 +27,7 @@ func _ready() -> void:
 	Log.info("World Instance Ready")
 
 
+# shortcuts
 func _input(_event: InputEvent) -> void:
 	if World.input("just_pressed", &"ui_home"):
 		SL.save_game()
@@ -34,6 +35,7 @@ func _input(_event: InputEvent) -> void:
 		pause()
 
 
+## pause the game
 func pause():
 	assert(not get_tree().paused)
 	get_tree().paused = true
@@ -42,6 +44,7 @@ func pause():
 	SL.save_game()
 
 
+## resume the game
 func resume() -> void:
 	assert(get_tree().paused)
 	get_tree().paused = false
@@ -51,17 +54,16 @@ func resume() -> void:
 
 static var input_cut := false
 
-
-## a custom input listener, only compitable for "pressed", "just_pressed", "just_released"
-## ignore input when [prop input_cut] set true
-static func input(func_name: StringName, action_name: StringName, exact_match := false):
-	if input_cut:
-		return false
-	return Input.call("is_action_" + func_name, action_name, exact_match)
-
-
+## start a new game
 static func new_game():
 	save_name = SaveManager.get_save_name_from_time()
 	RoomManager.enter_room(RoomManager.create_a_room("Nature"))
 	await World.instance.ready
 	SL.save_game()
+
+## a custom input listener, only compatible for "pressed", "just_pressed", "just_released"
+## ignore input when [prop input_cut] set true
+static func input(func_name: StringName, action_name: StringName, exact_match := false):
+	if input_cut:
+		return false
+	return Input.call("is_action_" + func_name, action_name, exact_match)

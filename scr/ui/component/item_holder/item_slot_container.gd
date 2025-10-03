@@ -2,6 +2,7 @@ class_name ItemSlotContainer
 extends GridContainer
 ## A kind of container holding items. for instance: Inventory or Chest UI
 
+# namespace
 const ItemSlot = preload("res://scr/ui/component/item_holder/item_slot.gd")
 @export var slot_scene: PackedScene
 

@@ -2,10 +2,13 @@ extends Node
 ## Main
 ## Used to manage scenes and control over the whole game.
 
+## when the scene is changed
 signal scene_changed
 const WORLD_SCENE = preload("uid://8f1u7k6r8i4r")
 
 static var has_application_started := false
+
+var debug_mode := true
 
 
 func _init() -> void:
@@ -17,10 +20,12 @@ func _init() -> void:
 	#scene_changed.connect(Setting.interface.update_font_size)
 	pass
 
+
 ## Wait [para time] seconds.
-## use await before the function.
+## use await keyword before the function.
 func sleep(time: float) -> void:
 	await get_tree().create_timer(time).timeout
+
 
 ## start a new game
 func new_game():

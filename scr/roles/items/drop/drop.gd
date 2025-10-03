@@ -1,12 +1,12 @@
 extends RigidBody2D
+## [Drop]s are items that appear when mobs and some other entities die 
+## or when most kinds of blocks are broken.
 
-const SCENE_PATH = "res://scr/roles/items/drop/drop.tscn"
-const SCENE: PackedScene = preload(SCENE_PATH)
+## The scene for a drop instance
+const SCENE = preload("uid://cfp218urp3b0q")
 
-##corresponding item
-var item: Item:
-	set(p_item):
-		item = p_item
+## The item it holds
+var item: Item
 
 ## target to move towards, typically a player
 var target: Node2D:
@@ -17,6 +17,7 @@ var target: Node2D:
 var previous_owner: Player
 var _arrived := false
 
+# node pointers
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
@@ -35,10 +36,10 @@ func _disable_physics():
 	collision_shape_2d.set_deferred("disabled", true)
 
 
-#
+# emulating the floating effect
 var _anim_cnt: float
 
-
+# emulating the floating effect
 func _floating_anim() -> void:
 	_anim_cnt += 0.1
 	sprite_2d.global_position.y = global_position.y + sin(_anim_cnt)

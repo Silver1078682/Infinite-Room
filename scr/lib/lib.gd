@@ -1,5 +1,7 @@
 class_name Lib
 extends Node
+## A useful function library
+
 
 const Arr = preload("res://scr/lib/arr_lib.gd")
 const Dict = preload("res://scr/lib/dict_lib.gd")

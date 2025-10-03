@@ -1,7 +1,7 @@
 #class_name DropCollect
 extends Area2D
-## An area managing collection of drops, typically used for players
-## The parent of this Node will collect the drop
+## An area managing collection of [Drop]s, typically used for players
+## The parent of this [Area2D] will collect the [Drop]
 
 
 func _process(_delta: float) -> void:
@@ -34,6 +34,7 @@ func remove_from_black_list(drop: Item.Drop):
 func collect(drop: Item.Drop):
 	if drop.target or drop in _blacklist:
 		return
+	## TODO: why UI singleton here?
 	if UI.instance.backpack.obtain(drop.item):
 		drop.target = get_parent()
 

@@ -7,5 +7,6 @@ extends Node
 
 
 func _ready() -> void:
-	get_parent().set(property_name, Setting.interface.get(setting_name))
-	Setting.mvc_bind(setting_name, get_parent(), signal_name)
+	pass
+	#get_parent().set(property_name, Setting.interface.get(setting_name))
+	#Setting.mvc_bind(setting_name, get_parent(), signal_name)
