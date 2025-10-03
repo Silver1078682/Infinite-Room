@@ -4,6 +4,7 @@ class_name Setting
 # TODO
 # We need to move these stuffs to a config file.
 
+<<<<<<< HEAD
 ## the location where setting config is at
 const SETTING_PATH := "user://setting.cfg"
 const try = Lib.Warning.try  # a macro
@@ -41,12 +42,49 @@ static func restore_setting(section: String, name: String, save := true):
 
 
 ## get setting named [para name] in [para section].
+=======
+const try = Lib.Warning.try
+const SETTING_PATH := "user://setting.cfg"
+
+var debug_mode := true
+
+
+static func set_setting(section: String, name: String, value: Variant, save := true):
+	_settings_list[section][name].value = value
+	if save:
+		save_setting(section, name, value)
+
+
+static func save_setting(section: String, name: String, value: Variant):
+	config_file.set_value(section, name, value)
+	config_file.save(SETTING_PATH)
+
+
+static func restore_setting(section: String, name: String, save := true):
+	var property: SettingProperty = _settings_list[section][name]
+	property.value = property.default_value
+	config_file.save(SETTING_PATH)
+
+
+>>>>>>> fd8884d458af61c808304f1f711a0f1b98ce4d49
 static func get_setting(section: String, name: String) -> Variant:
 	var property: SettingProperty = _settings_list[section][name]
 	assert(property)
 	return property.value
 
 
+<<<<<<< HEAD
+=======
+static func _static_init() -> void:
+	_working_section = "Game"
+	_add_setting_property("intervals_between_autosave", "user://logs")
+	
+	_working_section = "Other"
+	_add_setting_property("log_folder", "user://logs")
+	load_config_file()
+
+
+>>>>>>> fd8884d458af61c808304f1f711a0f1b98ce4d49
 ## The dictionary of setting
 static var _settings_list: Dictionary[String, Dictionary]
 
@@ -56,9 +94,14 @@ static var config_file: ConfigFile
 
 static func load_config_file() -> bool:
 	config_file = ConfigFile.new()
+<<<<<<< HEAD
 	Lib.simple_open_file(SETTING_PATH, FileAccess.WRITE)
 	if not try.call(config_file.load(SETTING_PATH)):
 		Log.error("Failed to find the Setting file")
+=======
+	if not try.call(config_file.load(SETTING_PATH)):
+		printerr("Failed to find the Setting file")
+>>>>>>> fd8884d458af61c808304f1f711a0f1b98ce4d49
 		return false
 
 	for section in _settings_list:
@@ -77,11 +120,15 @@ class SettingProperty:
 	var default_value: Variant
 	var value: Variant
 	var type: Variant.Type
+<<<<<<< HEAD
 	var descrip: Variant.Type
+=======
+>>>>>>> fd8884d458af61c808304f1f711a0f1b98ce4d49
 
 
 static var _working_section: String
 
+<<<<<<< HEAD
 const SETTING_JSON_PATH = "res://scr/systems/setting/default.json"
 
 
@@ -109,12 +156,19 @@ static func _add_setting_property_list_from_json(file_path: String) -> void:
 
 
 static func _add_setting_property(name: String, default_value: Variant, type: int = -1, section := _working_section) -> SettingProperty:
+=======
+
+static func _add_setting_property(name: String, default_value: Variant, type: int = -1, section := _working_section):
+>>>>>>> fd8884d458af61c808304f1f711a0f1b98ce4d49
 	var property = SettingProperty.new()
 	property.default_value = default_value
 	property.type = typeof(default_value) if type == -1 else type
 	var section_dict: Dictionary = _settings_list.get_or_add(section, {})
 	section_dict[name] = property
+<<<<<<< HEAD
 	return property
+=======
+>>>>>>> fd8884d458af61c808304f1f711a0f1b98ce4d49
 
 ###
 #const FONT_SIZE_STEP = 19
@@ -135,7 +189,11 @@ static func _add_setting_property(name: String, default_value: Variant, type: in
 #
 #var auto_save_time_interval := 30.0
 #
+<<<<<<< HEAD
 ### game_volume
+=======
+### game_voulme
+>>>>>>> fd8884d458af61c808304f1f711a0f1b98ce4d49
 #var volume = 100.0
 
 #
