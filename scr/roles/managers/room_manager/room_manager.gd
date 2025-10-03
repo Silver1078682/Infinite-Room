@@ -1,6 +1,8 @@
 class_name RoomManager
 extends Node
+## Create room, TODO (assign them with identifiers), add them to the world.
 
+# the current room the [Player] is in.
 static var _current_room: Room
 
 
@@ -23,7 +25,7 @@ static func enter_room(room: Room) -> void:
 ## create a room with the given [RoomTheme].
 ## If [para should_spawn] set false, return an empty room with no blocks and no size.
 static func create_a_room(theme_name: String, should_spawn := true) -> Room:
-	var theme_path : String = ResPath.ROOM_THEME.file % theme_name
+	var theme_path: String = ResPath.ROOM_THEME.file % theme_name
 	var theme := load(theme_path)
 	var room := Room.new()
 	room.theme = theme

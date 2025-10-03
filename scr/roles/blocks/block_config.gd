@@ -42,14 +42,18 @@ extends Resource
 @export var light_level := 0
 
 @export_group("sound")
+# TODO maybe move codes to a class named SoundConfig?
+## the default sfx played.
 @export var default_sound: AudioStream = preload("res://asset/sfx/Walking.wav")
 @export_subgroup("footstep")
+## footstep sound, fallback to default_sound if not set
 @export var footstep: AudioStream:
 	get:
 		return footstep if footstep or Engine.is_editor_hint() else default_sound
 @export var footstep_pitch_scale := 0.8
 @export var footstep_volume_db := -5
 @export_subgroup("mine")
+## sound played when destroyed or mined, fallback to default_sound if not set
 @export var destroy_or_mine: AudioStream:
 	get:
 		return destroy_or_mine if destroy_or_mine or Engine.is_editor_hint() else default_sound
@@ -57,6 +61,7 @@ extends Resource
 @export_group("interact")
 @export var interactive := false
 @export_group("drop")
+## TODO make it a component
 @export var drop: Array[Item] = []
 
 @export_group("color")
@@ -72,7 +77,8 @@ extends Resource
 @export var color: Color
 @export_tool_button("update color automatically") var update_color := _update_color
 
-@export_group("scene")
+@export_group("node")
+## the scene to instantiate when a block is added to the world, ignored if set null
 @export var scene: PackedScene
 
 @export var meta := {}

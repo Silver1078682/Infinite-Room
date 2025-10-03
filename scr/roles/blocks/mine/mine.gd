@@ -1,7 +1,7 @@
 extends Sprite2D
 ## Mine
-## Handle the mining process, including the visual effects and dropping
-## NOTE: A [Mine] instance is not created until the block is attempted to be mined
+## Handle the mining process of a block, including the visual effects and dropping
+## NOTE: A [Mine] instance is not created unless the corresponding [Block] is mined
 
 const STATE = 10
 const SIZE = Vector2(16, 16)

@@ -1,8 +1,11 @@
 extends CharacterBody2D
-## draw the physics state of a tail in a Line2D
+## simulate the physics state of a tail scene, and draw the result into a Line2D
 
+
+## The line2D used to render the tail
 @export var line2d: Line2D
 
+## minimum length between two tail node
 @export var min_length_between_nodes := 1.5
 @export var max_length_between_nodes := 2.0:
 	set(p_max_length_between_nodes):
@@ -24,7 +27,7 @@ func _process(_delta: float) -> void:
 	for i in get_children():
 		if i is RigidBody2D:
 			var p: Vector2 = i.position
-			p = limit_from(root_position, p)
+			p = _limit_from(root_position, p)
 			line2d.add_point(p)
 			root_position = p
 
@@ -34,7 +37,7 @@ var _update_cnt := PHYSICS_ENABLE_CHECK_LOOP
 const MAX_PHYSICS_ENABLE_LENGTH_SQUARED := 300.0
 
 
-func limit_from(from: Vector2, to: Vector2) -> Vector2:
+func _limit_from(from: Vector2, to: Vector2) -> Vector2:
 	var offset = (to - from).limit_length(max_length_between_nodes)
 	if offset.length_squared() < min_length_between_nodes ** 2:
 		offset = offset.normalized() * min_length_between_nodes

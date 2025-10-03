@@ -298,9 +298,7 @@ height = 28.2187
 [sub_resource type="Resource" id="Resource_trl8e"]
 script = ExtResource("12_lufy1")
 position = Vector2(2.38419e-07, -9.22362)
-disabled = false
 shape = SubResource("CapsuleShape2D_lufy1")
-debug_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jf8fe"]
 radius = 4.69081
@@ -309,9 +307,7 @@ height = 24.8363
 [sub_resource type="Resource" id="Resource_027gf"]
 script = ExtResource("12_lufy1")
 position = Vector2(2.38419e-07, -7.56229)
-disabled = false
 shape = SubResource("CapsuleShape2D_jf8fe")
-debug_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qiwex"]
 radius = 4.69081
@@ -320,9 +316,7 @@ height = 28.2187
 [sub_resource type="Resource" id="Resource_0y2j1"]
 script = ExtResource("12_lufy1")
 position = Vector2(2.38419e-07, -9.22362)
-disabled = false
 shape = SubResource("CapsuleShape2D_qiwex")
-debug_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Resource" id="Resource_7xdv8"]
 script = ExtResource("13_trl8e")
@@ -439,7 +433,6 @@ position = Vector2(0, -11)
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("5_4jodu")
-default_freeze_time = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DropCollect"]
 visible = false
@@ -482,9 +475,9 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_3l4yq")
 script = ExtResource("6_3l4yq")
-class_get = PackedStringArray("Player")
-property_filter = PackedStringArray("_place_detect_lists", "sprite")
 node = NodePath("..")
+class_get = PackedStringArray("CanvasItem")
+property_filter = PackedStringArray("_place_detect_lists", "sprite")
 metadata/_custom_type_script = "uid://b7nuse0s8o0y3"
 
 [node name="AnimatedShape2D" type="Node" parent="." node_paths=PackedStringArray("animated_sprite", "collision_shape")]
